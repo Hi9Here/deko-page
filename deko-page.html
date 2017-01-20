@@ -28,11 +28,7 @@
             <deko-deck style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
-            <iron-pages selected="{{menuSelectedWithContent}}">
-              <template is="dom-repeat" items="[[pagesWithContent]]">
-                <div style="display:flex;align-items:center"><content select="[[makeTag(item.Label)]]-page"></content></div>
-              </template>
-            </iron-pages>
+            <deko-cards path="[[path]]"></deko-cards>
           </div>
         </div>
       </paper-drawer-panel>
@@ -73,6 +69,9 @@
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
         notify:true,
+      },
+      path:{
+        computed:"getPath(user,deck)",
       },
     },
     pickable: function(item){
