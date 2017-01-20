@@ -1,0 +1,134 @@
+<link rel="import" href="../paper-scroll-header-panel/paper-scroll-header-panel.html">
+<link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
+<link rel="import" href="../paper-header-panel/paper-header-panel.html">
+<link rel="import" href="../paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../paper-toolbar/paper-toolbar.html">
+<link rel="import" href="../paper-item/paper-icon-item.html">
+<link rel="import" href="../paper-item/paper-item-body.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../iron-icons/iron-icons.html">
+<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../iron-icon/iron-icon.html">
+<!--
+  `<deko-page></deko-page>` 
+  @demo demo.html
+-->
+<dom-module id="deko-page">
+  <template>
+    <style>:host {display:block} </style>
+    <template is="dom-if" if="[[!loginPage]]"> 
+      <paper-drawer-panel id="drawer" style="height:650px" drawer-width="[[pickableWidth]]px">
+        <div class="horizontal start-justified layout" drawer>
+          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace >
+            <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+          </template>
+        </div> 
+        <div main>
+          <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace>
+            <deko-deck style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+          </template>
+          <div style="padding-left:48px">
+            <iron-pages selected="{{menuSelectedWithContent}}">
+              <template is="dom-repeat" items="[[pagesWithContent]]">
+                <div style="display:flex;align-items:center"><content select="[[makeTag(item.Label)]]-page"></content></div>
+              </template>
+            </iron-pages>
+          </div>
+        </div>
+      </paper-drawer-panel>
+    </template>
+    <template is="dom-if" if="[[loginPage]]">
+      <div style="display: flex;justify-content: center;align-items: center;">
+        <content select="login-page"></content>
+        <template is="dom-if" if="{{switching}}">                                                                                                    
+          <paper-button on-tap="cancelSwitching"> Cancel </paper-button>                                                                                
+        </template> 
+      </div>
+    </template>
+  </template>
+</dom-module>
+<script>
+  Polymer({
+    is: "deko-page",
+    properties:{
+      loginPage:{
+        computed:"showLoginPage(user)",
+      },
+      user:{ value: null },
+      menuSelected:{
+        type:Number,
+        notify:true,
+        value:0,
+      },
+      deckItems:{
+        type:Array,
+        value:[
+          {name: "Moe", color: "red", selected: false },
+          {name: "Larry", color: "blue", selected: false },
+          {name: "Curl", color: "orange", selected: false },
+          {name: "Selected Deck", color: "purple", selected: true },
+        ],
+        notify:true,
+      },
+      pickableWidth:{
+        computed:"getPickableWidth(deckItems)",
+        notify:true,
+      },
+    },
+    pickable: function(item){
+      return !item.selected
+    },
+    selected: function(item){
+      return item.selected || false
+    },
+    select: function(e){
+      var deck = e.target.innerText
+      this.deckItems = this.deckItems.map(function(x){
+         if (x.name == deck) {
+           x.selected = true
+         } else {
+           x.selected = false
+         }
+         return x
+      })
+      this.$.drawer.closeDrawer()
+    },
+    getPickableWidth: function(deckItems){
+      return deckItems.filter(this.pickable).length * 48
+    },
+    makeTag: function(label) {
+      return label.replace(" ","-")
+    },
+    getPagesWithContent: function(pages) {
+      return pages.reduce(function(a, b) { 
+       if (b) { 
+         return a.concat([b]) 
+       } else {
+         return a
+       };
+      }, [])
+    },
+    getMenuSelectedWithContent: function(menuSelected,pages) {
+      return pages.slice(0,menuSelected).reduce(function(a, b) { 
+       if (b) { 
+         return a
+       } else {
+         return a - 1
+       }
+      }, menuSelected)
+    },
+    logout: function() {
+      this.fire("logout")
+    },
+    login: function() {
+      this.fire("login")
+    },
+    showLoginPage: function(user) {
+      if (!user) {
+        return true
+      } else {
+        return false
+      }
+    },
+  })
+</script>
