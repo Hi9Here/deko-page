@@ -73,7 +73,7 @@
         computed:"getPath(user,deck)",
       },
       getWriteUserData: {
-        computed:"writeUserData(user.uid,user.displayName,email,imageUrl)"
+        computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
       },
     },
     writeUserData: function (userId, name, email, imageUrl) {
