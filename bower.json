@@ -12,7 +12,7 @@
     "paper-styles": "polymerelements/paper-styles#~1.1.5",
     "iron-flex-layout": "PolymerElements/iron-flex-layout#b8c85345df",
     "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.7",
-    "paper-search": "*",
+    "deko-deck": "Hi9Here/deko-deck",
     "text-avatar": "marcus7777/text-avatar#~1.0.0",
     "paper-drawer-panel": "PolymerElements/paper-drawer-panel#~1.0.11"
   }
