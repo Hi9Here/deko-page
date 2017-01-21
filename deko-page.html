@@ -72,6 +72,16 @@
       path:{
         computed:"getPath(user,deck)",
       },
+      getWriteUserData: {
+        computed:"writeUserData(user.uid,user.displayName,email,imageUrl)"
+      },
+    },
+    writeUserData: function (userId, name, email, imageUrl) {
+      firebase.database().ref('Users/' + userId).set({
+        username: name,
+        email: email,
+        profile_picture: imageUrl,
+      });
     },
     pickable: function(item){
       return !item.selected
@@ -128,5 +138,8 @@
         return false
       }
     },
+    getPath: function(user, deck) {
+      debugger
+    }.
   })
 </script>
