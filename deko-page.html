@@ -81,7 +81,7 @@
         username: name,
         email: email,
         profile_picture: imageUrl,
-      });
+      })
     },
     pickable: function(item){
       return !item.selected
@@ -99,7 +99,8 @@
          }
          return x
       })
-      this.$.drawer.closeDrawer()
+      this.$$("#drawer").closeDrawer()
+      this.deck = deck
     },
     getPickableWidth: function(deckItems){
       return deckItems.filter(this.pickable).length * 48
