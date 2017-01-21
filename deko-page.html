@@ -7,7 +7,7 @@
 <link rel="import" href="../paper-item/paper-item-body.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
-<link rel="import" href="../iron-pages/iron-pages.html">
+<link rel="import" href="../deko-cards/deko-cards.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <!--
   `<deko-page></deko-page>` 
@@ -29,6 +29,7 @@
           </template>
           <div style="padding-left:48px">
             <deko-cards path="[[path]]"></deko-cards>
+            [[user.displayName]]
           </div>
         </div>
       </paper-drawer-panel>
@@ -36,9 +37,6 @@
     <template is="dom-if" if="[[loginPage]]">
       <div style="display: flex;justify-content: center;align-items: center;">
         <content select="login-page"></content>
-        <template is="dom-if" if="{{switching}}">                                                                                                    
-          <paper-button on-tap="cancelSwitching"> Cancel </paper-button>                                                                                
-        </template> 
       </div>
     </template>
   </template>
