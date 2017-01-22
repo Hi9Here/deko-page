@@ -75,12 +75,32 @@
         computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
       },
     },
-    writeUserData: function (userId, name, email, imageUrl) {
-      firebase.database().ref('Users/' + userId).set({
+    writeUserData: function(userId, name, email, imageUrl) {
+      firebase.database().ref('Users/' + userId + '/details/').set({
         name: name,
         email: email,
         profile_picture: imageUrl,
       })
+    },
+    writeNewProfile: function(uid, picture, profile) {
+      // A post entry.
+      var Users = {}
+      Users[uid] = true
+      var profileData = {
+        Users: Users,
+        profile: profile,
+        authorPic: picture,
+      }
+
+      // Get a key for a new Post.
+      var newPostKey = firebase.database().ref().child('profiles').push().key
+
+      // Write the new post's data simultaneously in the posts list and the user's post list.
+      var updates = {}
+      updates['/Profiles/' + newPostKey] = profileData
+      updates['/Users/' + uid + '/profiles/' + newPostKey] = true
+
+      return firebase.database().ref().update(updates)
     },
     pickable: function(item){
       return !item.selected
