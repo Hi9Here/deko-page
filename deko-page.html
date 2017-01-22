@@ -56,7 +56,7 @@
       },
       deckItems:{
         type:Array,
-        computed:"getGeckItems(profile)",
+        computed:"getDeckItems(profile)",
         notify:true,
       },
       pickableWidth:{
@@ -69,17 +69,17 @@
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
       },
-      profiles: {
+      _profiles: {
         computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
       },
-      profile:{
+      _profile:{
         computed:"getProfile(profiles,pickedProfile)"
       },
       pickedProfile:{
         value:0
       },
     },
-    getGeckItems: function(profile){
+    getDeckItems: function(profile){
       // get decks or make deck
       debugger
       return [
