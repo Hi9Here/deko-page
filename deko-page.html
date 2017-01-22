@@ -56,12 +56,7 @@
       },
       deckItems:{
         type:Array,
-        value:[
-          {name: "Moe", color: "red", selected: false },
-          {name: "Larry", color: "blue", selected: false },
-          {name: "Curl", color: "orange", selected: false },
-          {name: "Selected Deck", color: "purple", selected: true },
-        ],
+        computed:"getGeckItems(profile)",
         notify:true,
       },
       pickableWidth:{
@@ -74,10 +69,51 @@
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
       },
-      setWriteNewProfile: {
-        computed:"writeNewProfile(user.uid,user.imageUrl,profile)"
+      profiles: {
+        computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
       },
-      profile:{ value: "profile" },
+      profile:{
+        computed:"getProfile(profiles,pickedProfile)"
+      },
+      pickedProfile:{
+        value:0
+      },
+    },
+    getGeckItems: function(profile){
+      // get decks or make deck
+      debugger
+      return [
+          {name: "Moe", color: "red", selected: false },
+          {name: "Larry", color: "blue", selected: false },
+          {name: "Curl", color: "orange", selected: false },
+          {name: "Selected Deck", color: "purple", selected: true },
+        ]
+    },
+    getProfile: function(profiles) {
+      //TODO let users pick
+      var that = this
+      var keys = Object.keys(profiles) //TODO let users pick
+      this.pickableProfiles = keys
+      if (!this.pickedProfile) {
+        this.pickedProfile = 0
+      }
+      return firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value').then(function(profile) {
+        if (profile.val()) {
+          that.profile = profiles.val()
+        } else {
+          that.profile = that.writeNewProfile(uid, picture, name)
+        }
+      })
+    },
+    getProfiles: function(uid,name,picture) {
+      var that = this
+      firebase.database().ref('Users/' + uid + '/profiles/').on('value').then(function(profiles) {
+        if (profiles.val()) {
+          that.profiles = profiles.val()
+        } else {
+          that.profiles = null
+        }
+      })
     },
     writeUserData: function(userId, name, email, imageUrl) {
       firebase.database().ref('Users/' + userId + '/details/').set({
@@ -103,8 +139,11 @@
       var updates = {}
       updates['/Profiles/' + newPostKey] = profileData
       updates['/Users/' + uid + '/profiles/' + newPostKey] = true
-
-      return firebase.database().ref().update(updates)
+      
+      firebase.database().ref().update(updates)
+      var obj = {}
+      obj[newPostKey] = true
+      return obj
     },
     pickable: function(item){
       return !item.selected
