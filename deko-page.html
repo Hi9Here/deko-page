@@ -74,6 +74,10 @@
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
       },
+      setWriteNewProfile: {
+        computed:"writeNewProfile(user.uid,user.imageUrl,profile)"
+      },
+      profile:{ value: "profile" },
     },
     writeUserData: function(userId, name, email, imageUrl) {
       firebase.database().ref('Users/' + userId + '/details/').set({
