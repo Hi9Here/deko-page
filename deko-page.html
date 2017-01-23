@@ -56,7 +56,7 @@
       },
       deckItems:{
         type:Array,
-        computed:"getDeckItems(profile)",
+        computed:"getDeckItems(profile,profiles)",
         notify:true,
       },
       pickableWidth:{
@@ -79,14 +79,14 @@
         value:0
       },
     },
-    getDeckItems: function(profile){
+    getDeckItems: function(profile,profiles){
       // get decks or make deck
       debugger
       return [
           {name: "Moe", color: "red", selected: false },
           {name: "Larry", color: "blue", selected: false },
           {name: "Curl", color: "orange", selected: false },
-          {name: "Selected Deck", color: "purple", selected: true },
+          {name: profile.profile, color: "purple", selected: true },
         ]
     },
     getProfile: function(profiles) {
