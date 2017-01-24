@@ -56,8 +56,8 @@
       },
       deckItems:{
         type:Array,
-        computed:"getDeckItems(profile,profiles)",
         notify:true,
+        computed:"getDeckItems(profile,profiles,pickedProfile)",
       },
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
@@ -73,21 +73,41 @@
         computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
       },
       _profile:{
-        computed:"getProfile(profiles,pickedProfile)"
+        computed:"getProfile(profiles,pickedProfile,pickedProfile)"
       },
       pickedProfile:{
         value:0
       },
+      _firebaseUpdate:{
+        computed:"firebaseUpdate(update)"
+      }
     },
-    getDeckItems: function(profile,profiles){
+    firebaseUpdate: function(update){
+      firebase.database().ref().update(update)
+    },
+    getDeckItems: function(profile,profiles,pickedProfile){
       // get decks or make deck
       debugger
-      return [
-          {name: "Moe", color: "red", selected: false },
-          {name: "Larry", color: "blue", selected: false },
-          {name: "Curl", color: "orange", selected: false },
-          {name: profile.profile, color: "purple", selected: true },
-        ]
+      
+      if (!profile.decks) {
+        var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+        var newPostKey = firebase.database().ref().child(pathProfile).push().key
+        var pathDeck = 'Decks/' + newPostKey + '/'
+        var update = {}
+        var deck = {
+          color: "#666",
+          name: "Home",
+          selected: true,
+        }
+        update[pathProfile + '/decks/' + newPostKey] = deck
+        // 
+        update[pathDeck] = deck
+        this.update = update
+      } else {
+        return profile.decks
+      }
+      
+
     },
     getProfile: function(profiles) {
       //TODO let users pick
