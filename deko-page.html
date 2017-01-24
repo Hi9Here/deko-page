@@ -112,7 +112,7 @@
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
-      if (!profile.decks) {
+      if (!deck.cards) {
         var pathDecks = 'Decks/' + Object.keys(deckItems)[pickedDeck]
         var newPostKey = firebase.database().ref().child('Cards/').push().key
         var pathDeck = 'Cards/' + newPostKey + '/'
