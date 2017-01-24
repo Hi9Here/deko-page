@@ -119,12 +119,10 @@
     getDeck: function(deckItems, pickedDeck) {
       //TODO let users pick
       var that = this
-      var keys = Object.keys(deckItems) //TODO let users pick
-      this.pickableDecks = keys
       if (!this.pickedDeck) {
         this.pickedDeck = 0
       }
-      return firebase.database().ref('Deck/' + keys[this.pickedDeck]).on('value', function(deck) {
+      return firebase.database().ref('Deck/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
         if (deck.val()) {
           that.deck = deck.val()
         //} else {
