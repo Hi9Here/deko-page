@@ -153,21 +153,23 @@
         return this.objectToArray(deck.cards)
       }
     },
-    getProfile: function(profiles) {
-      //TODO let users pick
-      var that = this
-      var keys = Object.keys(profiles) //TODO let users pick
-      this.pickableProfiles = keys
-      if (!this.pickedProfile) {
-        this.pickedProfile = 0
-      }
-      return firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
-        if (profile.val()) {
-          that.profile = profile.val()
-        } else {
-          that.profile = that.writeNewProfile(uid, picture, name)
+    getProfile: function(profiles) { 
+      if (profiles) {
+        //TODO let users pick
+        var that = this
+        var keys = Object.keys(profiles) //TODO let users pick
+        this.pickableProfiles = keys
+        if (!this.pickedProfile) {
+          this.pickedProfile = 0
         }
-      })
+        return firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
+          if (profile.val()) {
+            that.profile = profile.val()
+          } else {
+            that.profile = that.writeNewProfile(uid, picture, name)
+          }
+        })
+      } 
     },
     getProfiles: function(uid,name,picture) {
       var that = this
