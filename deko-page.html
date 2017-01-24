@@ -94,7 +94,9 @@
       }
     },
     firebaseUpdate: function(update){
-      firebase.database().ref().update(update)
+      if (Object.keys(update).length) {
+        firebase.database().ref().update(update)
+      }
     },
     getDeckItems: function(profile,profiles,pickedProfile){
       // get decks or make deck
