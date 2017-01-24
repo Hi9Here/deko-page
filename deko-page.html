@@ -59,6 +59,11 @@
         notify:true,
         computed:"getDeckItems(profile,profiles,pickedProfile)",
       },
+      deck:{
+        type:Array,
+        notify:true,
+        computed:"getCardsItems(deckItems,pickedDeck)",
+      },
       cards:{
         type:Array,
         notify:true,
