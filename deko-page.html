@@ -94,7 +94,7 @@
       }
     },
     firebaseUpdate: function(update){
-      if (Object.keys(update).length) {
+      if (update && Object.keys(update).length) {
         firebase.database().ref().update(update)
       }
     },
