@@ -59,6 +59,11 @@
         notify:true,
         computed:"getDeckItems(profile,profiles,pickedProfile)",
       },
+      cards:{
+        type:Array,
+        notify:true,
+        computed:"getCardsItems(deck,deckItems,pickedDeck)",
+      },
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
         notify:true,
@@ -87,11 +92,9 @@
     },
     getDeckItems: function(profile,profiles,pickedProfile){
       // get decks or make deck
-      debugger
-      
       if (!profile.decks) {
         var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
-        var newPostKey = firebase.database().ref().child(pathProfile).push().key
+        var newPostKey = firebase.database().ref().child('Decks/').push().key
         var pathDeck = 'Decks/' + newPostKey + '/'
         var update = {}
         var deck = {
@@ -104,10 +107,28 @@
         update[pathDeck] = deck
         this.update = update
       } else {
-        return profile.decks
+        return this.objectToArray(profile.decks)
       }
-      
-
+    },
+    getCardsItems: function(deck,deckItems,pickedDeck){
+      // get decks or make deck
+      if (!profile.decks) {
+        var pathDecks = 'Decks/' + Object.keys(deckItems)[pickedDeck]
+        var newPostKey = firebase.database().ref().child('Cards/').push().key
+        var pathDeck = 'Cards/' + newPostKey + '/'
+        var update = {}
+        var card = {
+          color: "#666",
+          Tilte: "open-elements",
+          Link: "https://open-elements.org/",
+        }
+        update[pathDeck + '/decks/' + newPostKey] = card
+        // 
+        update[pathDeck] = card
+        this.update = update
+      } else {
+        return this.objectToArray(deck.cards)
+      }
     },
     getProfile: function(profiles) {
       //TODO let users pick
@@ -198,6 +219,19 @@
          return a
        };
       }, [])
+    },
+    objectToArray: function (data) {
+      var output = []
+      if (data) {
+        var keys = Object.keys(data)
+        for (var i = 0; i < keys.length; i++) {
+          if (typeof data[keys[i]] === 'object') {
+            data[keys[i]].__key = keys[i]
+            output.push(data[keys[i]])
+          }
+        }
+      }
+      return output
     },
     getMenuSelectedWithContent: function(menuSelected,pages) {
       return pages.slice(0,menuSelected).reduce(function(a, b) { 
