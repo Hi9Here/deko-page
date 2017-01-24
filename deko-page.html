@@ -68,9 +68,7 @@
         computed:"getPickableWidth(deckItems)",
         notify:true,
       },
-      path:{
-        computed:"getPath(user,deck)",
-      },
+      path:String,
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
       },
@@ -258,9 +256,6 @@
       } else {
         return false
       }
-    },
-    getPath: function(user, deck) {
-      debugger
     },
   })
 </script>
