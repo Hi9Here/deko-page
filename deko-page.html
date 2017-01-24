@@ -202,7 +202,8 @@
       updates['/Profiles/' + newPostKey] = profileData
       updates['/Users/' + uid + '/profiles/' + newPostKey] = true
       
-      firebase.database().ref().update(updates)
+      this.update = updates
+      
       var obj = {}
       obj[newPostKey] = true
       return obj
