@@ -83,6 +83,9 @@
       pickedProfile:{
         value:0
       },
+      pickedDeck:{
+        value:0
+      },
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
       }
@@ -112,8 +115,8 @@
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
+      var pathDecks = 'Decks/' + Object.keys(deckItems)[pickedDeck]
       if (!deck.cards) {
-        var pathDecks = 'Decks/' + Object.keys(deckItems)[pickedDeck]
         var newPostKey = firebase.database().ref().child('Cards/').push().key
         var pathDeck = 'Cards/' + newPostKey + '/'
         var update = {}
@@ -127,6 +130,7 @@
         update[pathDeck] = card
         this.update = update
       } else {
+        this.path = pathDecks + '/cards/'
         return this.objectToArray(deck.cards)
       }
     },
