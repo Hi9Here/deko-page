@@ -109,12 +109,15 @@
         var update = {}
         var deck = {
           color: "#666",
-          name: "Home",
+          name: "Welcome",
           selected: true,
+          fav: true,
         }
+        
         update[pathProfile + '/decks/' + newPostKey] = deck
         // 
         update[pathDeck] = deck
+        
         this.update = update
       } else {
         return this.objectToArray(profile.decks)
