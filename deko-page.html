@@ -140,7 +140,6 @@
       this.path = pathDecks + '/cards/'
       if (!deck.cards) {
         var newPostKey = firebase.database().ref().child('Cards/').push().key
-        var pathDeck = 
         var update = {}
         var card = {
           color: "#666",
