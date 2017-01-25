@@ -140,16 +140,16 @@
       this.path = pathDecks + '/cards/'
       if (!deck.cards) {
         var newPostKey = firebase.database().ref().child('Cards/').push().key
-        var pathDeck = 'Cards/' + newPostKey + '/'
+        var pathDeck = 
         var update = {}
         var card = {
           color: "#666",
           Tilte: "open-elements",
           Link: "https://open-elements.org/",
         }
-        update[pathDeck + '/decks/' + newPostKey] = card
+        update[pathDecks + '/cards/' + newPostKey + '/'] = card
         // 
-        update[pathDeck] = card
+        update['/Cards/' + newPostKey + '/'] = card
         this.update = update
       } else {
         return this.objectToArray(deck.cards)
