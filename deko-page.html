@@ -177,7 +177,7 @@
         if (profiles.val()) {
           that.profiles = profiles.val()
         } else {
-          that.profiles = null
+          that.writeNewProfile(uid, picture, name)
         }
       })
     },
@@ -199,7 +199,7 @@
       }
 
       // Get a key for a new Post.
-      var newPostKey = firebase.database().ref().child('profiles').push().key
+      var newPostKey = firebase.database().ref().child('Profiles').push().key
 
       // Write the new post's data simultaneously in the posts list and the user's post list.
       var updates = {}
