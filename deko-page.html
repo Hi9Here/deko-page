@@ -139,12 +139,12 @@
       var pathDecks = 'Decks/' + deckItems[pickedDeck].__key
       this.path = pathDecks + '/cards/'
       if (!deck.cards) {
-        var newPostKey = firebase.database().ref().child('Cards/').push().key
+        var newPostKey = firebase.database().ref().child('Cards').push().key
         var update = {}
         var card = {
           color: "#666",
-          Tilte: "open-elements",
-          Link: "https://open-elements.org/",
+          tilte: "open-elements",
+          link: "https://open-elements.org/",
         }
         update[pathDecks + '/cards/' + newPostKey + '/'] = card
         // 
