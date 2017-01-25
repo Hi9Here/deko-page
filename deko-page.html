@@ -62,6 +62,8 @@
       deck:{
         type:Array,
         notify:true,
+      },
+      _deck:{
         computed:"getDeck(deckItems,pickedDeck)",
       },
       cards:{
@@ -124,7 +126,7 @@
       if (!this.pickedDeck) {
         this.pickedDeck = 0
       }
-      return firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
+      firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
         if (deck.val()) {
           that.deck = deck.val()
         //} else {
