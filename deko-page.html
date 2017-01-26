@@ -111,9 +111,10 @@
           color: "#666",
           name: "Home",
           selected: true,
+          profiles: Object.keys(profiles)[pickedProfile],
         }
         
-        update[pathProfile + '/decks/' + newPostKey] = deck
+        update[pathProfile + '/decks/' + newPostKey] = true
         // add welcome deck as a favourite here
         update[pathDeck] = deck
         
@@ -147,6 +148,7 @@
           color: "#666",
           tilte: "open-elements",
           link: "https://open-elements.org/",
+          deck: deckItems[pickedDeck].__key,
         }
         update[pathDecks + '/cards/' + newPostKey + '/'] = card
         // 
@@ -198,7 +200,7 @@
       var profileData = {
         Users: Users,
         profile: profile,
-        authorPic: picture,
+        picture: picture,
       }
 
       // Get a key for a new Post.
