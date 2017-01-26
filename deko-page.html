@@ -113,11 +113,10 @@
         }
         
         update[pathProfile + '/decks/' + newPostKey] = deck
+        update[pathDeck] = deck
+        this.update = update
         // add welcome deck as a favourite here
         update[pathDeck + 'profile/' + Object.keys(profiles)[pickedProfile]] = deck
-        
-        update[pathDeck] = deck
-        
         this.update = update
       } else {
         return this.objectToArray(profile.decks)
@@ -155,6 +154,8 @@
         }
         update[pathDecks + '/cards/' + newPostKey + '/'] = card
         update['/Cards/' + newPostKey + '/'] = card
+        this.update = update
+        update = {}
         update['/Cards/' + newPostKey + '/deck/' + obj[deckItems[pickedDeck].__key]] = true
         this.update = update
       } else {
@@ -211,9 +212,10 @@
       // Write the new post's data simultaneously in the posts list and the user's post list.
       var updates = {}
       updates['/Profiles/' + newPostKey] = profileData
-      updates['/Profiles/' + newPostKey + '/users/' + uid] = true
       updates['/Users/' + uid + '/profiles/' + newPostKey] = profileData
-      
+      this.update = updates
+      updates = {}
+      updates['/Profiles/' + newPostKey + '/users/' + uid] = true
       this.update = updates
       
       var obj = {}
