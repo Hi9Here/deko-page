@@ -111,11 +111,12 @@
           color: "#666",
           name: "Home",
           selected: true,
-          profiles: Object.keys(profiles)[pickedProfile],
         }
         
-        update[pathProfile + '/decks/' + newPostKey] = true
+        update[pathProfile + '/decks/' + newPostKey] = deck
         // add welcome deck as a favourite here
+        update[pathProfile + '/decks/' + newPostKey + '/profiles/'+ Object.keys(profiles)[pickedProfile]] = true
+        
         update[pathDeck] = deck
         
         this.update = update
