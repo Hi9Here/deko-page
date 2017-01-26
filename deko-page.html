@@ -144,7 +144,7 @@
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
-      var pathDecks = 'Decks/' + deckItems[pickedDeck].__key
+      var pathDecks = '/Decks/' + deckItems[pickedDeck].__key
       this.path = pathDecks + '/cards/'
       if (!deck.cards) {
         var newPostKey = firebase.database().ref().child('Cards').push().key
@@ -200,9 +200,8 @@
     writeNewProfile: function(uid, picture, profile) {
       // A post entry.
       var Users = {}
-      Users[uid] = true
+      
       var profileData = {
-        Users: Users,
         profile: profile,
         picture: picture,
       }
@@ -213,7 +212,8 @@
       // Write the new post's data simultaneously in the posts list and the user's post list.
       var updates = {}
       updates['/Profiles/' + newPostKey] = profileData
-      updates['/Users/' + uid + '/profiles/' + newPostKey] = true
+      updates['/Profiles/' + newPostKey + '/users/' + uid] = true
+      updates['/Users/' + uid + '/profiles/' + newPostKey] = profileData
       
       this.update = updates
       
