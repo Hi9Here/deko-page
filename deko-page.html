@@ -118,7 +118,7 @@
         this.set("update", update)
         
         var update2 = {}
-        update2[pathDeck + 'profile/' + Object.keys(profiles)[pickedProfile]] = deck
+        update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
         this.set("update", update2)
       } else {
         return this.objectToArray(profile.decks)
@@ -148,18 +148,18 @@
       this.path = pathDecks + '/cards/'
       if (!deck.cards) {
         var newPostKey = firebase.database().ref().child('Cards').push().key
-        var update = {}
         var card = {
           color: "#666",
           tilte: "open-elements",
           link: "https://open-elements.org/",
         }
+        var update = {}
         update[pathDecks + '/cards/' + newPostKey + '/'] = card
         update['/Cards/' + newPostKey + '/'] = card
-        this.update = update
-        update = {}
-        update['/Cards/' + newPostKey + '/deck/' + obj[deckItems[pickedDeck].__key]] = true
-        this.update = update
+        this.set("update", update)
+        var update2 = {}
+        update2['/Cards/' + newPostKey + '/deck/' ] = obj[deckItems[pickedDeck].__key]
+        this.set("update", update2)
       } else {
         return this.objectToArray(deck.cards)
       }
@@ -216,9 +216,9 @@
       updates['/Profiles/' + newPostKey] = profileData
       updates['/Users/' + uid + '/profiles/' + newPostKey] = profileData
       this.update = updates
-      updates = {}
-      updates['/Profiles/' + newPostKey + '/users/' + uid] = true
-      this.update = updates
+      var updates2 = {}
+      updates2['/Profiles/' + newPostKey + '/users/' + uid] = true
+      this.update = updates2
       
       var obj = {}
       obj[newPostKey] = true
