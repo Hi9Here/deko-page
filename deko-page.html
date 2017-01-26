@@ -116,8 +116,10 @@
         update[pathProfile + '/decks/' + newPostKey] = deck
         update[pathDeck] = deck
         this.set("update", update)
-        update[pathDeck + 'profile/' + Object.keys(profiles)[pickedProfile]] = deck
-        this.set("update", update)
+        
+        var update2 = {}
+        update2[pathDeck + 'profile/' + Object.keys(profiles)[pickedProfile]] = deck
+        this.set("update", update2)
       } else {
         return this.objectToArray(profile.decks)
       }
