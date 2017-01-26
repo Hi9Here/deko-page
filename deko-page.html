@@ -151,7 +151,9 @@
         }
         update[pathDecks + '/cards/' + newPostKey + '/'] = card
         update['/Cards/' + newPostKey + '/'] = card
-        update['/Cards/' + newPostKey + '/deck/' ] = {deckItems[pickedDeck].__key:true}
+        var obj = {}
+        obj[deckItems[pickedDeck].__key] = true
+        update['/Cards/' + newPostKey + '/deck/' ] = obj
         this.update = update
       } else {
         return this.objectToArray(deck.cards)
