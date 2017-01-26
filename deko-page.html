@@ -181,7 +181,7 @@
     },
     getProfiles: function(uid,name,picture) {
       var that = this
-      firebase.database().ref('Users/' + uid + '/profiles/').on('value' ,function(profiles) {
+      firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
         if (profiles.val()) {
           that.profiles = profiles.val()
         } else {
@@ -190,7 +190,7 @@
       })
     },
     writeUserData: function(userId, name, email, imageUrl) {
-      firebase.database().ref('Users/' + userId + '/details/').set({
+      firebase.database().ref('/Users/' + userId + '/details/').set({
         name: name,
         email: email,
         profile_picture: imageUrl,
