@@ -93,7 +93,7 @@
       },
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
-      }
+      },
     },
     firebaseUpdate: function(update){
       if (update && Object.keys(update).length) {
@@ -148,11 +148,10 @@
           color: "#666",
           tilte: "open-elements",
           link: "https://open-elements.org/",
-          deck: deckItems[pickedDeck].__key,
         }
         update[pathDecks + '/cards/' + newPostKey + '/'] = card
-        // 
         update['/Cards/' + newPostKey + '/'] = card
+        update['/Cards/' + newPostKey + '/deck/' ] = {deckItems[pickedDeck].__key:true}
         this.update = update
       } else {
         return this.objectToArray(deck.cards)
