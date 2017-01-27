@@ -29,7 +29,7 @@
             <deko-deck style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
-            <deko-cards path="[[path]]"></deko-cards>
+            <deko-cards path="[[path]]" deck="[[deckKey]]"></deko-cards>
           </div>
         </div>
       </paper-drawer-panel>
@@ -64,6 +64,9 @@
       },
       _deck:{
         computed:"getDeck(deckItems,pickedDeck)",
+      },
+      deckKey:{
+        value:""
       },
       cards:{
         type:Array,
