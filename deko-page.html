@@ -162,7 +162,7 @@
         update['/Cards/' + newPostKey + '/'] = card
         this.set("update", update)
         var update2 = {}
-        update2['/Cards/' + newPostKey + '/deck/' ] = obj[deckItems[pickedDeck].__key]
+        update2['/Cards/' + newPostKey + '/deck/' ] = deckItems[pickedDeck].__key
         this.set("update", update2)
       } else {
         return this.objectToArray(deck.cards)
