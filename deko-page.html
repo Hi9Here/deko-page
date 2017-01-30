@@ -149,7 +149,7 @@
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
       var pathDecks = '/Decks/' + deckItems[pickedDeck].__key
-      this.path = pathDecks + '/cards/'
+      this.set("path", pathDecks + '/cards/')
       if (!deck.cards) {
         var newPostKey = firebase.database().ref().child('Cards').push().key
         var card = {
