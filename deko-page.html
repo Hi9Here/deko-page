@@ -29,7 +29,7 @@
             <deko-deck style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
-            <deko-cards pageing by-child="__key" path="[[path]]" deck="[[deckKey]]"></deko-cards>
+            <deko-cards by-child="__key" path="[[path]]" deck="[[deckKey]]"></deko-cards>
           </div>
         </div>
       </paper-drawer-panel>
@@ -181,7 +181,7 @@
           if (profile.val()) {
             that.profile = profile.val()
           } else {
-            that.profile = that.writeNewProfile(uid, picture, name)
+            that.profile = that.writeNewProfile(that.user.uid, that.user.imageUrl, that.user.displayName)
           }
         })
       } 
