@@ -1,37 +1,51 @@
 <!doctype html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, minimum-scale=1, initial-scale=1, user-scalable=yes">
-
     <title>deko-page</title>
-
-    <script src="../bower_components/webcomponentsjs/webcomponents-lite.js"></script>
-    <script src="../bower_components/web-component-tester/browser.js"></script>
-
-    <!-- Import the element to test -->
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../test-fixture/test-fixture.html">
     <link rel="import" href="../deko-page.html">
   </head>
   <body>
-    <test-fixture id="basic">
+    <test-fixture id="dekoPage">
       <template>
-        <deko-page></deko-page>
+        <deko-page></deko-page> //TODO add attributes
       </template>
     </test-fixture>
-
     <script>
-      suite('deko-page tests', function() {
-        var home;
-
-        setup(function() {
-          home = fixture('basic');
+      suite('<deko-page>', function () {
+        var dekoPage;
+        setup(function () {
+          dekoPage = fixture('dekoPage');
         });
-
-        test('Number in circle should be 1', function() {
-          var circle = Polymer.dom(home.root).querySelector('.circle');
-          assert.equal(circle.textContent, '1');
+        teardown(function () {
+          //...
         });
-      });
+        suite("This test is just to show that tests are running", function () {
+          test("test is running", function(done) {
+            done()
+          })
+        })
+        suite('These test allow you to interact with the element', function () {
+          test('can be triggered with space', function(done) {
+            dekoPage.addEventListener('keydown', function() {
+              done()
+            })
+            MockInteractions.pressSpace(dekoPage)
+          })
+          test('can be clicked', function(done) {
+            dekoPage.addEventListener('click', function() {
+              done()
+            })
+            MockInteractions.tap(dekoPage)
+          })
+        })
+      })
     </script>
   </body>
 </html>
+>>>>>>> 78d2a7ce8a6e8517a26af1a82aaba363505c8f29
