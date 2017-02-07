@@ -1,0 +1,50 @@
+<!doctype html>
+<html>
+  <head>
+    <title>deko-page</title>
+    <script src="../../webcomponentsjs/webcomponents.js"></script>
+    <script src="../../web-component-tester/browser.js"></script>
+    <script src="../../test-fixture/test-fixture-mocha.js"></script>
+    <script src="../../iron-test-helpers/mock-interactions.js"></script>
+    <link rel="import" href="../../polymer/polymer.html">
+    <link rel="import" href="../../test-fixture/test-fixture.html">
+    <link rel="import" href="../deko-page.html">
+  </head>
+  <body>
+    <test-fixture id="dekoPage">
+      <template>
+        <deko-page></deko-page> //add attributes
+      </template>
+    </test-fixture>
+    <script>
+      suite('<deko-page>', function () {
+        var dekoPage;
+        setup(function () {
+          dekoPage = fixture('dekoPage');
+        });
+        teardown(function () {
+          //...
+        });
+        suite("test", function () {
+          test("test is running", function(done) {
+            done()
+          })
+        })
+        suite('basic usage', function () {
+          test('can be triggered with space', function(done) {
+            dekoPage.addEventListener('keydown', function() {
+              done()
+            })
+            MockInteractions.pressSpace(dekoPage)
+          })
+          test('can be clicked', function(done) {
+            dekoPage.addEventListener('click', function() {
+              done()
+            })
+            MockInteractions.tap(dekoPage)
+          })
+        })
+      })
+    </script>
+  </body>
+</html>
