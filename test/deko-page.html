@@ -16,36 +16,53 @@
         <deko-page></deko-page> //TODO add attributes
       </template>
     </test-fixture>
-    <script>
+
+     <script>
+
       suite('<deko-page>', function () {
         var dekoPage;
         setup(function () {
           dekoPage = fixture('dekoPage');
         });
-        teardown(function () {
-          //...
-        });
-        suite("This test is just to show that tests are running", function () {
-          test("test is running", function(done) {
+// This test is just to show that tests are running
+        suite('test', function () {
+          test('test is running', function(done) {
             done()
           })
         })
-        suite('These test allow you to interact with the element', function () {
-          test('can be triggered with space', function(done) {
-            dekoPage.addEventListener('keydown', function() {
-              done()
-            })
-            MockInteractions.pressSpace(dekoPage)
-          })
-          test('can be clicked', function(done) {
-            dekoPage.addEventListener('click', function() {
-              done()
-            })
-            MockInteractions.tap(dekoPage)
+
+// These tests assert whether somthing is there
+        suite('deko-app tests', function() {
+        var home;
+
+          setup(function() {
+            home = fixture('dekoPage');
+          });
+
+          test('paper-icon-button icon has a value of view-week', function() {
+            var icon = Polymer.dom(home.root).querySelector('app-toolbar paper-icon-button');
+            assert.equal(icon.icon, "view-week");
+          });
+
+        });
+
+// These test allow you to interact with the element
+        suite('basic usage', function () {		
+          test('can be triggered with space', function(done) {		
+            dekoPage.addEventListener('keydown', function() {		
+              done()		
+            })		
+            MockInteractions.pressSpace(dekoPage)		
+          })		
+          test('can be clicked', function(done) {		
+            dekoPage.addEventListener('click', function() {		
+              done()		
+            })		
+            MockInteractions.tap(dekoPage)		
           })
         })
       })
-      a11ySuite('NoLabel');
+
     </script>
   </body>
 </html>
