@@ -55,7 +55,7 @@
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
-            <card-deck title="[[item.title]]"  color="[[item.color]]" link="[[item.link]]"></card-deck>
+            <card-deck title="[[item.name]]"  color="[[item.color]]" link="[[item.link]]">...</card-deck>
           </template>
         </div>
       </paper-drawer-panel>
