@@ -13,6 +13,7 @@
 <link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../card-deck/card-deck.html">
 <!--
   `<deko-page></deko-page>` 
   @demo demo.html
@@ -54,7 +55,7 @@
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
-            <deko-decks style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-decks>
+            <card-deck title="[[item.title]]"  color="[[item.color]]" link="[[item.link]]"></card-deck>
           </template>
         </div>
       </paper-drawer-panel>
@@ -285,7 +286,11 @@
       this.deck = deck
     },
     getPickableWidth: function(deckItems){
-      return deckItems.filter(this.pickable).length * 48
+      if (deckItems.filter(this.pickable).length > 3) {
+        return deckItems.filter(this.pickable).length * 48
+      } else {
+        return 150
+      }
     },
     makeTag: function(label) {
       return label.replace(" ","-")
