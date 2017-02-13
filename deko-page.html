@@ -285,7 +285,11 @@
       this.deck = deck
     },
     getPickableWidth: function(deckItems){
-      return deckItems.filter(this.pickable).length * 48
+      if (deckItems.filter(this.pickable).length > 3) {
+        return deckItems.filter(this.pickable).length * 48
+      } else {
+        return 150
+      }
     },
     makeTag: function(label) {
       return label.replace(" ","-")
