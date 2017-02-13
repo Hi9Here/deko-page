@@ -10,6 +10,9 @@
 <link rel="import" href="../deko-cards/deko-cards.html">
 <link rel="import" href="../deko-deck/deko-deck.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
+<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <!--
   `<deko-page></deko-page>` 
   @demo demo.html
@@ -17,7 +20,7 @@
 <dom-module id="deko-page">
   <template>
     <style>:host {display:block} </style>
-    <template is="dom-if" if="[[!loginPage]]"> 
+    <template is="dom-if" if="[[cardPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace >
@@ -25,12 +28,34 @@
           </template>
         </div> 
         <div main>
+          <app-toolbar>
+            <div main-title>[[title]]</div>
+            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
+          </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace>
             <deko-deck style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
             <deko-cards by-child="__key" path="[[path]]" deck="[[deckKey]]"></deko-cards>
           </div>
+        </div>
+      </paper-drawer-panel>
+    </template>
+    <template is="dom-if" if="[[deckPage]]"> 
+      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
+        <div class="horizontal start-justified layout" drawer>
+          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace >
+            <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+          </template>
+        </div> 
+        <div main>
+          <app-toolbar>
+            <div main-title>[[title]]</div>
+            <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
+          </app-toolbar>
+          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
+            <deko-decks style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-decks>
+          </template>
         </div>
       </paper-drawer-panel>
     </template>
@@ -53,6 +78,12 @@
         type:Number,
         notify:true,
         value:0,
+      },
+      deckPage:{
+        value: false
+      },
+      cardPage:{
+        computed:"showCardPage(loginPage,deckPage)",
       },
       deckItems:{
         notify:true,
@@ -96,6 +127,12 @@
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
       },
+    },
+    showCardPage: function(loginPage,deckPage){
+      return !loginPage && !deckPage
+    },
+    toggleDeckPage: function(){
+      this.set("deckPage",!this.deckPage)
     },
     firebaseUpdate: function(update){
       if (update && Object.keys(update).length) {
