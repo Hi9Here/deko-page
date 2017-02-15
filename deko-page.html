@@ -56,7 +56,8 @@
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
             <card-deck style="width:200px" title="[[item.name]]"  color="[[item.color]]" link="[[item.link]]"></card-deck>
           </template>
-          <paper-fab icon="add" style="position:absolute;right:200px;bottom:100px" on-tap="addDeck"></paper-fab>
+          <paper-fab icon="add" style="position:fixed;right:25px;bottom:30px" on-tap="addDeck"></paper-fab>
+          
         </div>
       </paper-drawer-panel>
     </template>
