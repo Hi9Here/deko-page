@@ -54,7 +54,7 @@
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
-            <card-deck style="width:200px" title="[[item.name]]"  color="[[item.color]]" link="[[item.link]]" on-edit="editDeck"></card-deck>
+            <card-deck style="width:200px" title="[[item.name]]"  color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
           <paper-fab icon="add" style="position:fixed;right:25px;bottom:30px" on-tap="addDeck"></paper-fab>
           
