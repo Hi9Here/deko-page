@@ -1,7 +1,7 @@
 {
   "name": "deko-page",
   "version": "1.0.0",
-  "description": "\n    \n    \n    \n  ",
+  "description": "home page",
   "main": "deko-page.html",
   "keywords": [
     "polymer",
@@ -10,7 +10,7 @@
   "dependencies": {
     "polymer": "polymer/polymer#~1.7.1",
     "paper-styles": "polymerelements/paper-styles#~1.1.5",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout#b8c85345df",
+    "iron-flex-layout": "PolymerElements/iron-flex-layout",
     "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.7",
     "deko-deck": "Hi9Here/deko-deck",
     "card-deck": "marcus7777/card-deck",
