@@ -56,7 +56,7 @@
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
             <card-deck style="width:200px" title="[[item.name]]"  color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
-          <deko-card-editor id="editor" deck="{{editing}}" on-close="closeEditor" profile="[[profile]]"></deko-card-editor>
+          <deko-deck-editor id="editor" deck="{{editing}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
         </div>
       </paper-drawer-panel>
     </template>
