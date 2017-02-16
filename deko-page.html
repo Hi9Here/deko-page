@@ -25,7 +25,7 @@
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace >
-            <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-deck alignm="rotateup" on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
         <div main>
@@ -34,7 +34,7 @@
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace>
-            <deko-deck style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-deck index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
             <deko-cards by-child="__key" path="[[path]]" deck="[[deckKey]]"></deko-cards>
