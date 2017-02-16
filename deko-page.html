@@ -286,15 +286,17 @@
     },
     select: function(e){
       var deck = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
+      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
       
-      this.set("deckItems" , this.deckItems.map(function(x){
-         if (x.name == deck) {
-           x.selected = true
-         } else {
-           x.selected = false
-         }
-         return x
+      var updated = this.deckItems.map(function(x){
+        if (x.name == deck) {
+          x.selected = true
+        } else {
+          x.selected = false
+        }
+        return x
       }))
+      console.log(pathProfile, updated)
       this.$$("#drawer").closeDrawer()
     },
     getPickableWidth: function(deckItems){
