@@ -287,7 +287,7 @@
     select: function(e){
       var deck = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
       
-      this.deckItems = this.deckItems.map(function(x){
+      this.set("deckItems" , this.deckItems.map(function(x){
          if (x.name == deck) {
            x.selected = true
          } else {
@@ -296,7 +296,6 @@
          return x
       })
       this.$$("#drawer").closeDrawer()
-      this.deck = deck
     },
     getPickableWidth: function(deckItems){
       if (deckItems.filter(this.pickable).length > 3) {
