@@ -57,7 +57,7 @@
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
             <card-deck style="width:200px" title="[[item.name]]"  color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
-          <deko-deck-editor id="editor" deck="{{editing}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
+          <deko-deck-editor id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
         </div>
       </paper-drawer-panel>
     </template>
@@ -132,7 +132,9 @@
     },
     closeEditor: function(e,d){
       console.log(e, d)
-      this.newDeckItem(profiles,pickedProfile,deck)
+      if (this.editingDeck && !this.editingDeck.__key) {
+        this.newDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+      }
     },
     showCardPage: function(loginPage,deckPage){
       return !loginPage && !deckPage
