@@ -300,7 +300,8 @@
       update[pathProfile] = updatedDeck.reduce(function (update, deck , i) {
         var key = deck.__key
         delete(deck.__key) 
-        return update[key] = deck
+        update[key] = deck        
+        return update
       }, {})
       this.set("update", update)
       this.$$("#drawer").closeDrawer()
