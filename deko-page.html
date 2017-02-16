@@ -285,7 +285,8 @@
       return item.selected || false
     },
     select: function(e){
-      var deck = e.target.innerText
+      var deck = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
+      
       this.deckItems = this.deckItems.map(function(x){
          if (x.name == deck) {
            x.selected = true
