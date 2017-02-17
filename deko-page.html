@@ -129,6 +129,9 @@
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
       },
+      _firebaseUpdate2:{
+        computed:"firebaseUpdate(update2)"
+      },
     },
     closeEditor: function(e,d){
       console.log(e, d)
@@ -176,7 +179,7 @@
       this.set("update", update) 
       var update2 = {}
       update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
-      this.set("update", update2)
+      this.set("update2", update2)
     },
     getDeckItems: function(profile,profiles,pickedProfile){
       // get decks or make deck
@@ -230,7 +233,7 @@
         this.set("update", update)
         var update2 = {}
         update2['/Cards/' + newPostKey + '/deck/' ] = deckItems[pickedDeck].__key
-        this.set("update", update2)
+        this.set("update2", update2)
       } else {
         return this.objectToArray(deck.cards)
       }
@@ -289,7 +292,7 @@
       this.update = updates
       var updates2 = {}
       updates2['/Profiles/' + newPostKey + '/users/' + uid] = true
-      this.update = updates2
+      this.update2 = updates2
       
       var obj = {}
       obj[newPostKey] = true
