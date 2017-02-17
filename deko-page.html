@@ -297,7 +297,7 @@
         return x
       })
       var update = {}
-      update[pathProfile + "/deck/"] = updatedDeck.reduce(function (update, deck , i) {
+      update[pathProfile + "/decks/"] = updatedDeck.reduce(function (update, deck , i) {
         var key = deck.__key
         delete(deck.__key) 
         update[key] = deck        
