@@ -132,8 +132,10 @@
     },
     closeEditor: function(e,d){
       console.log(e, d)
-      if (this.editingDeck && !this.editingDeck.__key) {
+      if (this.editingDeck && this.editingDeck.__key) {
         this.updateDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+      } else if (this.editingDeck && !this.editingDeck.__key) {
+        this.newDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
       }
     },
     showCardPage: function(loginPage,deckPage){
