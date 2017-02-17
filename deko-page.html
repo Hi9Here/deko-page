@@ -135,7 +135,9 @@
     },
     closeEditor: function(e,d){
       console.log(e, d)
-      if (this.editingDeck && this.editingDeck.__key) {
+      if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
+        this.deleteDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+      } else if (this.editingDeck && this.editingDeck.__key) {
         this.updateDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && !this.editingDeck.__key) {
         this.newDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
@@ -152,6 +154,17 @@
         firebase.database().ref().update(update)
       }
     },
+    deleteDeckItem:function(profiles,pickedProfile,deck) {
+      var key = "" + deck.__key
+      delete(deck.__key)
+      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+      var pathDeck = 'Decks/' + key + '/'
+
+      var update = {}
+      update[pathProfile + '/decks/' + key] = null
+      update[pathDeck] = null
+      this.set("update", update)
+    },
     updateDeckItem:function(profiles,pickedProfile,deck) {
       var key = "" + deck.__key
       delete(deck.__key)
@@ -159,7 +172,6 @@
       var pathDeck = 'Decks/' + key + '/'
 
       var update = {}
-      // add welcome deck as a favourite here
       update[pathProfile + '/decks/' + key] = deck
       update[pathDeck] = deck
       this.set("update", update)
@@ -173,7 +185,6 @@
       var pathDeck = 'Decks/' + newPostKey + '/'
 
       var update = {}
-      // add welcome deck as a favourite here
       update[pathProfile + '/decks/' + newPostKey] = deck
       update[pathDeck] = deck
       this.set("update", update) 
