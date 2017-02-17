@@ -147,6 +147,21 @@
         firebase.database().ref().update(update)
       }
     },
+    updateDeckItem:function(profiles,pickedProfile,deck) {
+      var key = "" + deck.__key
+      delete(deck.__key)
+      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+      var pathDeck = 'Decks/' + key + '/'
+
+      var update = {}
+      // add welcome deck as a favourite here
+      update[pathProfile + '/decks/' + key] = deck
+      update[pathDeck] = deck
+      this.set("update", update)
+      var update2 = {}
+      update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
+      this.set("update", update2)
+    },
     newDeckItem:function(profiles,pickedProfile,deck) {
       var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
       var newPostKey = firebase.database().ref().child('Decks').push().key
@@ -194,7 +209,9 @@
       }
     },
     editDeck: function(e){
+      
       console.log(e.target.deck)
+      e.target.deck
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
