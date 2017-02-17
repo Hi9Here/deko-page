@@ -209,9 +209,7 @@
       }
     },
     editDeck: function(e){
-      
-      console.log(e.target.deck)
-      e.target.deck
+      this.$.editorDeck.open(e.target.deck)
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
