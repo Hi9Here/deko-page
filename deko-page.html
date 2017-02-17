@@ -338,11 +338,11 @@
       this.$$("#drawer").closeDrawer()
     },
     getPickableWidth: function(deckItems){
-      if (deckItems && deckItems.filter(this.pickable).length > 3) {
+//      if (deckItems && deckItems.filter(this.pickable).length > 3) {
         return deckItems.filter(this.pickable).length * 48
-      } else {
-        return 48 * 2
-      }
+//      } else {
+//        return 48 * 2
+ //     }
     },
     makeTag: function(label) {
       return label.replace(" ","-")
