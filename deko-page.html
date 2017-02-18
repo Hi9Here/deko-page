@@ -316,12 +316,14 @@
       return item.selected || false
     },
     select: function(e){
+      var that = this
       var deck = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
       var pathProfile = 'Profiles/' + Object.keys(this.profiles)[this.pickedProfile]
       
-      var updatedDeck = this.deckItems.map(function(x){
+      var updatedDeck = this.deckItems.map(function(x,i){
         if (x.name == deck) {
           x.selected = true
+          that.pickedProfile = i
         } else {
           x.selected = false
         }
