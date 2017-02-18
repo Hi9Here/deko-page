@@ -95,8 +95,11 @@
         type:Array,
         notify:true,
       },
-      _deck:{
-        computed:"getDeck(deckItems,pickedDeck)",
+      _decks:{
+        computed:"getDecks(deckItems,pickedDeck)",
+      },
+      deck:{
+        computed:"getDecks(deckItems,pickedDeck)",
       },
       deckKey:{
         value:""
@@ -205,17 +208,18 @@
         return this.objectToArray(profile.decks)
       }
     },
-    getDeck: function(deckItems, pickedDeck) {
+    getDecks: function(deckItems, pickedDeck) {
       //TODO let users pick
       var that = this
       if (!this.pickedDeck) {
         this.pickedDeck = 0
       }
+      
       if (deckItems.length > 0) {
         this.deckKey = deckItems[this.pickedDeck].__key
-        firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).once('value', function(deck) {
+        firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
           if (deck.val()) {
-            that.deck = deck.val()
+            that.decks[that.pickedDeck] = deck.val()
         //} else {
           //that.deck = that.writeNewDeck(uid, picture, name)
           }
@@ -223,6 +227,9 @@
       } else {
         debugger
       }
+    },
+    getDeck: function(decks, pickedDeck) {
+      return decks[pickedDeck]
     },
     editDeck: function(e){
       this.$$("deko-deck-editor").open(e.target.deck)
