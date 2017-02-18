@@ -213,7 +213,7 @@
       }
       if (deckItems.length > 0) {
         this.deckKey = deckItems[this.pickedDeck].__key
-        firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
+        firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).once('value', function(deck) {
           if (deck.val()) {
             that.deck = deck.val()
         //} else {
