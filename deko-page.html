@@ -128,7 +128,7 @@
         computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
       },
       _profile:{
-        computed:"getProfile(profiles,pickedProfile,pickedProfile)"
+        computed:"getProfile(profilesKeys, pickedProfile)"
       },
       pickedProfile:{
         value:0
@@ -272,35 +272,32 @@
         return this.objectToArray(deck.cards)
       }
     },
-    getProfile: function(profiles) { 
-      if (profiles) {
-        //TODO let users pick profile
-        var that = this
-        var keys = Object.keys(profiles) //TODO let users pick
-        this.pickableProfiles = keys
-        if (!this.pickedProfile) {
-          this.pickedProfile = 0
-        }
-        if (!this.profiles || !this.profiles.hasOwnProperty(this.pickedProfile) ) {
-          firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
-            var val = profile.val()
-            if (val){ 
-              if (!profiles) {
-                profiles[that.pickedProfile] = val
-                that.set("profiles",profiles)
-              } else if (JSON.stringify(that.profiles[that.pickedProfile]) !== JSON.stringify(val)) {
-                that.profiles[that.pickedProfile] = val
-              }
+    getProfile: function(keys, pickedProfile) { 
+      //TODO let users pick profile
+      var that = this
+      if (!pickedProfile) {
+        pickedProfile = 0
+      }
+      if (!this.profiles || !this.profiles.hasOwnProperty(this.pickedProfile) ) {
+        firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
+          var val = profile.val()
+          if (val){ 
+            if (!that.profiles) {
+              that.profiles = {}
+              that.profiles[that.pickedProfile] = val
+              that.set("profiles",profiles)
+            } else if (JSON.stringify(that.profiles[that.pickedProfile]) !== JSON.stringify(val)) {
+              that.profiles[that.pickedProfile] = val
             }
-          })
-        }
+          }
+        })
       } 
     },
     getProfiles: function(uid,name,picture) {
       var that = this
       firebase.database().ref('/Users/' + uid + '/profiles/').once('value' ,function(profiles) {
         if (profiles.val()) {
-          that.profiles = profiles.val()
+          that.profilesKeys = Object.keys(profiles.val())
         } else {
           that.writeNewProfile(uid, picture, name)
         }
