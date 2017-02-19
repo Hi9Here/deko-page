@@ -2,6 +2,9 @@
 <link rel="import" href="../paper-dropdown-menu/paper-dropdown-menu.html">
 <link rel="import" href="../paper-header-panel/paper-header-panel.html">
 <link rel="import" href="../paper-drawer-panel/paper-drawer-panel.html">
+<link rel="import" href="../paper-icon-button/paper-icon-button.html">
+<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
+<link rel="import" href="../deko-deck-editor/deko-deck-editor.html">
 <link rel="import" href="../paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../paper-item/paper-icon-item.html">
 <link rel="import" href="../paper-item/paper-item-body.html">
@@ -10,9 +13,6 @@
 <link rel="import" href="../deko-cards/deko-cards.html">
 <link rel="import" href="../deko-deck/deko-deck.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
-<link rel="import" href="../app-layout/app-toolbar/app-toolbar.html">
-<link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-icon-button/paper-icon-button.html">
 <link rel="import" href="../card-deck/card-deck.html">
 <!--
   `<deko-page></deko-page>` 
@@ -25,7 +25,7 @@
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace >
-            <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-deck alignm="rotateup" on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
         <div main>
@@ -34,7 +34,7 @@
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace>
-            <deko-deck style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-deck index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
             <deko-cards by-child="__key" path="[[path]]" deck="[[deckKey]]"></deko-cards>
@@ -55,8 +55,9 @@
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
-            <card-deck title="[[item.name]]"  color="[[item.color]]" link="[[item.link]]">...</card-deck>
+            <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
+          <deko-deck-editor id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
         </div>
       </paper-drawer-panel>
     </template>
@@ -94,8 +95,14 @@
         type:Array,
         notify:true,
       },
-      _deck:{
-        computed:"getDeck(deckItems,pickedDeck)",
+      deck:{
+        value:{}
+      },
+      _decks:{
+        computed:"getDecks(deckItems,pickedDeck)",
+      },
+      deck:{
+        computed:"getDeck(decks,pickedDeck,decks.*)",
       },
       deckKey:{
         value:""
@@ -128,6 +135,19 @@
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
       },
+      _firebaseUpdate2:{
+        computed:"firebaseUpdate(update2)"
+      },
+    },
+    closeEditor: function(e,d){
+      console.log(e, d)
+      if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
+        this.deleteDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+      } else if (this.editingDeck && this.editingDeck.__key) {
+        this.updateDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+      } else if (this.editingDeck && !this.editingDeck.__key) {
+        this.newDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+      }
     },
     showCardPage: function(loginPage,deckPage){
       return !loginPage && !deckPage
@@ -140,49 +160,91 @@
         firebase.database().ref().update(update)
       }
     },
+    deleteDeckItem:function(profiles,pickedProfile,deck) {
+      var key = "" + deck.__key
+      delete(deck.__key)
+      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+      var pathDeck = 'Decks/' + key + '/'
+
+      var update = {}
+      update[pathProfile + '/decks/' + key] = null
+      update[pathDeck] = null
+      this.set("update", update)
+    },
+    updateDeckItem:function(profiles,pickedProfile,deck) {
+      var key = "" + deck.__key
+      delete(deck.__key)
+      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+      var pathDeck = 'Decks/' + key + '/'
+
+      var update = {}
+      update[pathProfile + '/decks/' + key] = deck
+      update[pathDeck] = deck
+      this.set("update", update)
+      var update2 = {}
+      update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
+      this.set("update", update2)
+    },
+    newDeckItem:function(profiles,pickedProfile,deck) {
+      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+      var newPostKey = firebase.database().ref().child('Decks').push().key
+      var pathDeck = 'Decks/' + newPostKey + '/'
+
+      var update = {}
+      update[pathProfile + '/decks/' + newPostKey] = deck
+      update[pathDeck] = deck
+      this.set("update", update) 
+      var update2 = {}
+      update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
+      this.set("update2", update2)
+    },
     getDeckItems: function(profile,profiles,pickedProfile){
       // get decks or make deck
       if (!profile.decks) {
-        var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
-        var newPostKey = firebase.database().ref().child('Decks').push().key
-        var pathDeck = 'Decks/' + newPostKey + '/'
         var deck = {
           color: "#666",
           name: "Home",
           selected: true,
-        }
-        
-        var update = {}
-        // add welcome deck as a favourite here
-        update[pathProfile + '/decks/' + newPostKey] = deck
-        update[pathDeck] = deck
-        this.set("update", update)
-        
-        var update2 = {}
-        update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
-        this.set("update", update2)
+        } 
+        this.newDeckItem(profiles,pickedProfile,deck)
       } else {
         return this.objectToArray(profile.decks)
       }
     },
-    getDeck: function(deckItems, pickedDeck) {
+    getDecks: function(deckItems, pickedDeck) {
       //TODO let users pick
       var that = this
       if (!this.pickedDeck) {
         this.pickedDeck = 0
       }
+      
       if (deckItems.length > 0) {
         this.deckKey = deckItems[this.pickedDeck].__key
-        firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
-          if (deck.val()) {
-            that.deck = deck.val()
-        //} else {
-          //that.deck = that.writeNewDeck(uid, picture, name)
-          }
-        })
+        if (!this.decks || !this.decks.hasOwnProperty(this.pickedDeck) ) {
+          firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
+            var val = deck.val()
+            if (val){ 
+              if (!that.decks) {
+                var decks = {}
+                decks[that.pickedDeck] = val
+                that.set("decks",decks)
+              } else if (JSON.stringify(that.decks[that.pickedDeck]) !== JSON.stringify(val)) {
+                that.decks[that.pickedDeck] = val
+              }
+            }
+          })
+        }
       } else {
         debugger
       }
+    },
+    getDeck: function(decks, pickedDeck) {
+      if (this.decks.hasOwnProperty(this.pickedDeck)){
+        return decks[pickedDeck]
+      }
+    },
+    editDeck: function(e){
+      this.$$("deko-deck-editor").open(e.target.deck)
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
@@ -201,21 +263,21 @@
         this.set("update", update)
         var update2 = {}
         update2['/Cards/' + newPostKey + '/deck/' ] = deckItems[pickedDeck].__key
-        this.set("update", update2)
+        this.set("update2", update2)
       } else {
         return this.objectToArray(deck.cards)
       }
     },
     getProfile: function(profiles) { 
       if (profiles) {
-        //TODO let users pick
+        //TODO let users pick profile
         var that = this
         var keys = Object.keys(profiles) //TODO let users pick
         this.pickableProfiles = keys
         if (!this.pickedProfile) {
           this.pickedProfile = 0
         }
-        return firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
+        return firebase.database().ref('Profiles/' + keys[this.pickedProfile]).once('value', function(profile) {
           if (profile.val()) {
             that.profile = profile.val()
           } else {
@@ -226,7 +288,7 @@
     },
     getProfiles: function(uid,name,picture) {
       var that = this
-      firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
+      firebase.database().ref('/Users/' + uid + '/profiles/').once('value' ,function(profiles) {
         if (profiles.val()) {
           that.profiles = profiles.val()
         } else {
@@ -260,7 +322,7 @@
       this.update = updates
       var updates2 = {}
       updates2['/Profiles/' + newPostKey + '/users/' + uid] = true
-      this.update = updates2
+      this.update2 = updates2
       
       var obj = {}
       obj[newPostKey] = true
@@ -273,24 +335,35 @@
       return item.selected || false
     },
     select: function(e){
-      var deck = e.target.innerText
-      this.deckItems = this.deckItems.map(function(x){
-         if (x.name == deck) {
-           x.selected = true
-         } else {
-           x.selected = false
-         }
-         return x
+      var that = this
+      var deck = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
+      var pathProfile = 'Profiles/' + Object.keys(this.profiles)[this.pickedProfile]
+      
+      var updatedDeck = this.deckItems.map(function(x,i){
+        if (x.name == deck) {
+          x.selected = true
+          that.pickedProfile = i
+        } else {
+          x.selected = false
+        }
+        return x
       })
+      var update = {}
+      update[pathProfile + "/decks/"] = updatedDeck.reduce(function (update, deck , i) {
+        var key = deck.__key
+        delete(deck.__key) 
+        update[key] = deck        
+        return update
+      }, {})
+      this.set("update", update)
       this.$$("#drawer").closeDrawer()
-      this.deck = deck
     },
     getPickableWidth: function(deckItems){
-      if (deckItems.filter(this.pickable).length > 3) {
+//      if (deckItems && deckItems.filter(this.pickable).length > 3) {
         return deckItems.filter(this.pickable).length * 48
-      } else {
-        return 150
-      }
+//      } else {
+//        return 48 * 2
+ //     }
     },
     makeTag: function(label) {
       return label.replace(" ","-")
