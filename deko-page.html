@@ -40,7 +40,7 @@
             <img src="[[profile.picture]]">
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>     
             <paper-menu-button>
-            <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+              <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
               <paper-menu class="dropdown-content">
                 <paper-item on-tap="logout">Logout</paper-item>
               </paper-menu>       
@@ -69,7 +69,7 @@
             <img src="[[profile.picture]]">
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>     
             <paper-menu-button>
-            <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
+              <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
               <paper-menu class="dropdown-content">
                 <paper-item on-tap="logout">Logout</paper-item>
               </paper-menu>       
@@ -165,7 +165,6 @@
       },
     },
     closeEditor: function(e,d){
-      console.log(e, d)
       if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
         this.deleteDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && this.editingDeck.__key) {
