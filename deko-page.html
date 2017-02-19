@@ -248,23 +248,19 @@
     getDecks: function(deckItems, pickedDeck) {
       //TODO let users pick
       var that = this
-      if (!this.pickedDeck) {
-        this.pickedDeck = 0
-      }
       
       if (deckItems.length > 0) {
-        this.deckKey = deckItems[this.pickedDeck].__key
-        if (!this.decks || !this.decks.hasOwnProperty(this.pickedDeck) ) {
-          firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
+        if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) {
+          firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
             if (val){ 
               if (!that.decks) {
                 var decks = {}
-                decks[that.pickedDeck] = val
+                decks[pickedDeck] = val
                 that.set("decks", decks)
                 that.set("theDeck", val)
-              } else if (JSON.stringify(that.decks[that.pickedDeck]) !== JSON.stringify(val)) {
-                that.decks[that.pickedDeck] = val
+              } else if (JSON.stringify(that.decks[pickedDeck]) !== JSON.stringify(val)) {
+                that.decks[pickedDeck] = val
               }
             }
           })
@@ -289,7 +285,7 @@
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
-      var pathDecks = '/Decks/' + deckItems[pickedDeck].__key
+      var pathDecks = '/Decks/' + pickedDeck
       this.set("path", pathDecks + '/cards/')
       if (!deck.cards) {
         var newPostKey = firebase.database().ref().child('Cards').push().key
@@ -303,7 +299,7 @@
         update['/Cards/' + newPostKey + '/'] = card
         this.set("update", update)
         var update2 = {}
-        update2['/Cards/' + newPostKey + '/deck/' ] = deckItems[pickedDeck].__key
+        update2['/Cards/' + newPostKey + '/deck/' ] = pickedDeck
         this.set("update2", update2)
       } else {
         return this.objectToArray(deck.cards)
@@ -395,7 +391,6 @@
       var updatedDeck = this.deckItems.map(function(x,i){
         if (x.name == deckName) {
           x.selected = true
-          that.pickedDeck = i
         } else {
           x.selected = false
         }
@@ -413,7 +408,7 @@
     },
     getPickableWidth: function(deckItems){
 //      if (deckItems && deckItems.filter(this.pickable).length > 3) {
-        return deckItems.filter(this.pickable).length * 48
+      return deckItems.filter(this.pickable).length * 48
 //      } else {
 //        return 48 * 2
  //     }
