@@ -152,9 +152,9 @@
     closeEditor: function(e,d){
       console.log(e, d)
       if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
-        this.deleteDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+        this.deleteDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && this.editingDeck.__key) {
-        this.updateDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+        this.updateDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && !this.editingDeck.__key) {
         this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       }
@@ -170,10 +170,10 @@
         firebase.database().ref().update(update)
       }
     },
-    deleteDeckItem:function(profiles,pickedProfile,deck) {
+    deleteDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
       var key = "" + deck.__key
       delete(deck.__key)
-      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+      var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var pathDeck = 'Decks/' + key + '/'
 
       var update = {}
@@ -181,10 +181,10 @@
       update[pathDeck] = null
       this.set("update", update)
     },
-    updateDeckItem:function(profiles,pickedProfile,deck) {
+    updateDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
       var key = "" + deck.__key
       delete(deck.__key)
-      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+      var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var pathDeck = 'Decks/' + key + '/'
 
       var update = {}
@@ -192,7 +192,7 @@
       update[pathDeck] = deck
       this.set("update", update)
       var update2 = {}
-      update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
+      update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
     },
     newDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
