@@ -225,9 +225,10 @@
             var val = deck.val()
             if (val){ 
               if (!that.decks) {
-                that.decks = {}
-              }
-              if (JSON.stringify(that.decks[that.pickedDeck]) !== JSON.stringify(val)) {
+                var decks = {}
+                decks[that.pickedDeck] = val
+                that.set("decks",decks)
+              } else if (JSON.stringify(that.decks[that.pickedDeck]) !== JSON.stringify(val)) {
                 that.decks[that.pickedDeck] = val
               }
             }
