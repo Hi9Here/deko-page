@@ -93,7 +93,7 @@
       },
       deckItems:{
         notify:true,
-        computed:"getDeckItems(profile,profiles,pickedProfile)",
+        computed:"getDeckItems(profile,profiles,profilesKeys,pickedProfile)",
       },
       deck:{
         type:Array,
@@ -192,8 +192,8 @@
       update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
       this.set("update", update2)
     },
-    newDeckItem:function(profiles,pickedProfile,deck) {
-      var pathProfile = 'Profiles/' + Object.keys(profiles)[pickedProfile]
+    newDeckItem:function(profiles,pickedProfile,profilesKeys,deck) {
+      var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var newPostKey = firebase.database().ref().child('Decks').push().key
       var pathDeck = 'Decks/' + newPostKey + '/'
 
@@ -202,10 +202,10 @@
       update[pathDeck] = deck
       this.set("update", update) 
       var update2 = {}
-      update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
+      update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update2", update2)
     },
-    getDeckItems: function(profile,profiles,pickedProfile){
+    getDeckItems: function(profile,profiles,profilesKeys,pickedProfile){
       // get decks or make deck
       if (!profile.decks) {
         var deck = {
@@ -213,7 +213,7 @@
           name: "Home",
           selected: true,
         } 
-        this.newDeckItem(profiles,pickedProfile,deck)
+        this.newDeckItem(profiles,profilesKeys,pickedProfile,deck)
       } else {
         return this.objectToArray(profile.decks)
       }
@@ -307,7 +307,7 @@
     },
     getProfiles: function(uid,name,picture) {
       var that = this
-      firebase.database().ref('/Users/' + uid + '/profiles/').once('value' ,function(profiles) {
+      firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
         if (profiles.val()) {
           that.profilesKeys = Object.keys(profiles.val())
         } else {
