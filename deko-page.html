@@ -158,7 +158,7 @@
         value:0
       },
       pickedDeck:{
-        value:0
+        computed:"selectedProfile(profiles)"
       },
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
@@ -166,6 +166,9 @@
       _firebaseUpdate2:{
         computed:"firebaseUpdate(update2)"
       },
+    },
+    selectedProfile: function(profiles) {
+      debugger
     },
     closeEditor: function(e,d){
       if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
@@ -382,11 +385,11 @@
     },
     select: function(e){
       var that = this
-      var deck = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
+      var deckName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
       var pathProfile = 'Profiles/' + this.profilesKeys[this.pickedProfile]
       
       var updatedDeck = this.deckItems.map(function(x,i){
-        if (x.name == deck) {
+        if (x.name == deckName) {
           x.selected = true
           that.pickedDeck = i
         } else {
