@@ -8,6 +8,7 @@
 <link rel="import" href="../paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../paper-item/paper-icon-item.html">
 <link rel="import" href="../paper-item/paper-item-body.html">
+<link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../deko-cards/deko-cards.html">
@@ -33,7 +34,8 @@
           </template>
         </div> 
         <div main>
-          <app-toolbar>
+          <app-toolbar>  
+            <iron-image src="deko-logo-150.png" preload sizing="cover"></iron-image>
             <div main-title>[[title]]</div>
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
