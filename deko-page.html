@@ -153,7 +153,7 @@
       } else if (this.editingDeck && this.editingDeck.__key) {
         this.updateDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && !this.editingDeck.__key) {
-        this.newDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
+        this.newDeckItem(this.profiles,this.pickedProfile,this.profilesKeys,this.editingDeck)
       }
     },
     showCardPage: function(loginPage,deckPage){
