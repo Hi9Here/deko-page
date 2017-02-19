@@ -22,7 +22,10 @@
     "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.5.0",
     "paper-header-panel": "PolymerElements/paper-header-panel#^1.1.7",
     "app-layout": "PolymerElements/app-layout#^0.10.6",
-    "paper-icon-button": "polymerelements/paper-icon-button"
+    "paper-icon-button": "polymerelements/paper-icon-button",
+    "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
+    "paper-menu": "PolymerElements/paper-menu#^1.2.2",
+    "paper-fab": "PolymerElements/paper-fab#^1.2.1"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers",
