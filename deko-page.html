@@ -158,7 +158,7 @@
         value:0
       },
       pickedDeck:{
-        computed:"selectedProfile(profiles)"
+        computed:"selectedDeck(profiles.0.decks)"
       },
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
@@ -167,7 +167,7 @@
         computed:"firebaseUpdate(update2)"
       },
     },
-    selectedProfile: function(profiles) {
+    selectedDeck: function(decks) {
       debugger
     },
     closeEditor: function(e,d){
