@@ -168,7 +168,11 @@
       },
     },
     selectedDeck: function(decks) {
-      debugger
+      for (var deck in decks) {
+        if (decks[deck].selected) {
+          return deck
+        }
+      }
     },
     closeEditor: function(e,d){
       if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
