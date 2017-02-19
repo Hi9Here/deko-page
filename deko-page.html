@@ -8,16 +8,14 @@
 <link rel="import" href="../paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../paper-item/paper-icon-item.html">
 <link rel="import" href="../paper-item/paper-item-body.html">
-<link rel="import" href="../paper-menu-button/paper-menu-button.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../paper-menu/paper-menu.html">
-<link rel="import" href="../paper-item/paper-item.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../deko-cards/deko-cards.html">
 <link rel="import" href="../deko-deck/deko-deck.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../card-deck/card-deck.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="shared-styles.html">
 
 <!--
@@ -260,6 +258,10 @@
     getDeck: function(decks, pickedDeck) {
       if (this.decks.hasOwnProperty(this.pickedDeck)){
         return decks[pickedDeck]
+      } else {
+        // not got
+        this.getDecks(this.deckItems,pickedDeck)
+        return this.decks[pickedDeck]
       }
     },
     editDeck: function(e){
