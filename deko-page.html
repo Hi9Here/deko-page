@@ -277,13 +277,19 @@
         if (!this.pickedProfile) {
           this.pickedProfile = 0
         }
-        return firebase.database().ref('Profiles/' + keys[this.pickedProfile]).once('value', function(profile) {
-          if (profile.val()) {
-            that.profile = profile.val()
-          } else {
-            that.profile = that.writeNewProfile(that.user.uid, that.user.imageUrl, that.user.displayName)
-          }
-        })
+        if (!this.profiles || !this.profiles.hasOwnProperty(this.pickedProfile) ) {
+          firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
+            var val = profile.val()
+            if (val){ 
+              if (!profiles) {
+                profiles[that.pickedProfile] = val
+                that.set("profiles",profiles)
+              } else if (JSON.stringify(that.profiles[that.pickedProfile]) !== JSON.stringify(val)) {
+                that.profiles[that.pickedProfile] = val
+              }
+            }
+          })
+        }
       } 
     },
     getProfiles: function(uid,name,picture) {
