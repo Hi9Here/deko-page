@@ -360,7 +360,7 @@
     select: function(e){
       var that = this
       var deck = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
-      var pathProfile = 'Profiles/' + Object.keys(this.profiles)[this.pickedProfile]
+      var pathProfile = 'Profiles/' + this.profilesKeys[this.pickedProfile]
       
       var updatedDeck = this.deckItems.map(function(x,i){
         if (x.name == deck) {
