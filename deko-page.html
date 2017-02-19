@@ -217,7 +217,7 @@
       
       if (deckItems.length > 0) {
         this.deckKey = deckItems[this.pickedDeck].__key
-        if (!this.decks.hasOwnProperty(this.pickedDeck) ) {
+        if (!this.decks || !this.decks.hasOwnProperty(this.pickedDeck) ) {
           firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
             var val = deck.val()
             if (val){ 
