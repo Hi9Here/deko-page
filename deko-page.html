@@ -192,7 +192,7 @@
       update2[pathDeck + 'profile'] = Object.keys(profiles)[pickedProfile]
       this.set("update", update2)
     },
-    newDeckItem:function(profiles,pickedProfile,profilesKeys,deck) {
+    newDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var newPostKey = firebase.database().ref().child('Decks').push().key
       var pathDeck = 'Decks/' + newPostKey + '/'
