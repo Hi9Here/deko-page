@@ -218,13 +218,16 @@
       if (deckItems.length > 0) {
         this.deckKey = deckItems[this.pickedDeck].__key
         firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
-          if (deck.val()){ 
+          var val = deck.val()
+          if (val){ 
             if (!that.decks) {
-              that.decks =[]      
+              that.decks = []      
             }
-            that.decks[that.pickedDeck] = deck.val()
-        //} else {
-          //that.deck = that.writeNewDeck(uid, picture, name)
+            if (JSON.stringify(that.decks[that.pickedDeck]) !== JSON.stringify(val)) {
+              that.decks[that.pickedDeck] = val
+            }
+          //} else {
+          //  that.deck = that.writeNewDeck(uid, picture, name)
           }
         })
       } else {
