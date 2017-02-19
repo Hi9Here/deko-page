@@ -217,25 +217,27 @@
       
       if (deckItems.length > 0) {
         this.deckKey = deckItems[this.pickedDeck].__key
-        firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
-          var val = deck.val()
-          if (val){ 
-            if (!that.decks) {
-              that.decks = []      
+        if (!this.decks.hasOwnProperty(this.pickedDeck) ) {
+          firebase.database().ref('Decks/' + deckItems[this.pickedDeck].__key ).on('value', function(deck) {
+            var val = deck.val()
+            if (val){ 
+              if (!that.decks) {
+                that.decks = {}
+              }
+              if (JSON.stringify(that.decks[that.pickedDeck]) !== JSON.stringify(val)) {
+                that.decks[that.pickedDeck] = val
+              }
             }
-            if (JSON.stringify(that.decks[that.pickedDeck]) !== JSON.stringify(val)) {
-              that.decks[that.pickedDeck] = val
-            }
-          //} else {
-          //  that.deck = that.writeNewDeck(uid, picture, name)
-          }
-        })
+          })
+        }
       } else {
         debugger
       }
     },
     getDeck: function(decks, pickedDeck) {
-      return decks[pickedDeck]
+      if (this.decks.hasOwnProperty(this.pickedDeck)){
+        return decks[pickedDeck]
+      }
     },
     editDeck: function(e){
       this.$$("deko-deck-editor").open(e.target.deck)
