@@ -42,9 +42,9 @@
             <img src="[[profile.picture]]">
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>     
             <paper-menu-button>
-            <paper-icon-button icon="more-vert" on-tap="moreActions" class="dropdown-trigger"></paper-icon-button>
+            <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
               <paper-menu class="dropdown-content">
-                <paper-item>Logout</paper-item>
+                <paper-item on-tap="log-out">Logout</paper-item>
               </paper-menu>       
             </paper-menu-button>
           </app-toolbar>
