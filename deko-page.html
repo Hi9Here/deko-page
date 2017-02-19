@@ -61,6 +61,7 @@
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
+            <div>[[item.name]][[item.title]][[item.color]]</div>
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
           <deko-deck-editor id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
@@ -155,7 +156,7 @@
       } else if (this.editingDeck && this.editingDeck.__key) {
         this.updateDeckItem(this.profiles,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && !this.editingDeck.__key) {
-        this.newDeckItem(this.profiles,this.pickedProfile,this.profilesKeys,this.editingDeck)
+        this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       }
     },
     showCardPage: function(loginPage,deckPage){
