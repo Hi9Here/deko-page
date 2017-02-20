@@ -29,7 +29,7 @@
     <template is="dom-if" if="[[cardPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace >
+          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace id="list1">
             <deko-deck alignm="rotateup" on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
@@ -46,7 +46,7 @@
               </paper-menu>
             </paper-menu-button>
           </app-toolbar>
-          <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace>
+          <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list2">
             <deko-deck index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
@@ -58,7 +58,7 @@
     <template is="dom-if" if="[[deckPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace >
+          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace  id="list3">
             <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
@@ -75,7 +75,7 @@
               </paper-menu>
             </paper-menu-button>
           </app-toolbar>
-          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="listOfDecks">
+          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list4">
             <div>[[item.name]][[item.title]][[item.color]]</div>
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
