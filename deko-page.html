@@ -328,7 +328,7 @@
               var profiles = {}
               profiles[profileKey] = val
               that.set("profiles",profiles)
-              that.set("profile",val)
+              that.set("theProfile",val)
             } else if (JSON.stringify(that.profiles[profileKey]) !== JSON.stringify(val)) {
               that.profiles[profileKey] = val
               that.set("profile",JSON.parse(JSON.stringify(val)))
