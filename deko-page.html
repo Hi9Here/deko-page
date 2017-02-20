@@ -202,6 +202,7 @@
       update[pathProfile + '/decks/' + key] = null
       update[pathDeck] = null
       this.set("update", update)
+      this.render()
     },
     updateDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
       var key = "" + deck.__key
@@ -219,6 +220,7 @@
       var update2 = {}
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
+      this.render()
     },
     newDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
@@ -232,6 +234,7 @@
       var update2 = {}
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update2", update2)
+      this.render()
     },
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile){
       // get decks or make deck
@@ -353,8 +356,10 @@
       firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
         if (profiles.val()) {
           that.profilesKeys = Object.keys(profiles.val())
+          that.render()
         } else {
           that.writeNewProfile(uid, picture, name)
+          that.render()
         }
       })
     },
@@ -384,6 +389,7 @@
       updates2['/Profiles/' + newPostKey + '/users/' + uid] = true
       this.update2 = updates2
       
+      this.render()
       var obj = {}
       obj[newPostKey] = true
       return obj
@@ -422,6 +428,7 @@
       }, {})
       this.set("update", update)
       this.$$("#drawer").closeDrawer()
+      this.render()
     },
     getPickableWidth: function(deckItems){
 //      if (deckItems && deckItems.filter(this.pickable).length > 3) {
