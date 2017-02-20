@@ -97,22 +97,21 @@
         computed:"showLoginPage(user)",
       },
       user:{ value: null },
-      deckPage:{
-        value: false
+      profile:{
+        computed:"getProfile(profiles, pickedProfile)"
       },
-      cardPage:{
-        computed:"showCardPage(loginPage,deckPage)",
+      _profile:{
+        computed:"subProfile(profilesKeys, pickedProfile)"
+      },
+      _profilesKeys: {
+        computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
+      },
+      pickedProfile:{
+        value:0
       },
       deckItems:{
         notify:true,
         computed:"getDeckItems(profile,profiles,profilesKeys,pickedProfile)",
-      },
-      deck:{
-        type:Array,
-        notify:true,
-      },
-      deck:{
-        value:{}
       },
       _decks:{
         computed:"getDecks(deckItems,pickedDeck)",
@@ -126,33 +125,27 @@
       deckKey:{
         value:""
       },
-      cards:{
-        type:Array,
-        notify:true,
-        computed:"getCardsItems(deck,deckItems,pickedDeck)",
+      deckPage:{
+        value: false
+      },
+      pickedDeck:{
+        computed:"selectedDeck(profile.decks)"
       },
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
         notify:true,
       },
       path:String,
+      cardPage:{
+        computed:"showCardPage(loginPage,deckPage)",
+      },
+      cards:{
+        type:Array,
+        notify:true,
+        computed:"getCardsItems(deck,deckItems,pickedDeck)",
+      },
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
-      },
-      _profilesKeys: {
-        computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
-      },
-      profile:{
-        computed:"getProfile(profiles, pickedProfile)"
-      },
-      _profile:{
-        computed:"subProfile(profilesKeys, pickedProfile)"
-      },
-      pickedProfile:{
-        value:0
-      },
-      pickedDeck:{
-        computed:"selectedDeck(profile.decks)"
       },
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
