@@ -249,17 +249,16 @@
         if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) {
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
-            var deckKey = deck.getKey()
+            val.__key = deck.getKey()
             if (val){ 
               if (!that.decks) {
                 var decks = {}
-                decks[pickedDeck] = val
+                decks[val.__key] = val
                 that.set("decks", decks)
                 that.set("theDeck", val)
                 that.render()
-              } else if (JSON.stringify(that.decks[deckKey]) !== JSON.stringify(val)) {
-                that.decks[deckKey] = val
-                that.decks[deckKey].__key = deckKey
+              } else if (JSON.stringify(that.decks[val.__key]) !== JSON.stringify(val)) {
+                that.decks[val.__key] = val
                 that.render()
               }
             }
@@ -329,17 +328,15 @@
       if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
         firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
           var val = profile.val()
-          var profileKey = profile.getKey()
+          val.__key = profile.getKey()
           if (val){ 
             if (!that.profiles) {
               var profiles = {}
-              profiles[profileKey] = val
-              profiles[profileKey].__key = profileKey
+              profiles[val.__key] = val
               that.set("profiles",profiles)
               that.render()
             } else if (JSON.stringify(that.profiles[profileKey]) !== JSON.stringify(val)) {
-              that.profiles[profileKey] = val
-              that.profiles[profileKey].__key = profileKey
+              that.profiles[val.__key] = val
               that.render()
             }
           }
