@@ -322,7 +322,7 @@
       if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
         firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
           var val = profile.val()
-          var profileKey = profile.getkey()
+          var profileKey = profile.getKey()
           if (val){ 
             if (!that.profiles) {
               var profiles = {}
