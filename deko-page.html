@@ -404,7 +404,13 @@
       var update = {}
       update[pathProfile + "/decks/"] = updatedDeck.reduce(function (update, deck , i) {
         var key = deck.__key
-        // delete(deck.__key) 
+        if (key === "undefined" ) {
+          throw "undefined"
+        } else if (!key) {
+          throw key
+        }
+        
+        // delete(deck.__key)
         update[key] = deck        
         return update
       }, {})
