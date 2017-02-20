@@ -331,6 +331,7 @@
               that.set("profile",val)
             } else if (JSON.stringify(that.profiles[that.pickedProfile]) !== JSON.stringify(val)) {
               that.profiles[that.pickedProfile] = val
+              that.set("profile",val)
             }
           }
         })
