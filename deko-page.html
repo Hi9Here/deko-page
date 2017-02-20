@@ -254,15 +254,11 @@
                 var decks = {}
                 decks[pickedDeck] = val
                 that.set("decks", decks)
-                if (that.$$("#list0")) that.$$("#list0").render()
-                if (that.$$("#list1")) that.$$("#list1").render()
-                if (that.$$("#list2")) that.$$("#list2").render()
-                if (that.$$("#list3")) that.$$("#list3").render()
-                if (that.$$("#list4")) that.$$("#list4").render()
-                if (that.$$("#list5")) that.$$("#list5").render()
                 that.set("theDeck", val)
+                that.render()
               } else if (JSON.stringify(that.decks[deckKey]) !== JSON.stringify(val)) {
                 that.decks[deckKey] = val
+                that.render()
               }
             }
           })
@@ -270,6 +266,14 @@
       } else {
         debugger
       }
+    },
+    render: function(){
+      if (this.$$("#list0")) this.$$("#list0").render()
+      if (this.$$("#list1")) this.$$("#list1").render()
+      if (this.$$("#list2")) this.$$("#list2").render()
+      if (this.$$("#list3")) this.$$("#list3").render()
+      if (this.$$("#list4")) this.$$("#list4").render()
+      if (this.$$("#list5")) this.$$("#list5").render()
     },
     getDeck: function(decks, pickedDeck, theDeck) {
       if (this.decks.hasOwnProperty(this.pickedDeck)){
@@ -329,8 +333,10 @@
               var profiles = {}
               profiles[profileKey] = val
               that.set("profiles",profiles)
+              that.render()
             } else if (JSON.stringify(that.profiles[profileKey]) !== JSON.stringify(val)) {
               that.profiles[profileKey] = val
+              that.render()
             }
           }
         })
