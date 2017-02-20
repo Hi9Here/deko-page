@@ -76,7 +76,6 @@
             </paper-menu-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
-            <div>[[item.name]][[item.title]][[item.color]]</div>
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
           <deko-deck-editor id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
