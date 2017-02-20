@@ -307,7 +307,7 @@
     getProfile: function(profiles, pickedProfile) { 
       //TODO let users pick profile
       if (!pickedProfile) {
-        pickedProfile = 0
+        pickedProfile = Object.keys(profiles)[0]
       }
       if (profiles.hasOwnProperty(pickedProfile)) {
         return profiles[pickedProfile]
