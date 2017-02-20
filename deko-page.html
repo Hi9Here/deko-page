@@ -29,7 +29,7 @@
     <template is="dom-if" if="[[cardPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace id="list1">
+          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace id="list0">
             <deko-deck alignm="rotateup" on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
@@ -46,7 +46,7 @@
               </paper-menu>
             </paper-menu-button>
           </app-toolbar>
-          <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list2">
+          <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-deck index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
@@ -58,7 +58,7 @@
     <template is="dom-if" if="[[deckPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace  id="list3">
+          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace  id="list2">
             <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
@@ -75,7 +75,7 @@
               </paper-menu>
             </paper-menu-button>
           </app-toolbar>
-          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list4">
+          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
             <div>[[item.name]][[item.title]][[item.color]]</div>
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
@@ -150,7 +150,7 @@
         computed:"subProfile(profilesKeys, pickedProfile)"
       },
       pickedProfile:{
-        value:0
+        value:""
       },
       pickedDeck:{
         computed:"selectedDeck(profile.decks)"
@@ -254,7 +254,12 @@
                 var decks = {}
                 decks[pickedDeck] = val
                 that.set("decks", decks)
-                that.$$("#listOfDecks").render()
+                if (that.$$("#list0")) that.$$("#list0").render()
+                if (that.$$("#list1")) that.$$("#list1").render()
+                if (that.$$("#list2")) that.$$("#list2").render()
+                if (that.$$("#list3")) that.$$("#list3").render()
+                if (that.$$("#list4")) that.$$("#list4").render()
+                if (that.$$("#list5")) that.$$("#list5").render()
                 that.set("theDeck", val)
               } else if (JSON.stringify(that.decks[deckKey]) !== JSON.stringify(val)) {
                 that.decks[deckKey] = val
