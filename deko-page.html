@@ -34,16 +34,16 @@
           </template>
         </div> 
         <div main>
-          <app-toolbar>  
+          <app-toolbar>
             <iron-image src="deko-logo-150.png" preload sizing="cover"></iron-image>
-            <div main-title>[[title]]</div>        
+            <div main-title>[[title]]</div>
             <img src="[[profile.picture]]">
-            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>     
+            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
             <paper-menu-button>
               <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
               <paper-menu class="dropdown-content">
                 <paper-item on-tap="logout">Logout</paper-item>
-              </paper-menu>       
+              </paper-menu>
             </paper-menu-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace>
@@ -65,14 +65,14 @@
         <div main>
           <app-toolbar>
             <iron-image src="deko-logo-150.png" preload sizing="cover"></iron-image>
-            <div main-title>[[title]]</div>        
+            <div main-title>[[title]]</div>
             <img src="[[profile.picture]]">
-            <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>     
+            <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
             <paper-menu-button>
               <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
               <paper-menu class="dropdown-content">
                 <paper-item on-tap="logout">Logout</paper-item>
-              </paper-menu>       
+              </paper-menu>
             </paper-menu-button>
           </app-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace>
