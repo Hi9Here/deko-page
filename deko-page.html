@@ -317,7 +317,7 @@
       //TODO let users pick profile
       var that = this
       if (!pickedProfile) {
-        pickedProfile = 0
+        pickedProfile = keys[0]
       }
       if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
         firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
@@ -328,10 +328,8 @@
               var profiles = {}
               profiles[profileKey] = val
               that.set("profiles",profiles)
-              that.set("theProfile",val)
             } else if (JSON.stringify(that.profiles[profileKey]) !== JSON.stringify(val)) {
               that.profiles[profileKey] = val
-              that.set("profile",JSON.parse(JSON.stringify(val)))
             }
           }
         })
