@@ -267,6 +267,7 @@
                 that.render()
               } else if (JSON.stringify(that.decks[deckKey]) !== JSON.stringify(val)) {
                 that.decks[deckKey] = val
+                that.decks[deckKey].__key = deckKey
                 that.render()
               }
             }
@@ -341,10 +342,12 @@
             if (!that.profiles) {
               var profiles = {}
               profiles[profileKey] = val
+              profiles[profileKey].__key = profileKey
               that.set("profiles",profiles)
               that.render()
             } else if (JSON.stringify(that.profiles[profileKey]) !== JSON.stringify(val)) {
               that.profiles[profileKey] = val
+              that.profiles[profileKey].__key = profileKey
               that.render()
             }
           }
