@@ -253,14 +253,15 @@
         if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) {
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
+            var deckKey = deck.getkey()
             if (val){ 
               if (!that.decks) {
                 var decks = {}
                 decks[pickedDeck] = val
                 that.set("decks", decks)
                 that.set("theDeck", val)
-              } else if (JSON.stringify(that.decks[pickedDeck]) !== JSON.stringify(val)) {
-                that.decks[pickedDeck] = val
+              } else if (JSON.stringify(that.decks[deckKey]) !== JSON.stringify(val)) {
+                that.decks[deckKey] = val
               }
             }
           })
@@ -270,13 +271,11 @@
       }
     },
     getDeck: function(decks, pickedDeck, theDeck) {
-      
       if (this.decks.hasOwnProperty(this.pickedDeck)){
         return decks[pickedDeck]
       } else if (theDeck) {
         return theDeck
       } else {
-        // not got
         this.getDecks(this.deckItems,pickedDeck)
       }
     },
@@ -323,14 +322,15 @@
       if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
         firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
           var val = profile.val()
+          var profileKey = profile.getkey()
           if (val){ 
             if (!that.profiles) {
               var profiles = {}
-              profiles[that.pickedProfile] = val
+              profiles[profileKey] = val
               that.set("profiles",profiles)
               that.set("profile",val)
-            } else if (JSON.stringify(that.profiles[that.pickedProfile]) !== JSON.stringify(val)) {
-              that.profiles[that.pickedProfile] = val
+            } else if (JSON.stringify(that.profiles[profileKey]) !== JSON.stringify(val)) {
+              that.profiles[profileKey] = val
               that.set("profile",JSON.parse(JSON.stringify(val)))
             }
           }
@@ -357,12 +357,10 @@
     writeNewProfile: function(uid, picture, profile) {
       // A post entry.
       var Users = {}
-      
       var profileData = {
         profile: profile,
         picture: picture,
       }
-
       // Get a key for a new Post.
       var newPostKey = firebase.database().ref().child('Profiles').push().key
 
