@@ -344,7 +344,7 @@
               profiles[val.__key] = val
               that.set("profiles",profiles)
               that.render()
-            } else if (JSON.stringify(that.profiles[profileKey]) !== JSON.stringify(val)) {
+            } else if (JSON.stringify(that.profiles[val.__key]) !== JSON.stringify(val)) {
               that.profiles[val.__key] = val
               that.render()
             }
