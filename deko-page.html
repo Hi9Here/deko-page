@@ -197,7 +197,6 @@
       update[pathProfile + '/decks/' + key] = null
       update[pathDeck] = null
       this.set("update", update)
-      this.go = !this.go
       this.render()
     },
     updateDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
@@ -216,7 +215,6 @@
       var update2 = {}
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
-      this.go = !this.go
       this.render()
     },
     newDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
@@ -231,7 +229,6 @@
       var update2 = {}
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update2", update2)
-      this.go = !this.go
       this.render()
     },
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile){
@@ -262,11 +259,9 @@
                 decks[val.__key] = val
                 that.set("decks", decks)
                 that.set("theDeck", val)
-                that.go = !that.go
                 that.render()
               } else if (JSON.stringify(that.decks[val.__key]) !== JSON.stringify(val)) {
                 that.decks[val.__key] = val
-                that.go = !that.go
                 that.render()
               }
             }
