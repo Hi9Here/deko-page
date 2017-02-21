@@ -14,5 +14,4 @@ before_script:
 - export PATH=$PWD/node_modules/.bin:$PATH
 - bower install -s
 script:
-- xvfb-run wct --quiet
-
+- xvfb-run wct
