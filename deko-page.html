@@ -156,6 +156,9 @@
       _firebaseUpdate2:{
         computed:"firebaseUpdate(update2)"
       },
+      added:{
+        value: {}
+      }
     },
     selectedDeck: function(decks) {
       for (var deck in decks) {
@@ -233,7 +236,8 @@
     },
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile){
       // get decks or make deck
-      if (!profile.decks) {
+      if (!profile.decks && !this.added["profile"]) {
+        this.added["profile"] = true
         var deck = {
           color: "#666",
           name: "Home",
@@ -296,7 +300,8 @@
       // get decks or make deck
       var pathDecks = '/Decks/' + pickedDeck
       this.set("path", pathDecks + '/cards/')
-      if (!deck.cards) {
+      if (!deck.cards && !this.added["deck"]) {
+        this.added["deck"] = true
         var newPostKey = firebase.database().ref().child('Cards').push().key
         var card = {
           color: "#666",
