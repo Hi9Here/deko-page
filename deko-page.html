@@ -36,7 +36,7 @@
           </template>
         </div> 
         <div main>
-          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]">
+          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
@@ -56,7 +56,7 @@
           </template>
         </div> 
         <div main>
-          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]">
+          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
