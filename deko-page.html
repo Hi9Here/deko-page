@@ -35,19 +35,9 @@
           </template>
         </div> 
         <div main>
-          <app-toolbar>
-            <iron-image src="deko-logo-150.png" preload sizing="cover"></iron-image>
-            <div main-title>[[title]]</div>
-            <inbox-search value="{{search}}"></inbox-search>
-            <img src="[[profile.picture]]">
+          <deko-toolbar search="{{search}}" on-logout="logout">
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
-            <paper-menu-button>
-              <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
-              <paper-menu class="dropdown-content">
-                <paper-item on-tap="logout">Logout</paper-item>
-              </paper-menu>
-            </paper-menu-button>
-          </app-toolbar>
+          </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-deck index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
@@ -65,18 +55,9 @@
           </template>
         </div> 
         <div main>
-          <app-toolbar>
-            <iron-image src="deko-logo-150.png" preload sizing="cover"></iron-image>
-            <div main-title>[[title]]</div>
-            <img src="[[profile.picture]]">
+          <deko-toolbar search="{{search}}" on-logout="logout">
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
-            <paper-menu-button>
-              <paper-icon-button icon="more-vert" class="dropdown-trigger"></paper-icon-button>
-              <paper-menu class="dropdown-content">
-                <paper-item on-tap="logout">Logout</paper-item>
-              </paper-menu>
-            </paper-menu-button>
-          </app-toolbar>
+          </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
           </template>
