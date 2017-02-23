@@ -118,6 +118,9 @@
       pickedDeck:{
         computed:"selectedDeck(profile.decks,go)"
       },
+      decksWidth: {
+        computed:"getDecksWidth(deckItems)"
+      },
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
         notify:true,
@@ -414,6 +417,9 @@
       this.set("update", update)
       this.$$("#drawer").closeDrawer()
       this.render()
+    },
+    getDecksWidth: function(deckItems){
+      return deckItems.length * 48
     },
     getPickableWidth: function(deckItems){
 //      if (deckItems && deckItems.filter(this.pickable).length > 3) {
