@@ -49,7 +49,7 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[deckPage]]"> 
-      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
+      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[decksWidth]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace  id="list2">
             <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
