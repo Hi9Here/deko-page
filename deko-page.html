@@ -51,7 +51,7 @@
     <template is="dom-if" if="[[deckPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace  id="list2">
+          <template is="dom-repeat" items="{{deckItems}}" not-filter="pickable" strip-whitespace  id="list2">
             <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
@@ -386,10 +386,10 @@
       return item.selected || false
     },
     select: function(e){
+      this.deckPage = false
       var that = this
       var deckName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
       var pathProfile = 'Profiles/' + this.profilesKeys[this.pickedProfile]
-      
       var updatedDeck = this.deckItems.map(function(x,i){
         if (x.name == deckName) {
           x.selected = true
