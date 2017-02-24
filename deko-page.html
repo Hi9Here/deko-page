@@ -396,6 +396,7 @@
       var updatedDeck = this.deckItems.map(function(x,i){
         if (x.name == deckName) {
           x.selected = true
+          that.async(that.pickedDeck(x.__key))
         } else {
           x.selected = false
         }
@@ -417,6 +418,16 @@
       this.set("update", update)
       this.$$("#drawer").closeDrawer()
       this.render()
+    },
+    pickedDeck: function(key){
+      var userUpdate = {}
+      var newPostKey = firebase.database().ref().child('User/'+this.user.uid+'/log/deckSelected').push().key
+      userUpdate['User/'+this.user.uid+'/log/deckSelected/'+newPostKey] = {
+        key: key,
+        date: firebase.database.ServerValue.TIMESTAMP,
+        as: this.profilesKeys[this.pickedProfile],
+      }
+      this.set("update2",userUpdate)
     },
     getDecksWidth: function(deckItems){
       return deckItems.length * 48
