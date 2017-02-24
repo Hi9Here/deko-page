@@ -422,7 +422,7 @@
     logSelectedDeck: function(key){
       var userUpdate = {}
       var newPostKey = firebase.database().ref().child('User/'+this.user.uid+'/log/deckSelected').push().key
-      userUpdate['User/'+this.user.uid+'/log/deckSelected/'+newPostKey] = {
+      userUpdate['Users/'+this.user.uid+'/log/deckSelected/'+newPostKey] = {
         key: key,
         date: firebase.database.ServerValue.TIMESTAMP,
         as: this.profilesKeys[this.pickedProfile],
