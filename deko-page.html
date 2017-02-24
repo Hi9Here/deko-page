@@ -396,7 +396,7 @@
       var updatedDeck = this.deckItems.map(function(x,i){
         if (x.name == deckName) {
           x.selected = true
-          that.async(that.pickedDeck(x.__key))
+          that.async(that.logSelectedDeck(x.__key))
         } else {
           x.selected = false
         }
@@ -419,7 +419,7 @@
       this.$$("#drawer").closeDrawer()
       this.render()
     },
-    pickedDeck: function(key){
+    logSelectedDeck: function(key){
       var userUpdate = {}
       var newPostKey = firebase.database().ref().child('User/'+this.user.uid+'/log/deckSelected').push().key
       userUpdate['User/'+this.user.uid+'/log/deckSelected/'+newPostKey] = {
