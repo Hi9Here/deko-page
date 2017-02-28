@@ -32,7 +32,7 @@
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace id="list0">
-            <deko-deck alignm="rotateup" on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-deck on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
         </div> 
         <div main>
@@ -40,7 +40,7 @@
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
-            <deko-deck index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-deck alignm="rotateup" index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
             <deko-cards by-child="__key" path="[[path]]" deck="[[deckKey]]"></deko-cards>
@@ -51,16 +51,14 @@
     <template is="dom-if" if="[[deckPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[decksWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace  id="list2">
-            <deko-deck alignm="rotateup" on-click="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
-          </template>
+your profile here
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
             <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
-            <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck" on-tap="editDeck"></card-deck>
+            <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck"></card-deck>
           </template>
           <deko-deck-editor id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
         </div>
