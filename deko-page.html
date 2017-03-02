@@ -99,9 +99,12 @@ your profile here
         computed:"getDecks(deckItems,pickedDeck)",
       },
       deck:{
-        computed:"getDeck(decks,pickedDeck,theDeck)",
+        computed:"getDeck(decks,pickedDeck,theDeck,urlDeck)",
       },
       theDeck:{
+        value:""
+      },
+      urlDeck:{
         value:""
       },
       deckKey:{
@@ -269,8 +272,10 @@ your profile here
       if (this.$$("#list4")) this.$$("#list4").render()
       if (this.$$("#list5")) this.$$("#list5").render()
     },
-    getDeck: function(decks, pickedDeck, theDeck) {
-      if (this.decks.hasOwnProperty(this.pickedDeck)){
+    getDeck: function(decks, pickedDeck, theDeck, urlDeck) {
+      if (urlDeck) {
+        return urlDeck
+      } else if (this.decks.hasOwnProperty(this.pickedDeck)){
         return decks[pickedDeck]
       } else if (theDeck) {
         return theDeck
