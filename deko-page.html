@@ -338,6 +338,7 @@ your profile here
               that.render()
             } else if (JSON.stringify(that.profiles[val.__key]) !== JSON.stringify(val)) {
               that.profiles[val.__key] = val
+              that.set("profiles",JSON.parse(JSON.stringify(that.profiles)))
               that.render()
             }
           }
