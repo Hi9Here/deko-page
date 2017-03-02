@@ -295,8 +295,10 @@ your profile here
         var newPostKey = firebase.database().ref().child('Cards').push().key
         var card = {
           color: "#666",
-          tilte: "open-elements",
-          link: "https://open-elements.org/",
+          link:{
+            title: "Road Map",
+            link:"https://docs.google.com/document/d/1iD_eCK9kr6DtAlUuCqHlvFMhXwvZvejIt38dBCBRKkM/edit",
+          }
         }
         var update = {}
         update[pathDecks + '/cards/' + newPostKey + '/'] = card
