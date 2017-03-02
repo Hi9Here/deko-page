@@ -244,8 +244,8 @@ your profile here
         if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) {
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
-            val.__key = deck.getKey()
             if (val){ 
+              val.__key = deck.getKey()
               if (!that.decks) {
                 var decks = {}
                 decks[val.__key] = val
@@ -329,8 +329,8 @@ your profile here
       if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
         firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
           var val = profile.val()
-          val.__key = profile.getKey()
           if (val){ 
+            val.__key = profile.getKey()
             if (!that.profiles) {
               var profiles = {}
               profiles[val.__key] = val
