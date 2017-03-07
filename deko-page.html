@@ -11,6 +11,7 @@
 <link rel="import" href="../deko-toolbar/deko-toolbar.html">
 <link rel="import" href="../inbox-search/inbox-search.html">
 <link rel="import" href="../paper-button/paper-button.html">
+<link rel="import" href="../profile-page/profile-page.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../deko-cards/deko-cards.html">
@@ -51,7 +52,7 @@
     <template is="dom-if" if="[[deckPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[decksWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-your profile here
+          <profile-page></profile-page>
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
