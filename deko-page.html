@@ -32,9 +32,14 @@
     <template is="dom-if" if="[[cardPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <template is="dom-repeat" items="{{deckItems}}" filter="pickable" strip-whitespace id="list0">
-            <deko-deck on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
-          </template>
+          <template is="dom-if" if="[[deckItems.length]]">
+            <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
+              <deko-deck on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            </template>
+          </template> 
+          <template is="dom-if" if="[[!deckItems.length]]">
+            <profile-page></profile-page>
+          </template>  
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
