@@ -38,7 +38,7 @@
             </template>
           </template> 
           <template is="dom-if" if="[[!deckItems.length]]">
-            <profile-page></profile-page>
+            <profile-page path="[[path]]" deck="[[deckKey]]"></profile-page>
           </template>  
         </div> 
         <div main>
@@ -57,7 +57,7 @@
     <template is="dom-if" if="[[deckPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[decksWidth]]px">
         <div class="horizontal start-justified layout" drawer>
-          <profile-page></profile-page>
+          <profile-page  profile="[[profile]]"></profile-page>
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
