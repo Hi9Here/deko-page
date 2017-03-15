@@ -27,8 +27,6 @@
 -->
 <dom-module id="deko-page">
   <template>
-    <style include="shared-styles"></style>
-    <style>:host {display:block} </style>
     <template is="dom-if" if="[[cardPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
@@ -71,7 +69,12 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[loginPage]]">
-      <div style="display: flex;justify-content: center;align-items: center;">
+      <div style="
+        display: flex;
+        justify-content: 
+        center;
+        font-size: 40px;
+        font-family: Roboto, Arial, Helvetica, sans-serif;">
         <content select="login-page"></content>
       </div>
     </template>
