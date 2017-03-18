@@ -47,7 +47,7 @@
             <deko-deck alignm="rotateup" index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
-            <deko-cards by-child="__key" path="[[path]]" deck="[[deckKey]]"></deko-cards>
+            <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]"></deko-cards>
           </div>
         </div>
       </paper-drawer-panel>
@@ -115,9 +115,6 @@
         value:""
       },
       urlDeck:{
-        value:""
-      },
-      deckKey:{
         value:""
       },
       deckPage:{
