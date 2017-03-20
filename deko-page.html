@@ -155,12 +155,12 @@
         value: {}
       },
       deckColor:{
-        computed:"getDeckColor(pickedDeck,deckItems)"
+        computed:"getDeckColor(deck)"
       },
     },
-    getDeckColor: function(pickedDeck,deckItems) {
-      if (pickedDeck && deckItems && deckItems.hasOwnProperty(pickedDeck)) {
-        return deckItems[pickedDeck].color
+    getDeckColor: function(deck) {
+      if (deck && deck.hasOwnProperty("color")) {
+        return deck.color
       }
     },
     selectedDeck: function(decks) {
