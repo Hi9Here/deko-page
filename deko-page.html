@@ -252,8 +252,6 @@
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
             if (val){ 
-              
-              document.title = val.name
               val.__key = deck.getKey()
               if (!that.decks) {
                 var decks = {}
@@ -285,6 +283,7 @@
       if (urlDeck) {
         return urlDeck
       } else if (this.decks.hasOwnProperty(this.pickedDeck)){
+        document.title = decks[pickedDeck].name
         return decks[pickedDeck]
       } else if (theDeck) {
         return theDeck
