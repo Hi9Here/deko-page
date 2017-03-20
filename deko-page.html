@@ -260,6 +260,8 @@
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
             if (val){ 
+              
+              document.title = val.title
               val.__key = deck.getKey()
               if (!that.decks) {
                 var decks = {}
@@ -410,6 +412,7 @@
       return item.selected || false
     },
     select: function(e){
+      document.title = "loading ..."
       this.deckPage = false
       var that = this
       var deckName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
