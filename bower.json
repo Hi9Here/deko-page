@@ -8,7 +8,7 @@
     "web-components"
   ],
   "dependencies": {
-    "polymer": "polymer/polymer#~1.7.1",
+    "polymer": "polymer/polymer#^1.8.1",
     "paper-styles": "polymerelements/paper-styles#~1.1.5",
     "iron-flex-layout": "PolymerElements/iron-flex-layout",
     "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.7",
@@ -28,7 +28,8 @@
     "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
-    "profile-page":"Hi9Here/profile-page"
+    "profile-page":"Hi9Here/profile-page",
+    "deko-opened-card":"Hi9Here/deko-opened-card"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers",
