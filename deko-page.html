@@ -240,7 +240,6 @@
     getDecks: function(deckItems, pickedDeck) {
       //TODO let users pick
       var that = this
-      
       if (deckItems.length > 0) {
         if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) {
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
@@ -262,6 +261,13 @@
         }
       } else {
         debugger
+      }
+      if (!this.perloading) {
+        this.perloading = true
+        function doPerloading(currentValue, index, array) {
+          that.getDecks(array, currentValue.__key)
+        }
+        deckItems.map(doPerloading)
       }
     },
     render: function(){
