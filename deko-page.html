@@ -170,13 +170,15 @@
       },
     },
     getWidth: function(n) {
-      return n * 48
+      if (n || n === 0) {
+        return n * 48
+      }
     },
     openCard: function(e,d) {
-      console.log(e,d) 
-      //TODO set 
+      console.log(e,d)
       this.openedCardPage = true
-      // this.card
+      this.card = e.target.card
+      this.
       // this...
     },
     closeCard: function() {
