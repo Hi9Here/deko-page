@@ -47,7 +47,24 @@
             <deko-deck alignm="rotateup" index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
-            <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]"></deko-cards>
+            <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard"></deko-cards>
+          </div>
+        </div>
+      </paper-drawer-panel>
+    </template>
+    <template is="dom-if" if="[[openedCardPage]]"> 
+      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
+        <div class="horizontal start-justified layout" drawer>
+          <template is="dom-if" if="[[openedCardDeckItems.length]]">
+            <template is="dom-repeat" items="[[openedCardDeckItems]]" filter="pickable" strip-whitespace id="list4">
+              <deko-deck on-tap="selectOpenedCardDeck" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            </template>
+          </template> 
+        </div> 
+        <div main>
+          <deko-deck alignm="rotateup" index="[[index]]" style="float:left;width:48px" link="" name="[[openedCardDeck.name]]" color="[[openedCardDeck.color]]"></deko-deck>
+          <div style="padding-left:48px">
+            <deko-openedcard card="{{card}}" decks="{{openedCardDeckItems}}" deck="{{openedCardDeck}}"></deko-openedcard>
           </div>
         </div>
       </paper-drawer-panel>
@@ -148,6 +165,13 @@
       added:{
         value: {}
       },
+    },
+    openCard: function(e,d) {
+      console.log(e,d) 
+      //TODO set 
+      this.openedCardPage = true
+      this.card
+      this.
     },
     selectedDeck: function(decks) {
       for (var deck in decks) {
