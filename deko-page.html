@@ -76,7 +76,7 @@
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="apps" on-tap="toggleDeckPage"></paper-icon-button>
+            <paper-icon-button icon="apps" on-tap="closeCard"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck"></card-deck>
@@ -96,6 +96,9 @@
   Polymer({
     is: "deko-page",
     properties:{
+      openedCardPage:{
+        value: false 
+      },
       loginPage:{
         computed:"showLoginPage(user)",
       },
@@ -173,6 +176,9 @@
       // this.card
       // this...
     },
+    closeCard: function() {
+      this.openedCardPage = false
+    },
     selectedDeck: function(decks) {
       for (var deck in decks) {
         if (decks[deck].selected) {
@@ -189,10 +195,11 @@
         this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       }
     },
-    showCardPage: function(loginPage,deckPage){
-      return !loginPage && !deckPage
+    showCardPage: function(loginPage,deckPage,openedCardPage){
+      return !loginPage && !deckPage && !openedCardPage
     },
     toggleDeckPage: function(){
+      this.openedCardPage = false
       this.set("deckPage",!this.deckPage)
     },
     firebaseUpdate: function(update){
