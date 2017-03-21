@@ -53,7 +53,7 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[openedCardPage]]"> 
-      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
+      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[getWidth(openedCardDeckItems.length)]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[openedCardDeckItems.length]]">
             <template is="dom-repeat" items="[[openedCardDeckItems]]" filter="pickable" strip-whitespace id="list4">
@@ -141,7 +141,7 @@
         computed:"selectedDeck(profile.decks,go)"
       },
       decksWidth: {
-        computed:"getDecksWidth(deckItems)"
+        computed:"getWidth(deckItems.length)"
       },
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
@@ -149,7 +149,7 @@
       },
       path:String,
       cardPage:{
-        computed:"showCardPage(loginPage,deckPage)",
+        computed:"showCardPage(loginPage,deckPage,openedCardPage)",
       },
       cards:{
         type:Array,
@@ -168,6 +168,9 @@
       added:{
         value: {}
       },
+    },
+    getWidth: function(n) {
+      return n * 48
     },
     openCard: function(e,d) {
       console.log(e,d) 
@@ -476,11 +479,11 @@
       this.set("update2",userUpdate)
     },
     getDecksWidth: function(deckItems){
-      return deckItems.length * 48
+      return this.getWidth(deckItems.length) 
     },
     getPickableWidth: function(deckItems){
 //      if (deckItems && deckItems.filter(this.pickable).length > 3) {
-      return deckItems.filter(this.pickable).length * 48
+      return this.getWidth(deckItems.filter(this.pickable).length)
 //      } else {
 //        return 48 * 2
  //     }
