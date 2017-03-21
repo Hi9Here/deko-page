@@ -63,8 +63,11 @@
           </template> 
         </div> 
         <div main>
+          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
+            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
+          </deko-toolbar>
           <div style="padding-left:48px">
-            <deko-card card="{{card}}" decks="{{openedCardDeckItems}}" deck="{{openedCardDeck}}"></deko-card>
+            <deko-opened-card card="{{card}}" decks="{{openedCardDeckItems}}" deck="{{openedCardDeck}}"></deko-opened-card>
           </div>
         </div>
       </paper-drawer-panel>
@@ -72,7 +75,7 @@
     <template is="dom-if" if="[[deckPage]]"> 
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="240px">
         <div class="horizontal start-justified layout" drawer>
-          <profile-page  profile="[[profile]]"></profile-page>
+          <profile-page profile="[[profile]]"></profile-page>
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
@@ -178,6 +181,7 @@
       console.log(e,d)
       this.openedCardPage = true
       this.card = e.target.card
+      console.log(e.target.card)
       this.
       // this...
     },
