@@ -64,7 +64,7 @@
         </div>
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
+            <paper-icon-button icon="view-week" on-tap="closeCard"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-deck alignm="rotateup" index="[[index]]" style="float:left;width:48px" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
@@ -72,6 +72,7 @@
           <div style="padding-left:48px">
             <deko-opened-card card="{{card}}" edit pillar="[[openedCardDeck]]"></deko-opened-card> <!-- TODO edit? -->
           </div>
+          <paper-fab style="position:fixed;right: 25px;bottom: 30px" icon="subdirectory-arrow-left" on-tap="closeCard"></paper-fab>
         </div>
       </paper-drawer-panel>
     </template>
