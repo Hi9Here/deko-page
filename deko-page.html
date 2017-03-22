@@ -183,7 +183,7 @@
     openCard: function(e,d) {
       console.log(e,d)
       this.openedCardPage = true
-      this.card = d.d.card
+      this.card = d.e.target.parentNode.parentElement.parentElement.card || d.e.target.parentNode.parentElement.card || d.e.target.parentNode.card || d.e.target.card || d.e.target.parentNode.parentElement.parentElement.parentNode.card 
       this.openedCardDeckItems = d.d.decks
       this.openedCardDeck = d.d.deck
       debugger
