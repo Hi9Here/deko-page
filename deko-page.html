@@ -446,6 +446,23 @@
     selected: function(item){
       return item.selected || false
     },
+    selectOpenedCardDeck: function(e) {
+      var that = this
+      var pillarName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
+      this.openedCardDeckItems = this.openedCardDeckItems.map(function(x,i){
+        if (x.name == pillarName) {
+          x.selected = true
+          // that.async(that.logCardOpened(x.__key))
+        } else {
+          x.selected = false
+        }
+        return x
+      })
+      this.openedCardDeck = this.openedCardDeckItems.filter(this.selected)[0]
+      
+      this.$$("#drawer").closeDrawer()
+      this.render()
+    },
     select: function(e){
       document.title = "loading ..."
       this.deckPage = false
