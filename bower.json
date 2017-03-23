@@ -28,8 +28,8 @@
     "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
-    "profile-page":"Hi9Here/profile-page",
-    "deko-opened-card":"Hi9Here/deko-opened-card"
+    "profile-page": "Hi9Here/profile-page",
+    "deko-opened-card": "Hi9Here/deko-opened-card"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers",
@@ -37,10 +37,14 @@
     "test-fixture": "PolymerElements/test-fixture"
   },
   "resolutions": {
-    "iron-flex-layout": "1.3.1",
+    "iron-flex-layout": "~1.3.0",
     "iron-icon": "^1.0.0",
     "iron-a11y-keys-behavior": "^1.1.5",
     "paper-input": "^1.0.9",
-    "test-fixture": "^2.0.1"
+    "test-fixture": "^2.0.1",
+    "polymer": "^1.8.1",
+    "inbox-search": "45e40c4300",
+    "paper-icon-button": "1.1.4",
+    "paper-item": "^1.0.0"
   }
 }
