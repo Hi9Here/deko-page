@@ -184,7 +184,7 @@
     },
     itemsPickable: function(items) {
       if (items && Array.isArray(items)){
-        return items.filter(this.pickable)
+        return items.filter(this.pickable).length
       }
     },
     getWidth: function(n) {
