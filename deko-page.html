@@ -182,8 +182,10 @@
         value: {}
       },
     },
-    getOpenedCardDeckItemsPickable: function(openedCardDeckItems) {
-      openedCardDeckItems.filter(this.pickable)
+    itemsPickable: function(items) {
+      if (items && Array.isArray(items)){
+        items.filter(this.pickable)
+      }
     },
     getWidth: function(n) {
       if (n || n === 0) {
