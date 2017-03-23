@@ -164,7 +164,7 @@
       cardPage:{
         computed:"showCardPage(loginPage,deckPage,openedCardPage)",
       },
-      cards:{
+      _cards:{
         type:Array,
         notify:true,
         computed:"getCardsItems(deck,deckItems,pickedDeck,go)",
@@ -371,7 +371,9 @@
         update2['/Cards/' + newPostKey + '/deck/' ] = pickedDeck
         this.set("update2", update2)
       } else {
-        return this.objectToArray(deck.cards)
+        if (JSON.stringify(this.cards) !== JSON.stringify(this.objectToArray(deck.cards))) {
+          this.cards = this.objectToArray(deck.cards)
+        }
       }
     },
     getProfile: function(profiles, pickedProfile) { 
