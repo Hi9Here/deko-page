@@ -109,6 +109,9 @@
       openedCardPage:{
         value: false 
       },
+      openedCardDeckItemsPickable:{
+        computed:"getOpenedCardDeckItemsPickable(openedCardDeckItems)",
+      },
       loginPage:{
         computed:"showLoginPage(user)",
       },
@@ -178,6 +181,9 @@
       added:{
         value: {}
       },
+    },
+    getOpenedCardDeckItemsPickable: function(openedCardDeckItems) {
+      openedCardDeckItems.filter(this.pickable)
     },
     getWidth: function(n) {
       if (n || n === 0) {
