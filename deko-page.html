@@ -71,13 +71,10 @@
             <deko-deck on-tap="openDrawer" alignm="rotateup" style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
-            <iron-pages selected="openedCardDeck">
-              <div>
-                <deko-opened-card card="{{card}}" edit pillar="[[openedCardDeckItems.0]]"></deko-opened-card> <!-- TODO edit? -->
-              </div>
-              <div>
-                <deko-opened-card card="{{card}}" edit pillar="[[openedCardDeckItems.1]]"></deko-opened-card> <!-- TODO edit? -->
-              </div>
+            <iron-pages selected="[[openedCardDeck]]">
+              <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
+                <deko-opened-card card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
+              </template>
             </iron-pages>
           </div>
           <paper-fab style="position:fixed;right: 25px;bottom: 30px" icon="subdirectory-arrow-left" on-tap="closeCard"></paper-fab>
