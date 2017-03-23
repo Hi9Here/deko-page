@@ -67,7 +67,7 @@
             <paper-icon-button icon="view-week" on-tap="closeCard"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
-            <deko-deck alignm="rotateup" index="[[index]]" style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-deck on-tap="openDrawer" alignm="rotateup" index="[[index]]" style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
             <deko-opened-card card="{{card}}" edit pillar="[[openedCardDeck]]"></deko-opened-card> <!-- TODO edit? -->
@@ -198,7 +198,6 @@
       // this...
     },
     closeCard: function() {
-      this.$$("#drawer").closeDrawer()
       this.openedCardPage = false
     },
     selectedDeck: function(decks) {
@@ -456,6 +455,14 @@
     },
     selected: function(item){
       return item.selected || false
+    },
+    openDrawer: function(){
+      if (this.$$("#drawerOpenCard")) {
+        this.$$("#drawerOpenCard").openDrawer()
+      }
+      if (this.$$("#drawer")) {
+        this.$$("#drawer").openDrawer()
+      }
     },
     selectOpenedCardDeck: function(e) {
       var that = this
