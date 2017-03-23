@@ -45,7 +45,7 @@
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </deko-toolbar>
-          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list1">
+          <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-deck alignm="rotateup" index="[[index]]" style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
           </template>
           <div style="padding-left:48px">
@@ -72,7 +72,7 @@
           </template>
           <div style="padding-left:48px">
             <iron-pages selected="[[openedCardDeck]]">
-              <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
+              <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
                 <deko-opened-card card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
               </template>
             </iron-pages>
