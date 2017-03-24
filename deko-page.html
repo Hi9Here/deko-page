@@ -199,6 +199,7 @@
       this.openedCardPage = true
       this.card = d.e.target.parentNode.parentElement.parentElement.card || d.e.target.parentNode.parentElement.card || d.e.target.parentNode.card || d.e.target.card || d.e.target.parentNode.parentElement.parentElement.parentNode.card 
       this.openedCardDeckItems = d.d.decks
+      this.selectOpenedCardDeck("view")
       // this...
     },
     closeCard: function() {
@@ -470,7 +471,7 @@
     },
     selectOpenedCardDeck: function(e) {
       var that = this
-      var pillarName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
+      var pillarName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name || e
       var pillar = 0
       this.openedCardDeckItems = this.openedCardDeckItems.map(function(x,i){
         if (x.name == pillarName) {
