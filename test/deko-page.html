@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>deko-page</title>
+    <title>deko-deck</title>
     <script src="../../webcomponentsjs/webcomponents.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../test-fixture/test-fixture-mocha.js"></script>
@@ -13,57 +13,38 @@
   <body>
     <test-fixture id="dekoPage">
       <template>
-        <deko-page></deko-page> //TODO add attributes
+        <deko-page></deko-page>
       </template>
     </test-fixture>
-
-     <script>
-
+    <script>
       suite('<deko-page>', function () {
-        var dekoPage;
+        var deko;
         setup(function () {
-          dekoPage = fixture('dekoPage');
+          deko = fixture('dekoPage');
         });
-// This test is just to show that tests are running
-        suite('test', function () {
-          test('test is running', function(done) {
-            done()
-          })
-        })
 
-// These tests assert whether somthing is there
+// These tests assert whether the attributes are working
         suite('deko-app tests', function() {
-        var home;
 
-          setup(function() {
-            home = fixture('dekoPage');
+          test('instantiating the element works', function() {
+            assert.equal(deko.is, 'deko-page');
           });
 
-          test('paper-icon-button icon has a value of view-week', function() {
-            var icon = Polymer.dom(home.root).querySelector('app-toolbar paper-icon-button');
-            assert.equal(icon.icon, "view-week");
-          });
+          // test('color of deck is red', function() {
+          //   var deckbgcolor = Polymer.dom(deko.root).querySelector('#deck-box');
+          //   assert.equal(deckbgcolor.style.backgroundColor, "red");
+          // });
+
+          // TODO Create a Name Test
+          // test('name is test', function() {
+          //   var deckName = Polymer.dom(deko.root).querySelector('deko-page');
+          //   assert.equal(deckName.name, "test");
+          // });
 
         });
 
-// These test allow you to interact with the element
-        suite('basic usage', function () {		
-          test('can be triggered with space', function(done) {		
-            dekoPage.addEventListener('keydown', function() {		
-              done()		
-            })		
-            MockInteractions.pressSpace(dekoPage)		
-          })		
-          test('can be clicked', function(done) {		
-            dekoPage.addEventListener('click', function() {		
-              done()		
-            })		
-            MockInteractions.tap(dekoPage)		
-          })
-        })
       })
 
     </script>
   </body>
 </html>
-
