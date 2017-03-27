@@ -13,14 +13,14 @@
 <link rel="import" href="../inbox-search/inbox-search.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../profile-page/profile-page.html">
+<link rel="import" href="../deko-pillar/deko-pillar.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
 <link rel="import" href="../deko-cards/deko-cards.html">
-<link rel="import" href="../deko-deck/deko-deck.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../card-deck/card-deck.html">
-<link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="shared-styles.html">
 
 <!--
@@ -38,7 +38,7 @@
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[deckItems.length]]">
             <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
-              <deko-deck on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+              <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-pillar>
             </template>
           </template> 
           <template is="dom-if" if="[[!deckItems.length]]">
@@ -50,7 +50,7 @@
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
-            <deko-deck selected index="[[index]]" style="float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-pillar selected index="[[index]]" style="float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-pillar>
           </template>
           <div style="padding-left:48px">
             <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard"></deko-cards>
@@ -63,7 +63,7 @@
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[openedCardDeckItems.length]]">
             <template is="dom-repeat" items="[[openedCardDeckItems]]" filter="pickable" strip-whitespace id="list4">
-              <deko-deck on-tap="selectOpenedCardDeck" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+              <deko-pillar on-tap="selectOpenedCardDeck" color="[[item.color]]">[[item.name]]</deko-pillar>
             </template>
           </template>
         </div>
@@ -72,7 +72,7 @@
             <paper-icon-button icon="view-week" on-tap="closeCard"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
-            <deko-deck on-tap="openDrawer" alignm="rotateup" style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-pillar on-tap="openDrawer" alignm="rotateup" style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-pillar>
           </template>
           <div style="padding-left:48px">
             <iron-pages selected="[[openedCardDeck]]">
