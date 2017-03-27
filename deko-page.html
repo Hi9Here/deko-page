@@ -25,12 +25,9 @@
 
 <!--
   `deko-page`
-
-
-
-  
-  @demo demo/index.html
+  @demo
 -->
+
 <dom-module id="deko-page">
   <template>
     <template is="dom-if" if="[[cardPage]]"> 
@@ -205,7 +202,7 @@
       console.log(e,d)
       this.openedCardPage = true
       this.card = d.e.target.parentNode.parentElement.parentElement.card || d.e.target.parentNode.parentElement.card || d.e.target.parentNode.card || d.e.target.card || d.e.target.parentNode.parentElement.parentElement.parentNode.card 
-      this.openedCardDeckItems = d.d.decks
+      this.openedCardDeckItems = d.d.pillars
       // this...
     },
     closeCard: function() {
