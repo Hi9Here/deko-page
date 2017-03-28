@@ -13,7 +13,7 @@
     "paper-styles": "polymerelements/paper-styles#~1.1.5",
     "iron-flex-layout": "PolymerElements/iron-flex-layout",
     "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.7",
-    "deko-deck-editor": "Hi9Here/deko-deck-editor",
+    "deko-deck-adder": "Hi9Here/deko-deck-adder",
     "deko-toolbar": "Hi9Here/deko-toolbar",
     "deko-pillar": "Hi9Here/deko-pillar",
     "card-deck": "marcus7777/card-deck",
