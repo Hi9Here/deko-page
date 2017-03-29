@@ -75,9 +75,7 @@
           <div style="padding-left:48px">
             <lazy-pages selected="[[openedCardDeck]]">
               <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
-                <template is="dom-if">
-                  <deko-opened-card card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
-                </template>
+                <deko-opened-card card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
               </template>
             </lazy-pages>
           </div>
