@@ -173,7 +173,7 @@
         computed:"getCardsItems(deck,deckItems,pickedDeck,go)",
       },
       getWriteUserData: {
-        computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
+        computed:"writeUserData(user.uid,user.displayName,user.email)"
       },
       _firebaseUpdate:{
         computed:"firebaseUpdate(update)"
@@ -427,11 +427,11 @@
         }
       })
     },
-    writeUserData: function(userId, name, email, imageUrl) {
+    writeUserData: function(userId, name, email) {
       firebase.database().ref('/Users/' + userId + '/details/').set({
         name: name,
         email: email,
-        profile_picture: imageUrl,
+        profile_picture: "",
       })
     },
     writeNewProfile: function(uid, picture, profile) {
