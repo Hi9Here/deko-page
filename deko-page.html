@@ -126,7 +126,7 @@
         computed:"subProfile(profilesKeys, pickedProfile)"
       },
       _profilesKeys: {
-        computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
+        computed:"getProfiles(user.uid,user.displayName)"
       },
       pickedProfile:{
         value:0
@@ -415,14 +415,14 @@
         })
       }
     },
-    getProfiles: function(uid,name,picture) {
+    getProfiles: function(uid,name) {
       var that = this
       firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
         if (profiles.val()) {
           that.profilesKeys = Object.keys(profiles.val())
           that.render()
         } else {
-          that.writeNewProfile(uid, picture, name)
+          that.writeNewProfile(uid, name)
           that.render()
         }
       })
@@ -434,12 +434,11 @@
         profile_picture: "",
       })
     },
-    writeNewProfile: function(uid, picture, profile) {
+    writeNewProfile: function(uid, profile) {
       // A post entry.
       var Users = {}
       var profileData = {
         profile: profile,
-        picture: picture,
       }
       // Get a key for a new Post.
       var newPostKey = firebase.database().ref().child('Profiles').push().key
@@ -525,7 +524,7 @@
       this.render()
     },
     logSelectedDeck: function(key){
-      var userUpdate = {}
+      var userUpdate = {} // TODO move to firebase functions
       var newPostKey = firebase.database().ref().child('User/'+this.user.uid+'/log/deckSelected').push().key
       userUpdate['Users/'+this.user.uid+'/log/deckSelected/'+newPostKey] = {
         key: key,
