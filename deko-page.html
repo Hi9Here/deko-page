@@ -72,9 +72,11 @@
             <deko-pillar on-tap="openDrawer" selected style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
           </template>
           <div style="padding-left:48px">
-            <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
-              <deko-opened-card card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
-            </template>
+            <iron-pages>
+              <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
+                <deko-opened-card card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
+              </template>
+            </iron-pages>
           </div>
           <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="subdirectory-arrow-left" on-tap="closeCard"></paper-fab>
         </div>
