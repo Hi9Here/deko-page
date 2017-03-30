@@ -342,7 +342,7 @@
       if (urlDeck) {
         if (decks.hasOwnProperty(urlDeck)) {
           document.title = decks[urlDeck].name
-          return decks[urlDeck].name
+          return decks[urlDeck]
         } else { 
           this.getDecks(this.deckItems,urlDeck)
         }
