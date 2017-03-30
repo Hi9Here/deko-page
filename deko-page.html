@@ -340,7 +340,9 @@
     },
     getDeck: function(decks, pickedDeck, theDeck, urlDeck) {
       if (urlDeck) {
-        return urlDeck
+        this.getDecks(this.deckItems,urlDeck)
+        document.title = this.decks[urlDeck].name
+        return this.decks[urlDeck].name
       } else if (this.decks.hasOwnProperty(this.pickedDeck)){
         document.title = decks[pickedDeck].name
         return decks[pickedDeck]
@@ -454,6 +456,7 @@
       return obj
     },
     pickable: function(item){
+      //TODO filter out not own desks
       return !item.selected
     },
     selected: function(item){
