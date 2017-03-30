@@ -513,6 +513,7 @@
         if (x.name == deckName) {
           x.selected = true
           that.async(that.logSelectedDeck(x.__key))
+          that.urlDeck = x.__key
         } else {
           x.selected = false
         }
