@@ -139,22 +139,23 @@
         computed:"getDeck(decks,pickedDeck,theDeck,urlDeck,decks.*)",
       },
       theDeck:{
-        value:""
+        value:"",
       },
       urlDeck:{
-        value:""
+        value:"",
+        notify:true,
       },
       deckPage:{
-        value: false
+        value: false,
       },
       go:{
-        value: false
+        value: false,
       },
       pickedDeck:{
-        computed:"selectedDeck(profile.decks,urlDeck,go)"
+        computed:"selectedDeck(profile.decks,urlDeck,go)",
       },
       decksWidth: {
-        computed:"getWidth(deckItems.length)"
+        computed:"getWidth(deckItems.length)",
       },
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
@@ -170,19 +171,19 @@
         computed:"getCardsItems(deck,deckItems,pickedDeck,go)",
       },
       getWriteUserData: {
-        computed:"writeUserData(user.uid,user.displayName,user.email)"
+        computed:"writeUserData(user.uid,user.displayName,user.email)",
       },
       _firebaseUpdate:{
-        computed:"firebaseUpdate(update)"
+        computed:"firebaseUpdate(update)",
       },
       _firebaseUpdate2:{
-        computed:"firebaseUpdate(update2)"
+        computed:"firebaseUpdate(update2)",
       },
       added:{
-        value: {}
+        value: {},
       },
       openedCardDeck: {
-        value: 0
+        value: 0,
       },
     },
     itemsPickable: function(items) {
