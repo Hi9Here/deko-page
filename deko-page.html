@@ -44,7 +44,7 @@
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
+           <!--  <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button> -->
           </deko-toolbar>
           <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-pillar selected index="[[index]]" style="float:left" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
@@ -66,7 +66,6 @@
         </div>
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="view-week" on-tap="closeCard"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-pillar on-tap="openDrawer" selected style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
