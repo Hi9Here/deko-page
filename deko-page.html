@@ -153,7 +153,7 @@
         value: false
       },
       pickedDeck:{
-        computed:"selectedDeck(profile.decks,go)"
+        computed:"selectedDeck(profile.decks,urlDeck,go)"
       },
       decksWidth: {
         computed:"getWidth(deckItems.length)"
@@ -207,7 +207,10 @@
     closeCard: function() {
       this.openedCardPage = false
     },
-    selectedDeck: function(decks) {
+    selectedDeck: function(decks,urlDeck) {
+      if (urlDeck) {
+        return urlDeck
+      }
       for (var deck in decks) {
         if (decks[deck].selected) {
           return deck
