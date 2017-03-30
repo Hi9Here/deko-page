@@ -340,9 +340,12 @@
     },
     getDeck: function(decks, pickedDeck, theDeck, urlDeck) {
       if (urlDeck) {
-        this.getDecks(this.deckItems,urlDeck)
-        document.title = this.decks[urlDeck].name
-        return this.decks[urlDeck].name
+        if (decks.hasOwnProperty(urlDeck)) {
+          document.title = decks[urlDeck].name
+          return decks[urlDeck].name
+        } else { 
+          this.getDecks(this.deckItems,urlDeck)
+        }
       } else if (this.decks.hasOwnProperty(this.pickedDeck)){
         document.title = decks[pickedDeck].name
         return decks[pickedDeck]
