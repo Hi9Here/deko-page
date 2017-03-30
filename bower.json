@@ -15,7 +15,7 @@
     "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.7",
     "deko-deck-editor": "Hi9Here/deko-deck-editor",
     "deko-toolbar": "Hi9Here/deko-toolbar",
-    "deko-deck": "Hi9Here/deko-deck",
+    "deko-pillar": "Hi9Here/deko-pillar",
     "card-deck": "marcus7777/card-deck",
     "deko-cards": "Hi9Here/deko-cards",
     "text-avatar": "marcus7777/text-avatar#~1.0.0",
@@ -30,8 +30,7 @@
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
     "profile-page": "Hi9Here/profile-page",
-    "deko-opened-card": "Hi9Here/deko-opened-card",
-    "deko-pillar": "Hi9Here/deko-pillar"
+    "deko-opened-card": "Hi9Here/deko-opened-card"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers",

@@ -13,6 +13,8 @@
 <link rel="import" href="../inbox-search/inbox-search.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../profile-page/profile-page.html">
+<link rel="import" href="../deko-pillar/deko-pillar.html">
+<link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
 <link rel="import" href="../iron-pages/iron-pages.html">
@@ -20,17 +22,13 @@
 <link rel="import" href="../deko-pillar/deko-pillar.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../card-deck/card-deck.html">
-<link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="shared-styles.html">
 
 <!--
   `deko-page`
-
-
-
-  
-  @demo demo/index.html
+  @demo
 -->
+
 <dom-module id="deko-page">
   <template>
     <style include="shared-styles"></style>
@@ -39,7 +37,7 @@
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[deckItems.length]]">
             <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
-              <deko-deck on-tap="select" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+              <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
             </template>
           </template> 
           <template is="dom-if" if="[[!deckItems.length]]">
@@ -48,11 +46,9 @@
         </div> 
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
+           <!--  <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button> -->
           </deko-toolbar>
-          <template is="dom-repeat" items="{{deckItems}}" filter="selected" strip-whitespace id="list1">
-            <deko-deck selected index="[[index]]" style="float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
-          </template>
+          <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
           <div style="padding-left:48px">
             <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard"></deko-cards>
           </div>
@@ -64,25 +60,24 @@
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[openedCardDeckItems.length]]">
             <template is="dom-repeat" items="[[openedCardDeckItems]]" filter="pickable" strip-whitespace id="list4">
-              <deko-deck on-tap="selectOpenedCardDeck" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+              <deko-pillar on-tap="selectOpenedCardDeck" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
             </template>
           </template>
         </div>
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="view-week" on-tap="closeCard"></paper-icon-button>
           </deko-toolbar>
           <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
-            <deko-deck on-tap="openDrawer" alignm="rotateup" style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]"></deko-deck>
+            <deko-pillar on-tap="openDrawer" selected style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
           </template>
           <div style="padding-left:48px">
             <iron-pages selected="[[openedCardDeck]]">
               <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
-                <deko-opened-card card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
+                <deko-opened-card pillar-on="[[openedCardDeck]]" index="[[index]]" card="{{card}}" edit pillar="[[item]]"></deko-opened-card> <!-- TODO edit? -->
               </template>
             </iron-pages>
           </div>
-          <paper-fab style="position:fixed;right: 25px;bottom: 30px" icon="subdirectory-arrow-left" on-tap="closeCard"></paper-fab>
+          <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="subdirectory-arrow-left" on-tap="closeCard"></paper-fab>
         </div>
       </paper-drawer-panel>
     </template>
@@ -98,7 +93,7 @@
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck"></card-deck>
           </template>
-          <deko-deck-editor id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
+          <deko-deck-adder id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-adder>
         </div>
       </paper-drawer-panel>
     </template>
@@ -130,7 +125,7 @@
         computed:"subProfile(profilesKeys, pickedProfile)"
       },
       _profilesKeys: {
-        computed:"getProfiles(user.uid,user.displayName,user.imageUrl)"
+        computed:"getProfiles(user.uid,user.displayName)"
       },
       pickedProfile:{
         value:0
@@ -143,25 +138,26 @@
         computed:"getDecks(deckItems,pickedDeck)",
       },
       deck:{
-        computed:"getDeck(decks,pickedDeck,theDeck,urlDeck)",
+        computed:"getDeck(decks,pickedDeck,theDeck,urlDeck,decks.*)",
       },
       theDeck:{
-        value:""
+        value:"",
       },
       urlDeck:{
-        value:""
+        value:"",
+        notify:true,
       },
       deckPage:{
-        value: false
+        value: false,
       },
       go:{
-        value: false
+        value: false,
       },
       pickedDeck:{
-        computed:"selectedDeck(profile.decks,go)"
+        computed:"selectedDeck(profile.decks,urlDeck,go)",
       },
       decksWidth: {
-        computed:"getWidth(deckItems.length)"
+        computed:"getWidth(deckItems.length)",
       },
       pickableWidth:{
         computed:"getPickableWidth(deckItems)",
@@ -177,19 +173,19 @@
         computed:"getCardsItems(deck,deckItems,pickedDeck,go)",
       },
       getWriteUserData: {
-        computed:"writeUserData(user.uid,user.displayName,user.email,user.imageUrl)"
+        computed:"writeUserData(user.uid,user.displayName,user.email)",
       },
       _firebaseUpdate:{
-        computed:"firebaseUpdate(update)"
+        computed:"firebaseUpdate(update)",
       },
       _firebaseUpdate2:{
-        computed:"firebaseUpdate(update2)"
+        computed:"firebaseUpdate(update2)",
       },
       added:{
-        value: {}
+        value: {},
       },
       openedCardDeck: {
-        value: {}
+        value: 0,
       },
     },
     itemsPickable: function(items) {
@@ -203,16 +199,19 @@
       }
     },
     openCard: function(e,d) {
-      console.log(e,d)
       this.openedCardPage = true
       this.card = d.e.target.parentNode.parentElement.parentElement.card || d.e.target.parentNode.parentElement.card || d.e.target.parentNode.card || d.e.target.card || d.e.target.parentNode.parentElement.parentElement.parentNode.card 
-      this.openedCardDeckItems = d.d.decks
+      this.card.selected = true
+      this.openedCardDeckItems = d.d.pillars
       // this...
     },
     closeCard: function() {
       this.openedCardPage = false
     },
-    selectedDeck: function(decks) {
+    selectedDeck: function(decks,urlDeck) {
+      if (urlDeck) {
+        return urlDeck
+      }
       for (var deck in decks) {
         if (decks[deck].selected) {
           return deck
@@ -345,18 +344,29 @@
     },
     getDeck: function(decks, pickedDeck, theDeck, urlDeck) {
       if (urlDeck) {
-        return urlDeck
+        if (decks.hasOwnProperty(urlDeck)) {
+          document.title = decks[urlDeck].name
+          this.deckItems = this.deckItems.map(function(x,i){
+            if (x.__key == urlDeck) {
+              x.selected = true
+            } else {
+              x.selected = false
+            }      
+            return x
+          })
+          return decks[urlDeck]
+        } else { 
+          this.getDecks(this.deckItems,urlDeck)
+        }
       } else if (this.decks.hasOwnProperty(this.pickedDeck)){
         document.title = decks[pickedDeck].name
+        this.urlDeck = pickedDeck
         return decks[pickedDeck]
       } else if (theDeck) {
         return theDeck
       } else {
         this.getDecks(this.deckItems,pickedDeck)
       }
-    },
-    editDeck: function(e){
-      this.$$("deko-deck-editor").open(e.target.deck)
     },
     getCardsItems: function(deck,deckItems,pickedDeck){
       // get decks or make deck
@@ -419,31 +429,30 @@
         })
       }
     },
-    getProfiles: function(uid,name,picture) {
+    getProfiles: function(uid,name) {
       var that = this
       firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
         if (profiles.val()) {
           that.profilesKeys = Object.keys(profiles.val())
           that.render()
         } else {
-          that.writeNewProfile(uid, picture, name)
+          that.writeNewProfile(uid, name)
           that.render()
         }
       })
     },
-    writeUserData: function(userId, name, email, imageUrl) {
+    writeUserData: function(userId, name, email) {
       firebase.database().ref('/Users/' + userId + '/details/').set({
         name: name,
         email: email,
-        profile_picture: imageUrl,
+        profile_picture: "",
       })
     },
-    writeNewProfile: function(uid, picture, profile) {
+    writeNewProfile: function(uid, profile) {
       // A post entry.
       var Users = {}
       var profileData = {
         profile: profile,
-        picture: picture,
       }
       // Get a key for a new Post.
       var newPostKey = firebase.database().ref().child('Profiles').push().key
@@ -463,6 +472,7 @@
       return obj
     },
     pickable: function(item){
+      //TODO filter out not own desks
       return !item.selected
     },
     selected: function(item){
@@ -506,6 +516,7 @@
         if (x.name == deckName) {
           x.selected = true
           that.async(that.logSelectedDeck(x.__key))
+          that.urlDeck = x.__key
         } else {
           x.selected = false
         }
@@ -529,7 +540,7 @@
       this.render()
     },
     logSelectedDeck: function(key){
-      var userUpdate = {}
+      var userUpdate = {} // TODO move to firebase functions
       var newPostKey = firebase.database().ref().child('User/'+this.user.uid+'/log/deckSelected').push().key
       userUpdate['Users/'+this.user.uid+'/log/deckSelected/'+newPostKey] = {
         key: key,
