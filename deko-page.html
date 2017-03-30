@@ -343,6 +343,14 @@
       if (urlDeck) {
         if (decks.hasOwnProperty(urlDeck)) {
           document.title = decks[urlDeck].name
+          this.deckItems = this.deckItems.map(function(x,i){
+            if (x.__key == urlDeck) {
+              x.selected = true
+            } else {
+              x.selected = false
+            }      
+            return x
+          })
           return decks[urlDeck]
         } else { 
           this.getDecks(this.deckItems,urlDeck)
