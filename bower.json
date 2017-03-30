@@ -10,7 +10,7 @@
   "dependencies": {
     "polymer": "polymer/polymer#^1.8.1",
     "iron-pages": "PolymerElements/iron-pages",
-    "paper-styles": "polymerelements/paper-styles#~1.1.5",
+    "paper-styles": "PolymerElements/paper-styles#^1.2.0",
     "iron-flex-layout": "PolymerElements/iron-flex-layout",
     "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.7",
     "deko-deck-editor": "Hi9Here/deko-deck-editor",
@@ -30,7 +30,8 @@
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
     "profile-page": "Hi9Here/profile-page",
-    "deko-opened-card": "Hi9Here/deko-opened-card"
+    "deko-opened-card": "Hi9Here/deko-opened-card",
+    "deko-pillar": "Hi9Here/deko-pillar"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers",
@@ -46,6 +47,7 @@
     "polymer": "^1.8.1",
     "inbox-search": "45e40c4300",
     "paper-icon-button": "1.1.4",
-    "paper-item": "^1.0.0"
+    "paper-item": "^1.0.0",
+    "paper-styles": "^1.2.0"
   }
 }
