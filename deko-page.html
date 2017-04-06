@@ -59,6 +59,14 @@
                 <paper-button dialog-confirm autofocus on-tap="deleteCard">Delete</paper-button>
               </div>
             </paper-dialog>
+            <paper-dialog id="collectcard">
+              <h2>Collect Card</h2>
+              <deko-card card="[[card]]"></deko-card>
+              <div class="buttons">
+                <paper-button dialog-dismiss>Cancel</paper-button>
+                <paper-button dialog-confirm autofocus on-tap="collectCard">collect</paper-button>
+              </div>
+            </paper-dialog>
           </div>
         </div>
       </paper-drawer-panel>
@@ -125,7 +133,9 @@
       loginPage:{
         computed:"showLoginPage(user)",
       },
-      user:{ value: null },
+      user:{
+        value: null
+      },
       profile:{
         computed:"getProfile(profiles, pickedProfile)"
       },
@@ -205,7 +215,11 @@
     editCard: function(e,d){
       this.card = d
       this.card.selected = true
-      this.$$("#optionscard").open()
+      if (this.card.writable[this.uid]) { 
+        this.$$("#optionscard").open()
+      } else {
+        this.$$("#collectcard").open()
+      }
     },
     itemsPickable: function(items) {
       if (items && Array.isArray(items)){
