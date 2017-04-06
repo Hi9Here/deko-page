@@ -197,12 +197,10 @@
       },
     },
     deleteCard: function(){
-      console.log(this.card)
-      debugger
       var update = {}
       update['/Decks/' + this.deck + '/cards/' + this.card.key + '/'] = null
-      update['/Cards/' + this.card.key + '/'] = null
-      //this.set("update", update)
+      update['/Cards/' + this.card.__key + '/'] = null
+      this.set("update", update)
     },
     editCard: function(e,d){
       this.card = d
