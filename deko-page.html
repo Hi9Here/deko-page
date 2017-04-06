@@ -198,7 +198,7 @@
     },
     deleteCard: function(){
       var update = {}
-      update['/Decks/' + this.deck + '/cards/' + this.card.__key + '/'] = null
+      update['/Decks/' + this.deck.__key + '/cards/' + this.card.__key + '/'] = null
       update['/Cards/' + this.card.__key + '/'] = null
       this.set("update", update)
     },
