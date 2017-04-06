@@ -50,7 +50,15 @@
           </deko-toolbar>
           <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
           <div style="padding-left:48px">
-            <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard"></deko-cards>
+            <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard" on-edit="editCard"></deko-cards>
+            <paper-dialog id="optionCard">
+              <h2>Delete Card</h2>
+              <deko-card card="[[card]]"></deko-card>
+              <div class="buttons">
+                <paper-button dialog-dismiss>Cancel</paper-button>
+                <paper-button dialog-confirm autofocus on-tap="deleteCard">Delete</paper-button>
+              </div>
+            </paper-dialog>
           </div>
         </div>
       </paper-drawer-panel>
@@ -187,6 +195,19 @@
       openedCardDeck: {
         value: 0,
       },
+    },
+    deleteCard: function(){
+      console.log(this.card)
+      debugger
+      var update = {}
+      update['/Decks/' + this.deck + '/cards/' + this.card.key + '/'] = null
+      update['/Cards/' + this.card.key + '/'] = null
+      //this.set("update", update)
+    },
+    editCard: function(e,d){
+      this.card = d.e.target.parentNode.parentElement.parentElement.card || d.e.target.parentNode.parentElement.card || d.e.target.parentNode.card || d.e.target.card || d.e.target.parentNode.parentElement.parentElement.parentNode.card 
+      this.card.selected = true
+      this.$.optionCard.open()
     },
     itemsPickable: function(items) {
       if (items && Array.isArray(items)){
