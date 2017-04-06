@@ -50,7 +50,7 @@
           </deko-toolbar>
           <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
           <div style="padding-left:48px">
-            <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard" on-edit="editCard"></deko-cards>
+            <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard" on-open-options="editCard"></deko-cards>
             <paper-dialog id="optionCard">
               <h2>Delete Card</h2>
               <deko-card card="[[card]]"></deko-card>
