@@ -1,7 +1,7 @@
 <!doctype html>
 <html>
   <head>
-    <title>deko-deck</title>
+    <title>deko-page</title>
     <script src="../../webcomponentsjs/webcomponents.js"></script>
     <script src="../../web-component-tester/browser.js"></script>
     <script src="../../test-fixture/test-fixture-mocha.js"></script>
@@ -13,32 +13,38 @@
   <body>
     <test-fixture id="dekoPage">
       <template>
-        <deko-page></deko-page>
+        <deko-page></deko-page> <!-- TODO add attributes -->
       </template>
     </test-fixture>
     <script>
       suite('<deko-page>', function () {
-        var deko;
+        var dekoPage;
         setup(function () {
-          deko = fixture('dekoPage');
+          dekoPage = fixture('dekoPage');
         });
-
-// These tests assert whether the attributes are working
-        suite('deko-app tests', function() {
-
-          test('instantiating the element works', function() {
-            assert.equal(deko.is, 'deko-page');
-          });
-
-          // test('color of deck is red', function() {
-          //   var deckbgcolor = Polymer.dom(deko.root).querySelector('#deck-box');
-          //   assert.equal(deckbgcolor.style.backgroundColor, "red");
-          // });
-
+        teardown(function () {
+          //...
         });
-
+        suite("This test is just to show that tests are running", function () {
+          test("test is running", function(done) {
+            done()
+          })
+        })
+        suite('These test allow you to interact with the element', function () {
+          test('can be triggered with space', function(done) {
+            dekoPage.addEventListener('keydown', function() {
+              done()
+            })
+            MockInteractions.pressSpace(dekoPage)
+          })
+          test('can be clicked', function(done) {
+            dekoPage.addEventListener('click', function() {
+              done()
+            })
+            MockInteractions.tap(dekoPage)
+          })
+        })
       })
-
     </script>
   </body>
 </html>
