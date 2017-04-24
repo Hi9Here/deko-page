@@ -81,8 +81,7 @@
           </template>
         </div>
         <div main>
-          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-          </deko-toolbar>
+          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]"></deko-toolbar>
           <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-pillar on-tap="openDrawer" selected style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
           </template>
@@ -114,7 +113,7 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[loginPage]]">
-      <div style="display: flex;justify-content:center;font-size: 40px;font-family:Roboto,Arial,Helvetica,sans-serif">
+      <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
         <content select="login-page"></content>
       </div>
     </template>
