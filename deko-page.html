@@ -124,6 +124,9 @@
   Polymer({
     is: "deko-page",
     properties:{
+      showLogin:{
+        value: false
+      },
       openedCardPage:{
         value: false 
       },
@@ -631,10 +634,10 @@
       this.fire("logout")
     },
     login: function() {
-      this.fire("login")
+      this.showLogin = true
     },
-    showLoginPage: function(user) {
-      if (!user) {
+    showLoginPage: function(user, showLogin) {
+      if (!user || showLogin) {
         return true
       } else {
         return false
