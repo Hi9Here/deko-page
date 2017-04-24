@@ -134,7 +134,7 @@
         computed:"itemsPickable(openedCardDeckItems)",
       },
       loginPage:{
-        computed:"showLoginPage(user)",
+        computed:"showLoginPage(user, showLogin)",
       },
       user:{
         value: null
@@ -187,7 +187,7 @@
       },
       path:String,
       cardPage:{
-        computed:"showCardPage(loginPage,deckPage,openedCardPage)",
+        computed:"showCardPage(loginPage,deckPage,openedCardPage,showLogin)",
       },
       _cards:{
         type:Array,
