@@ -348,8 +348,8 @@
     getDecks: function(deckItems, pickedDeck) {
       //TODO let users pick
       var that = this
-      if (deckItems.length > 0) {
-        if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) {
+      if (deckItems.length > 0 || pickedDeck) {
+        if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) { //Subscribing to Dex
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
             if (val){ 
