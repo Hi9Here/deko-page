@@ -454,23 +454,25 @@
       if (!pickedProfile && keys.length) {
         pickedProfile = keys[0]
       }
-      if (keys.length && !this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
-        firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
-          var val = profile.val()
-          if (val){ 
-            val.__key = profile.getKey()
-            if (!that.profiles) {
-              var profiles = {}
-              profiles[val.__key] = val
-              that.set("profiles",profiles)
-              that.render()
-            } else if (JSON.stringify(that.profiles[val.__key]) !== JSON.stringify(val)) {
-              that.profiles[val.__key] = val
-              that.set("profiles",JSON.parse(JSON.stringify(that.profiles)))
-              that.render()
+      if (keys.length) {
+        if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
+          firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
+            var val = profile.val()
+            if (val){ 
+              val.__key = profile.getKey()
+              if (!that.profiles) {
+                var profiles = {}
+                profiles[val.__key] = val
+                that.set("profiles",profiles)
+                that.render()
+              } else if (JSON.stringify(that.profiles[val.__key]) !== JSON.stringify(val)) {
+                that.profiles[val.__key] = val
+                that.set("profiles",JSON.parse(JSON.stringify(that.profiles)))
+                that.render()
+              }
             }
-          }
-        })
+          })
+        }
       } else {
         that.set("profiles",{})
       }
