@@ -132,16 +132,16 @@
         computed:"itemsPickable(openedCardDeckItems)",
       },
       loginPage:{
-        computed:"showLoginPage(user, showLogin)",
+        computed:"showLoginPage(user,showLogin)",
       },
       user:{
         value: null,
       },
       profile:{
-        computed:"getProfile(profiles, pickedProfile)",
+        computed:"getProfile(profiles,pickedProfile)",
       },
       _profile:{
-        computed:"subProfile(profilesKeys, pickedProfile)",
+        computed:"subProfile(profilesKeys,pickedProfile)",
       },
       _profilesKeys: {
         computed:"getProfiles(user.uid,user.displayName)",
@@ -207,7 +207,7 @@
         value: 0,
       },
       edit: {
-        computed:"isEditable(deck, profile.__key)",
+        computed:"isEditable(deck,profile.__key)",
       }
     },
     isEditable: function(deck, myprofile){
@@ -441,10 +441,10 @@
     getProfile: function(profiles, pickedProfile) { 
       //TODO let users pick profile
       var keys = Object.keys(profiles)
-      if (!pickedProfile) {
-        pickedProfile = Object.keys(profiles)[0]
+      if (!pickedProfile && keys.length) {
+        pickedProfile = keys[0]
       }
-      if (profiles.hasOwnProperty(pickedProfile)) {
+      if (keys.length && profiles.hasOwnProperty(pickedProfile)) {
         return profiles[pickedProfile]
       } else {
         return {__key:""}
