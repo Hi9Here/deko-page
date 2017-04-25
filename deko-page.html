@@ -454,7 +454,7 @@
       if (!pickedProfile && keys.length) {
         pickedProfile = keys[0]
       }
-      if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
+      if (keys.length && !this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
         firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
           var val = profile.val()
           if (val){ 
@@ -471,6 +471,8 @@
             }
           }
         })
+      } else {
+        that.set("profiles",{})
       }
     },
     getProfiles: function(uid,name) {
