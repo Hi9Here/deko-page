@@ -152,7 +152,7 @@
       deckItems:{
         notify:true,
         value:[],
-        computed:"getDeckItems(profile,profiles,profilesKeys,pickedProfile,go)",
+        computed:"getDeckItems(profile,profiles,profilesKeys,pickedProfile,user,go)",
       },
       _decks:{
         computed:"getDecks(deckItems,pickedDeck)",
@@ -327,18 +327,22 @@
       this.set("update2", update2)
       this.render()
     },
-    getDeckItems: function(profile,profiles,profilesKeys,pickedProfile){
+    getDeckItems: function(profile,profiles,profilesKeys,pickedProfile,user){
       // get decks or make deck
-      if (!profile.decks && !this.added["profile"]) {
-        this.added["profile"] = true
-        var deck = {
-          color: "#666",
-          name: "Home",
-          selected: true,
-        } 
-        this.newDeckItem(profiles,profilesKeys,pickedProfile,deck)
+      if (!user.isAnonymous) {
+        if (!profile.decks && !this.added["profile"]) {
+          this.added["profile"] = true
+          var deck = {
+            color: "#666",
+            name: "Home",
+            selected: true,
+          } 
+          this.newDeckItem(profiles,profilesKeys,pickedProfile,deck)
+        } else {
+          return this.objectToArray(profile.decks)
+        }
       } else {
-        return this.objectToArray(profile.decks)
+        return []
       }
     },
     getDecks: function(deckItems, pickedDeck) {
