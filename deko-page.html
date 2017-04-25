@@ -451,7 +451,7 @@
     subProfile: function(keys, pickedProfile) { 
       //TODO let users pick profile
       var that = this
-      if (!pickedProfile) {
+      if (!pickedProfile && keys.length) {
         pickedProfile = keys[0]
       }
       if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
