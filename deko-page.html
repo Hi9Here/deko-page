@@ -440,11 +440,14 @@
     },
     getProfile: function(profiles, pickedProfile) { 
       //TODO let users pick profile
+      var keys = Object.keys(profiles)
       if (!pickedProfile) {
         pickedProfile = Object.keys(profiles)[0]
       }
       if (profiles.hasOwnProperty(pickedProfile)) {
         return profiles[pickedProfile]
+      } else {
+        return {__key:""}
       }
     },
     subProfile: function(keys, pickedProfile) { 
@@ -490,7 +493,6 @@
         })
       } else {
         that.profilesKeys = []
-        that.profile = {__key:""}
       }
     },
     writeUserData: function(userId, name, email) {
