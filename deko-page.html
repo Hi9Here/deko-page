@@ -124,10 +124,10 @@
     is: "deko-page",
     properties:{
       showLogin:{
-        value: false
+        value: false,
       },
       openedCardPage:{
-        value: false 
+        value: false,
       },
       openedCardDeckItemsPickable:{
         computed:"itemsPickable(openedCardDeckItems)",
@@ -487,6 +487,7 @@
         })
       } else {
         that.profilesKeys = ""
+        that.profile = {__key:""}
       }
     },
     writeUserData: function(userId, name, email) {
