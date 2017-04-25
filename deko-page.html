@@ -39,11 +39,11 @@
             <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
               <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
             </template>
-          </template> 
+          </template>
           <template is="dom-if" if="[[!deckItems.length]]">
             <profile-page path="[[path]]" deck="[[deckKey]]"></profile-page>
-          </template>  
-        </div> 
+          </template>
+        </div>
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
@@ -136,19 +136,19 @@
         computed:"showLoginPage(user, showLogin)",
       },
       user:{
-        value: null
+        value: null,
       },
       profile:{
-        computed:"getProfile(profiles, pickedProfile)"
+        computed:"getProfile(profiles, pickedProfile)",
       },
       _profile:{
-        computed:"subProfile(profilesKeys, pickedProfile)"
+        computed:"subProfile(profilesKeys, pickedProfile)",
       },
       _profilesKeys: {
-        computed:"getProfiles(user.uid,user.displayName)"
+        computed:"getProfiles(user.uid,user.displayName)",
       },
       pickedProfile:{
-        value:0
+        value:0,
       },
       deckItems:{
         notify:true,
@@ -190,7 +190,7 @@
       _cards:{
         type:Array,
         notify:true,
-        computed:"getCardsItems(deck,deckItems,pickedDeck,go)",
+        computed:"getCardsItems(deck,deckItems,pickedDeck,user,go)",
       },
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email)",
@@ -410,27 +410,29 @@
         this.getDecks(this.deckItems,pickedDeck)
       }
     },
-    getCardsItems: function(deck,deckItems,pickedDeck){
+    getCardsItems: function(deck,deckItems,pickedDeck,user){
       // get decks or make deck
       var pathDecks = '/Decks/' + pickedDeck
       this.set("path", pathDecks + '/cards/')
       if (!deck.cards && !this.added["deck"]) {
-        this.added["deck"] = true
-        var newPostKey = firebase.database().ref().child('Cards').push().key
-        var card = {
-          color: "#666",
-          link:{
-            title: "Road Map",
-            link:"https://docs.google.com/document/d/1iD_eCK9kr6DtAlUuCqHlvFMhXwvZvejIt38dBCBRKkM/edit",
+        if (user && !user.isAnonymous) {
+          this.added["deck"] = true
+          var newPostKey = firebase.database().ref().child('Cards').push().key
+          var card = {
+            color: "#666",
+            link:{
+              title: "Road Map",
+              link:"https://docs.google.com/document/d/1iD_eCK9kr6DtAlUuCqHlvFMhXwvZvejIt38dBCBRKkM/edit",
+            }
           }
+          var update = {}
+          update[pathDecks + '/cards/' + newPostKey + '/'] = card
+          update['/Cards/' + newPostKey + '/'] = card
+          this.set("update", update)
+          var update2 = {}
+          update2['/Cards/' + newPostKey + '/deck/' ] = pickedDeck
+          this.set("update2", update2)
         }
-        var update = {}
-        update[pathDecks + '/cards/' + newPostKey + '/'] = card
-        update['/Cards/' + newPostKey + '/'] = card
-        this.set("update", update)
-        var update2 = {}
-        update2['/Cards/' + newPostKey + '/deck/' ] = pickedDeck
-        this.set("update2", update2)
       } else {
         if (JSON.stringify(this.cards) !== JSON.stringify(this.objectToArray(deck.cards))) {
           this.cards = this.objectToArray(deck.cards)
@@ -473,15 +475,19 @@
     },
     getProfiles: function(uid,name) {
       var that = this
-      firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
-        if (profiles.val()) {
-          that.profilesKeys = Object.keys(profiles.val())
-          that.render()
-        } else {
-          that.writeNewProfile(uid, name)
-          that.render()
-        }
-      })
+      if (name) {
+        firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
+          if (profiles.val()) {
+            that.profilesKeys = Object.keys(profiles.val())
+            that.render()
+          } else {
+            that.writeNewProfile(uid, name)
+            that.render()
+          }
+        })
+      } else {
+        that.profilesKeys = ""
+      }
     },
     writeUserData: function(userId, name, email) {
       firebase.database().ref('/Users/' + userId + '/details/').set({
