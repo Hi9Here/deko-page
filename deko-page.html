@@ -359,7 +359,7 @@
             var val = deck.val()
             if (val){ 
               val.__key = deck.getKey()
-              if (!that.decks || Object.keys(that.decks).length) {
+              if (!that.decks || !Object.keys(that.decks).length) {
                 var decks = {}
                 decks[val.__key] = val
                 that.set("decks", decks)
