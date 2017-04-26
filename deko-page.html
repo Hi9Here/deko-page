@@ -157,6 +157,9 @@
       _decks:{
         computed:"getDecks(deckItems,pickedDeck,go)",
       },
+      __decks:{
+        computed:"getDecks(deckItems,urlDeck,go)",
+      },
       deck:{
         computed:"getDeck(decks,pickedDeck,theDeck,urlDeck,go)",
       },
@@ -390,7 +393,15 @@
       if (this.$$("#list5")) this.$$("#list5").render()
     },
     getUrlDeck: function(urlDeck) {
-      this.getDeck({}, urlDeck, "", urlDeck)
+      if (!this.decks) {
+        this.decks = {}
+      }
+      if (!this.pickedDeck) {
+        this.pickedDeck = urlDeck
+      }
+      if (!this.theDeck) {
+        this.theDeck = ""
+      }
     },
     getDeck: function(decks, pickedDeck, theDeck, urlDeck) {
       if (urlDeck) {
