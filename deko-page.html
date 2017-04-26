@@ -210,9 +210,6 @@
       edit: {
         computed:"isEditable(deck,profile.__key)",
       },
-      _getUrlDeck: {
-        computed:"getUrlDeck(urlDeck)",
-      },
     },
     isEditable: function(deck, myprofile){
       return !!myprofile
@@ -389,17 +386,6 @@
       if (this.$$("#list3")) this.$$("#list3").render()
       if (this.$$("#list4")) this.$$("#list4").render()
       if (this.$$("#list5")) this.$$("#list5").render()
-    },
-    getUrlDeck: function(urlDeck) {
-      if (!this.decks) {
-        this.decks = {}
-      }
-      if (!this.pickedDeck) {
-        this.pickedDeck = urlDeck
-      }
-      if (!this.theDeck) {
-        this.theDeck = ""
-      }
     },
     getDeck: function(decks, pickedDeck, theDeck, urlDeck) {
       if (urlDeck) {
