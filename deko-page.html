@@ -151,7 +151,6 @@
       },
       deckItems:{
         notify:true,
-        value:[],
         computed:"getDeckItems(profile,profiles,profilesKeys,pickedProfile,user,go)",
       },
       _decks:{
@@ -467,7 +466,7 @@
       if (keys.length && profiles.hasOwnProperty(pickedProfile)) {
         return profiles[pickedProfile]
       } else {
-        return {__key:""}
+        return {__key:"", decks: {}}
       }
     },
     subProfile: function(keys, pickedProfile) { 
