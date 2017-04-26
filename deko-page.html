@@ -408,7 +408,7 @@
         } else { 
           this.getDecks(this.deckItems,urlDeck)
         }
-      } else if (this.decks.hasOwnProperty(this.pickedDeck)){
+      } else if (Object.keys(this.decks).length && this.decks.hasOwnProperty(this.pickedDeck)){
         document.title = decks[pickedDeck].name
         this.urlDeck = pickedDeck
         return decks[pickedDeck]
