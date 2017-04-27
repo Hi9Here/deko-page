@@ -98,21 +98,8 @@
         </div>
       </paper-drawer-panel>
     </template>
-    <template is="dom-if" if="[[deckPage]]">
-      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="240px">
-        <div class="horizontal start-justified layout" drawer>
-          <profile-page profile="[[profile]]"></profile-page>
-        </div>
-        <div main>
-          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="apps" on-tap="closeCard"></paper-icon-button>
-          </deko-toolbar>
-          <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
-            <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck"></card-deck>
-          </template>
-           <!-- TODO -->   <deko-deck-adder id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-adder>
-        </div>
-      </paper-drawer-panel>
+    <template is="dom-if" if="[[edit]]">
+      <deko-deck-adder id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-adder>  
     </template>
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
