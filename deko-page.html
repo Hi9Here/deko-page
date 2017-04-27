@@ -48,9 +48,7 @@
           </template>
         </div>
         <div main>
-          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
-            <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
-          </deko-toolbar>
+          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]"></deko-toolbar>
           <template is="dom-if" if="[[deck.name]]">
             <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
           </template>
