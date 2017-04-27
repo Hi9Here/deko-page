@@ -38,6 +38,7 @@
             <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
               <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
             </template>
+            <div on-tap="addNewDeck">+</div>
           </template>
           <template is="dom-if" if="[[!deckItems.length]]">
             <profile-page path="[[path]]" deck="[[deckKey]]"></profile-page>
@@ -107,7 +108,7 @@
           <template is="dom-repeat" items="{{deckItems}}" strip-whitespace id="list3">
             <card-deck style="width:200px" title="[[item.name]]" deck="[[item]]" color="[[item.color]]" link="[[item.link]]" on-edit="editDeck"></card-deck>
           </template>
-          <deko-deck-adder id="editor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-adder>
+           <!-- TODO -->   <deko-deck-adder id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-adder>
         </div>
       </paper-drawer-panel>
     </template>
@@ -330,6 +331,15 @@
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update2", update2)
       this.render()
+    },
+    addNewDeck: function() {
+      this.added["profile"] = true
+      var deck = {
+        color: "#666",
+        name: "New ",
+        selected: true,
+      } 
+      this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,deck)
     },
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile,user){
       // get decks or make deck
