@@ -48,7 +48,9 @@
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]">
             <paper-icon-button icon="view-week" on-tap="toggleDeckPage"></paper-icon-button>
           </deko-toolbar>
-          <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
+          <template is="dom-if" if="[[deck.name]]">
+            <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
+          </template>
           <div style="padding-left:48px; height: 100%">
             <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard" on-open-options="editCard" no-add="[[!edit]]"></deko-cards>
             <paper-dialog id="optionscard">
