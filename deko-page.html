@@ -21,6 +21,7 @@
 <link rel="import" href="../deko-cards/deko-cards.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../card-deck/card-deck.html">
+<link rel="import" href="../drag-me/drag-me.html">
 <link rel="import" href="shared-styles.html">
 
 <!--
@@ -36,7 +37,9 @@
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[deckItems.length]]">
             <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
-              <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
+              <drag-me on-push-down="editDeck" name="[[item.name]]">
+                <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
+              </drag-me>
             </template>
             <div on-tap="addNewDeck">+</div>
           </template>
@@ -380,6 +383,19 @@
       if (this.$$("#list4")) this.$$("#list4").render()
       if (this.$$("#list5")) this.$$("#list5").render()
     },
+    editDeck: function(e) {
+      var pillarName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name 
+      var deck
+      
+      this.deckItems.map(function(x,i){
+        if (x.name == pillarName) {
+          deck = x
+        }
+      })
+      if (this.$$("#deckEditor")) {
+        this.$$("#deckEditor").open(deck)
+      }
+    },
     getDeck: function(decks, pickedDeck, theDeck, urlDeck) {
       if (urlDeck) {
         if (decks.hasOwnProperty(urlDeck)) {
@@ -413,21 +429,21 @@
       if (!deck.cards && !this.added["deck"]) {
         if (user && !user.isAnonymous) {
           this.added["deck"] = true
-          var newPostKey = firebase.database().ref().child('Cards').push().key
-          var card = {
-            color: "#666",
-            link:{
-              title: "Road Map",
-              link:"https://docs.google.com/document/d/1iD_eCK9kr6DtAlUuCqHlvFMhXwvZvejIt38dBCBRKkM/edit",
-            }
-          }
-          var update = {}
-          update[pathDecks + '/cards/' + newPostKey + '/'] = card
-          update['/Cards/' + newPostKey + '/'] = card
-          this.set("update", update)
-          var update2 = {}
-          update2['/Cards/' + newPostKey + '/deck/' ] = pickedDeck
-          this.set("update2", update2)
+         // var newPostKey = firebase.database().ref().child('Cards').push().key
+         // var card = {
+         //   color: "#666",
+         //   link:{
+         //     title: "Road Map",
+         //     link:"https://docs.google.com/document/d/1iD_eCK9kr6DtAlUuCqHlvFMhXwvZvejIt38dBCBRKkM/edit",
+         //   }
+         // }
+         // var update = {}
+        //  update[pathDecks + '/cards/' + newPostKey + '/'] = card
+        //  update['/Cards/' + newPostKey + '/'] = card
+        //  this.set("update", update)
+        //  var update2 = {}
+        //  update2['/Cards/' + newPostKey + '/deck/' ] = pickedDeck
+        //  this.set("update2", update2)
         }
       } else {
         if (JSON.stringify(this.cards) !== JSON.stringify(this.objectToArray(deck.cards))) {
@@ -538,7 +554,6 @@
       }
     },
     selectOpenedCardDeck: function(e) {
-      var that = this
       var pillarName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name 
       var pillar = 0
       
