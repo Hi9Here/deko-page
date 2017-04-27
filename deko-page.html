@@ -99,7 +99,7 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[edit]]">
-      <deko-deck-adder id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-adder>  
+      <deko-deck-editor id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>  
     </template>
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
