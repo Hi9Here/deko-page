@@ -43,9 +43,6 @@
             </template>
             <div on-tap="addNewDeck" style="font-size:xx-large;top:5px;left:14px;position:absolute;outline-color:#fff;outline-offset:2px;outline-style:double">+</div>
           </template>
-          <template is="dom-if" if="[[!deckItems.length]]">
-            <profile-page path="[[path]]" deck="[[deckKey]]"></profile-page>
-          </template>
         </div>
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]"></deko-toolbar>
