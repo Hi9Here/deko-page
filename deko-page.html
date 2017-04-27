@@ -100,8 +100,9 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[edit]]">
-      <deko-deck-editor id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>  
-    </template>
+      <deko-deck-editor id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
+      <deko-card-adder id="cardAdder" no-add deck="[[deck.__key]]"></deko-card-adder>
+    </template>   
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
         <content select="login-page"></content>
@@ -424,24 +425,10 @@
       // get decks or make deck
       var pathDecks = '/Decks/' + pickedDeck
       this.set("path", pathDecks + '/cards/')
-      if (!deck.cards && !this.added["deck"]) {
+      if (!deck.cards) {
         if (user && !user.isAnonymous) {
-          this.added["deck"] = true
-         // var newPostKey = firebase.database().ref().child('Cards').push().key
-         // var card = {
-         //   color: "#666",
-         //   link:{
-         //     title: "Road Map",
-         //     link:"https://docs.google.com/document/d/1iD_eCK9kr6DtAlUuCqHlvFMhXwvZvejIt38dBCBRKkM/edit",
-         //   }
-         // }
-         // var update = {}
-        //  update[pathDecks + '/cards/' + newPostKey + '/'] = card
-        //  update['/Cards/' + newPostKey + '/'] = card
-        //  this.set("update", update)
-        //  var update2 = {}
-        //  update2['/Cards/' + newPostKey + '/deck/' ] = pickedDeck
-        //  this.set("update2", update2)
+          this.$$("#cardAdder").deck = pickedDeck
+          this.$$("#cardAdder").open()
         }
       } else {
         if (JSON.stringify(this.cards) !== JSON.stringify(this.objectToArray(deck.cards))) {
