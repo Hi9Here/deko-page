@@ -212,7 +212,11 @@
       },
     },
     isEditable: function(deck, myprofile){
-      return !!myprofile
+      if (myprofile) {
+        return deck.profile == myprofile
+      } else {
+        return false
+      }
     },
     deleteCard: function(){
       var update = {}
