@@ -321,7 +321,7 @@
     },
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile,user){
       // get decks or make deck
-      if (!user.isAnonymous) {
+      if (user && !user.isAnonymous) {
         if (!profile.decks && !this.added["profile"]) {
           this.added["profile"] = true
           var deck = {
@@ -340,7 +340,7 @@
     getDecks: function(deckItems, pickedDeck) {
       //TODO let users pick
       var that = this
-      if (deckItems.length > 0 || pickedDeck) {
+      if (pickedDeck) {
         if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) { //Subscribing to Dex
           firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
             var val = deck.val()
