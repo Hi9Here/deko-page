@@ -208,12 +208,6 @@
         return false
       }
     },
-    deleteCard: function(){
-      var update = {}
-      update['/Decks/' + this.deck.__key + '/cards/' + this.card.__key + '/'] = null
-      update['/Cards/' + this.card.__key + '/'] = null
-      this.set("update", update)
-    },
     editCard: function(e,d){
       this.card = d
       this.card.selected = true
@@ -322,13 +316,9 @@
       this.render()
     },
     addNewDeck: function() {
-      this.added["profile"] = true
-      var deck = {
-        color: "#666",
-        name: "New ",
-        selected: true,
-      } 
-      this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,deck)
+      if (this.$$("#deckEditor")) {
+        this.$$("#deckEditor").open()
+      }
     },
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile,user){
       // get decks or make deck
