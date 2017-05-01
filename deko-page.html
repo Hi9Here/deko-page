@@ -322,8 +322,8 @@
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile,user){
       // get decks or make deck
       if (user && !user.isAnonymous) {
-        if (!profile.decks && !this.added["profile"]) {
-          this.added["profile"] = true
+        if (!profile.decks && !this.added["decks"]) {
+          this.added["decks"] = true
           var deck = {
             color: "#666",
             name: "Home",
