@@ -503,22 +503,25 @@
       var profileData = {
         profile: profile,
       }
-      // Get a key for a new Post.
-      var newPostKey = firebase.database().ref().child('Profiles').push().key
+      if (!this.added.profile) {
+        this.added.profile = true
+        // Get a key for a new Post.
+        var newPostKey = firebase.database().ref().child('Profiles').push().key
 
-      // Write the new post's data simultaneously in the posts list and the user's post list.
-      var updates = {}
-      updates['/Profiles/' + newPostKey] = profileData
-      updates['/Users/' + uid + '/profiles/' + newPostKey] = profileData
-      this.update = updates
-      var updates2 = {}
-      updates2['/Profiles/' + newPostKey + '/users/' + uid] = true
-      this.update2 = updates2
+        // Write the new post's data simultaneously in the posts list and the user's post list.
+        var updates = {}
+        updates['/Profiles/' + newPostKey] = profileData
+        updates['/Users/' + uid + '/profiles/' + newPostKey] = profileData
+        this.update = updates
+        var updates2 = {}
+        updates2['/Profiles/' + newPostKey + '/users/' + uid] = true
+        this.update2 = updates2
       
-      this.render()
-      var obj = {}
-      obj[newPostKey] = true
-      return obj
+        this.render()
+        var obj = {}
+        obj[newPostKey] = true
+        return obj
+      }
     },
     pickable: function(item){
       //TODO filter out not own desks
