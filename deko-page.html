@@ -364,7 +364,7 @@
         }
       } else {
         // no deck picked
-        if (Object.keys(this.decks).length) {
+        if (this.decks && Object.keys(this.decks).length) {
           this.pickedDeck = Object.keys(this.decks)[0]
         } else {
           this.getProfiles(this.uid,this.name)
