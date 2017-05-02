@@ -328,10 +328,7 @@
             color: "#ba1212",
             name: "Tutorial",
             selected: true,
-            cards: {
-              0: {name:"name",title:"title"},
-            }
-          } 
+          }
           this.newDeckItem(profiles,profilesKeys,pickedProfile,deck)
         } else {
           return this.objectToArray(profile.decks)
@@ -359,6 +356,8 @@
                 that.decks[val.__key] = val
                 that.render()
               }
+            } else {
+              debugger
             }
           })
         }
