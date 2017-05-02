@@ -252,7 +252,9 @@
       } else if (this.editingDeck && this.editingDeck.__key) {
         this.updateDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && !this.editingDeck.__key) {
-        this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
+        var pickedDeck = this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
+        this.$$("#cardAdder").deck = pickedDeck
+        this.$$("#cardAdder").open({deck: pickedDeck})
       }
     },
     showCardPage: function(loginPage,deckPage,openedCardPage){
@@ -313,6 +315,7 @@
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update2", update2)
       this.render()
+      return newPostKey
     },
     addNewDeck: function() {
       if (this.$$("#deckEditor")) {
