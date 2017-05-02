@@ -325,9 +325,12 @@
         if (!profile.decks && !this.added["decks"]) {
           this.added["decks"] = true
           var deck = {
-            color: "#666",
-            name: "Home",
+            color: "#ba1212",
+            name: "Tutorial",
             selected: true,
+            cards: {
+              0: {name:"name",title:"title"},
+            }
           } 
           this.newDeckItem(profiles,profilesKeys,pickedProfile,deck)
         } else {
@@ -360,7 +363,12 @@
           })
         }
       } else {
-        debugger
+        // no deck picked
+        if (Object.keys(this.decks).length) {
+          this.pickedDeck = Object.keys(this.decks)[0]
+        } else {
+          this.
+        }
       }
       if (!this.perloading) {
         this.perloading = true
@@ -553,7 +561,6 @@
         return x
       })
       this.openedCardDeck = pillar
-      
       this.$$("#drawerOpenCard").closeDrawer()
       this.render()
     },
