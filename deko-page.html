@@ -367,7 +367,7 @@
         if (this.decks && Object.keys(this.decks).length) {
           this.pickedDeck = Object.keys(this.decks)[0]
         } else {
-          this.getProfiles(this.user.uid,this.user.name)
+          this.getProfiles(this.user.uid,this.user.displayName)
         }
       }
       if (!this.perloading) {
