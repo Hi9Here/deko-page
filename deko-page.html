@@ -25,7 +25,7 @@
 <link rel="import" href="shared-styles.html">
 
 <!--
-  `deko-page`
+  `<deko-page></deko-page>`
   @demo
 -->
 
@@ -441,7 +441,7 @@
       if (!deck.cards) {
         if (user && !user.isAnonymous) {
           this.$$("#cardAdder").deck = pickedDeck
-          this.$$("#cardAdder").open()
+          this.$$("#cardAdder").open({deck: pickedDeck})
         }
       } else {
         if (JSON.stringify(this.cards) !== JSON.stringify(this.objectToArray(deck.cards))) {
