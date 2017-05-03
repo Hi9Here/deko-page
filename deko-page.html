@@ -379,7 +379,7 @@
       } else {
         // no deck picked
         if (this.decks && Object.keys(this.decks).length) {
-          this.pickedDeck = Object.keys(this.decks)[0]
+          this.urlDeck = Object.keys(this.decks)[0]
         } else {
           if (!this.profiles) {
             this.getProfiles(this.user.uid,this.user.displayName)
