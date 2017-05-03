@@ -164,7 +164,7 @@
         value: false,
       },
       pickedDeck:{
-        computed:"selectedDeck(profile.decks,urlDeck,go)",
+        computed:"selectedDeck(profile.decks,urlDeck,user,go)",
       },
       decksWidth: {
         computed:"getWidth(deckItems.length)",
@@ -236,7 +236,7 @@
     closeCard: function() {
       this.openedCardPage = false
     },
-    selectedDeck: function(decks,urlDeck) {
+    selectedDeck: function(decks,urlDeck,user) {
       if (urlDeck) {
         return urlDeck
       }
@@ -245,7 +245,7 @@
           return deck
         }
       }
-      if (this.user && !this.user.isAnonymous) {
+      if (user && !user.isAnonymous) {
         this.addNewDeck()
       } else {
         // show deko dek
