@@ -245,7 +245,11 @@
           return deck
         }
       }
-      this.addNewDeck()
+      if (this.user && !this.user.isAnonymous) {
+        this.addNewDeck()
+      } else {
+        // show deko dek
+      }
     },
     closeEditor: function(e,d){
       if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
@@ -319,8 +323,12 @@
       return newPostKey
     },
     addNewDeck: function() {
-      if (this.$$("#deckEditor")) {
-        this.$$("#deckEditor").open()
+      if (this.user && !this.user.isAnonymous) {
+        if (this.$$("#deckEditor")) {
+          this.$$("#deckEditor").open()
+        }
+      } else {
+        //
       }
     },
     getDeckItems: function(profile,profiles,profilesKeys,pickedProfile,user){
