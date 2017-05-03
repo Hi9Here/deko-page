@@ -180,7 +180,7 @@
       _cards:{
         type:Array,
         notify:true,
-        computed:"getCardsItems(deck,deckItems,pickedDeck,user,go)",
+        computed:"getCardsItems(deck,deckItems,pickedDeck,user,edit,go)",
       },
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email)",
@@ -446,12 +446,12 @@
         this.getDecks(this.deckItems,pickedDeck)
       }
     },
-    getCardsItems: function(deck,deckItems,pickedDeck,user){
+    getCardsItems: function(deck,deckItems,pickedDeck,user,edit){
       // get decks or make deck
       var pathDecks = '/Decks/' + pickedDeck
       this.set("path", pathDecks + '/cards/')
       if (!deck.cards) {
-        if (user && !user.isAnonymous) {
+        if (user && !user.isAnonymous && edit) {
           this.$$("#cardAdder").deck = pickedDeck
           this.$$("#cardAdder").open({deck: pickedDeck})
         }
