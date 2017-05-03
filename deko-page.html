@@ -156,6 +156,7 @@
       },
       urlDeck:{
         notify:true,
+        value: ""
       },
       deckPage:{
         value: false,
@@ -198,9 +199,6 @@
       },
       edit: {
         computed:"isEditable(deck,profile.__key)",
-      },
-      urlDeck:{
-        value: ""
       },
     },
     isEditable: function(deck, myprofile){
