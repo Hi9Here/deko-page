@@ -304,7 +304,7 @@
       var pathDeck = 'Decks/' + key + '/'
       var update = {}
       var update2 = {}
-      if (deck.url !== key && ) {
+      if (deck.url !== key && /^[a-zA-Z]+$/.test(deck.url)) {
         update['Decks/' + deck.url + "/"] = this.updateUrlOfDeck(deck,key)
         update[pathProfile + '/decks/' + deck.url] = deck
         update2['Decks/' + deck.url + "/" + 'profile'] = profilesKeys[pickedProfile]
