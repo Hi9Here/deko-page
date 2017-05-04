@@ -321,9 +321,8 @@
     updateUrlOfDeck: function(deck,key) {
       // Update the key for the deck to the New key
       var newDeck = {}
-      
+      var newkey = deck.url
       Object.keys(deck).forEach(function(currentValue) {
-        var newkey = deck.url
         if ("cards" === currentValue) {
           newDeck.cards = {}
           Object.keys(deck.cards).forEach(function(card) {
