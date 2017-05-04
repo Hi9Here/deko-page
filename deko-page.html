@@ -298,20 +298,46 @@
       if (key === "undefined" ) {
         throw "undefined key"
       } 
+      
       delete(deck.__key)
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var pathDeck = 'Decks/' + key + '/'
-
       var update = {}
-      update[pathProfile + '/decks/' + key] = deck
+      var update2 = {}
+      if (deck.url !== key && ) {
+        update['Decks/' + deck.url + "/"] = this.updateUrlOfDeck(deck,key)
+        update[pathProfile + '/decks/' + deck.url] = deck
+        update2['Decks/' + deck.url + "/" + 'profile'] = profilesKeys[pickedProfile]
+        update[pathProfile + '/decks/' + key] = null
+      } else {
+        update[pathProfile + '/decks/' + key] = deck
+      }
       update[pathDeck] = deck
       this.set("update", update)
-      var update2 = {}
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
       this.render()
     },
-    newDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
+    updateUrlOfDeck: function(deck,key) {
+      // Update the key for the deck to the New key
+      var newDeck = {}
+      
+      Object.keys(deck).forEach(function(currentValue) {
+        var newkey = deck.url
+        if ("cards" === currentValue) {
+          newDeck.cards = {}
+          Object.keys(deck.cards).forEach(function(card) {
+            newDeck.cards[card] = deck.cards[card]
+            newDeck.cards[card].deck = newkey
+          })
+        } else {
+          newDeck[currentValue] = deck[currentValue]
+        }
+      })
+      
+      return newDeck
+    },
+    newDeckItem: function(profiles,profilesKeys,pickedProfile,deck) {
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var newPostKey = firebase.database().ref().child('Decks').push().key
       var pathDeck = 'Decks/' + newPostKey + '/'
