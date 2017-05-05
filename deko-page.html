@@ -37,7 +37,7 @@
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[deckItems.length]]">
             <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
-              <drag-me on-push-down="editDeck" name="[[item.name]]">
+              <drag-me on-push-down="editPillar" name="[[item.name]]">
                 <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
               </drag-me>
             </template>
@@ -47,7 +47,9 @@
         <div main>
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]"></deko-toolbar>
           <template is="dom-if" if="[[deck.name]]">
-            <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
+            <drag-me on-push-down="editDeck" name="[[deck.name]]">
+              <deko-pillar selected index="[[index]]" style="float:left" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
+            </drag-me>
           </template>
           <div style="padding-left:48px; height: 100%">
             <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard" on-open-options="editCard" no-add="[[!edit]]"></deko-cards>
@@ -97,7 +99,7 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[edit]]">
-      <deko-deck-editor id="deckEditor" deck="{{editingDeck}}" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
+      <deko-deck-editor id="deckEditor" deck="{{editingDeck}}" options-for-pillar="[[editingPillar]]" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
       <deko-card-adder id="cardAdder" add-one-to="{{newCard}}" no-add deck="[[deck.__key]]"></deko-card-adder>
     </template>   
     <template is="dom-if" if="[[loginPage]]">
@@ -435,7 +437,12 @@
       if (this.$$("#list4")) this.$$("#list4").render()
       if (this.$$("#list5")) this.$$("#list5").render()
     },
+    editPillar: function(e){
+      this.editDeck(e)
+      this.editingPillar = true
+    },
     editDeck: function(e) {
+      this.editingPillar = false
       var pillarName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name 
       var deck
       
