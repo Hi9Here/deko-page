@@ -302,8 +302,9 @@
       var update = {}
       var update2 = {}
       if (deck.url !== key && /^[a-zA-Z]+$/.test(deck.url)) {
-        update['Decks/' + deck.url + "/"] = this.addCards(this.updateUrlOfDeck(deck,key),cards,key)
-        update[pathProfile + '/decks/' + deck.url] = deck
+        var newDeck = this.updateUrlOfDeck(deck,key)
+        update[pathProfile + '/decks/' + deck.url] = newDeck
+        update['Decks/' + deck.url + "/"] = this.addCards(newDeck,cards,key)
         update2['Decks/' + deck.url + "/" + 'profile'] = profilesKeys[pickedProfile]
         update[pathProfile + '/decks/' + key] = null
       } else {
