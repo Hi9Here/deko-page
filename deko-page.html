@@ -315,6 +315,10 @@
       this.set("update", update)
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
+      if (newKey) {
+        this.set("deck", newKey)
+      }
+      this.deck 
       this.render()
     },
     addCards: function(deck,cards,key) {
