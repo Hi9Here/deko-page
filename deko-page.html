@@ -311,7 +311,7 @@
       } else {
         update[pathProfile + '/decks/' + key] = deck
       }
-      update[pathDeck] = deck
+      update[pathDeck] = this.addCards(deck,cards,newKey)
       this.set("update", update)
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
