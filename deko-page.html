@@ -317,10 +317,10 @@
     },
     addCards: function(deck,cards,key) {
       var output = deck
-      var newCards = []
-      Object.keys(cards).forEach(function(card) {
-        newCards[card] = newCards[card]
-        newCards[card].deck = key
+      var newCards = {}
+      cards.forEach(function(card) {
+        newCards[card[card].__key] = cards[card]
+        newCards[card[card].__key].deck = key
       })
       output.cards = newCards
       return output
