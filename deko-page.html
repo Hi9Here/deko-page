@@ -319,8 +319,8 @@
       var output = deck
       var newCards = {}
       cards.forEach(function(card) {
-        newCards[card[card].__key] = cards[card]
-        newCards[card[card].__key].deck = key
+        newCards[cards[card].__key] = cards[card]
+        newCards[cards[card].__key].deck = key
       })
       output.cards = newCards
       return output
