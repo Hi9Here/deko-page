@@ -297,11 +297,6 @@
     },
     updateDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
       var key = "" + deck.__key
-      if (key === "undefined" ) {
-        throw "undefined key"
-      } 
-      
-      delete(deck.__key)
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var pathDeck = 'Decks/' + key + '/'
       var update = {}
