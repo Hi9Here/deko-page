@@ -334,13 +334,7 @@
       var newDeck = {}
       var newkey = deck.url
       Object.keys(deck).forEach(function(currentValue) {
-        if ("cards" === currentValue) {
-          newDeck.cards = {}
-          Object.keys(deck.cards).forEach(function(card) {
-            newDeck.cards[card] = deck.cards[card]
-            newDeck.cards[card].deck = newkey
-          })
-        } else {
+        if ("cards" !== currentValue) {
           newDeck[currentValue] = deck[currentValue]
         }
       })
