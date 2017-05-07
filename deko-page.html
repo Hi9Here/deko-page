@@ -261,7 +261,7 @@
       if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
         this.deleteDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
       } else if (this.editingDeck && this.editingDeck.__key) {
-        this.updateDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
+        this.updateDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck,this.cards)
       } else if (this.editingDeck && !this.editingDeck.__key) {
         var pickedDeck = this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
         this.$$("#cardAdder").deck = pickedDeck
@@ -295,14 +295,14 @@
       this.set("update", update)
       this.render()
     },
-    updateDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
+    updateDeckItem:function(profiles,profilesKeys,pickedProfile,deck,cards) {
       var key = "" + deck.__key
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var pathDeck = 'Decks/' + key + '/'
       var update = {}
       var update2 = {}
       if (deck.url !== key && /^[a-zA-Z]+$/.test(deck.url)) {
-        update['Decks/' + deck.url + "/"] = this.updateUrlOfDeck(deck,key)
+        update['Decks/' + deck.url + "/"] = this.addCards(this.updateUrlOfDeck(deck,key),cards,key)
         update[pathProfile + '/decks/' + deck.url] = deck
         update2['Decks/' + deck.url + "/" + 'profile'] = profilesKeys[pickedProfile]
         update[pathProfile + '/decks/' + key] = null
@@ -314,6 +314,16 @@
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
       this.render()
+    },
+    addCards: function(deck,cards,key) {
+      var output = deck
+      var newCards = []
+      Object.keys(cards).forEach(function(card) {
+        newCards[card] = newCards[card]
+        newCards[card].deck = key
+      })
+      output.cards = newCards
+      return output
     },
     updateUrlOfDeck: function(deck,key) {
       // Update the key for the deck to the New key
