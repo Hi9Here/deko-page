@@ -74,7 +74,7 @@
       </paper-drawer-panel>
     </template>
     <template is="dom-if" if="[[openedCardPage]]"> 
-      <paper-drawer-panel id="drawerOpenCard" style="min-height:95vh" drawer-width="[[getWidth(openedCardDeckItemsPickable)]]px">
+      <paper-drawer-panel id="drawerOpenCard" style="min-height:95vh;overflow:scroll;" drawer-width="[[getWidth(openedCardDeckItemsPickable)]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[openedCardDeckItems.length]]">
             <template is="dom-repeat" items="[[openedCardDeckItems]]" filter="pickable" strip-whitespace id="list4">
