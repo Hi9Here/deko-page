@@ -234,6 +234,7 @@
     },
     openCard: function(e,d) {
       this.openedCardPage = true
+      this.openedCardDeck = 0
       this.card = d.e.target.parentNode.parentElement.parentElement.card || d.e.target.parentNode.parentElement.card || d.e.target.parentNode.card || d.e.target.card || d.e.target.parentNode.parentElement.parentElement.parentNode.card 
       this.card.selected = true
       this.openedCardDeckItems = d.d.pillars
