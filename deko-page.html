@@ -406,8 +406,8 @@
                 that.render()
               }
             } else {
-              fbdb.off() //unsubscribing to Dek
-              delete(this.decks[pickedDeck])
+              fbdb.off() //Unsubscribing to Dek
+              delete(that.decks[pickedDeck])
             }
           })
         }
