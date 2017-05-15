@@ -390,7 +390,8 @@
       var that = this
       if (pickedDeck) {
         if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) { //Subscribing to Dex
-          firebase.database().ref('Decks/' + pickedDeck ).on('value', function(deck) {
+          var fbdb = firebase.database().ref('Decks/' + pickedDeck)
+          fbdb.on('value', function(deck) {
             var val = deck.val()
             if (val){ 
               val.__key = deck.getKey()
@@ -405,7 +406,8 @@
                 that.render()
               }
             } else {
-              debugger
+              fbdb.off() //unsubscribing to Dek
+              delete(this.decks[pickedDeck])
             }
           })
         }
