@@ -407,7 +407,9 @@
               }
             } else {
               fbdb.off() //Unsubscribing to Dek
-              delete(that.decks[pickedDeck])
+              if (that.decks && pickedDeck && that.decks.hasOwnProperty(pickedDeck)) {
+                delete(that.decks[pickedDeck])
+              }
             }
           })
         }
