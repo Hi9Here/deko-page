@@ -126,7 +126,7 @@
         computed:"itemsPickable(openedCardDeckItems)",
       },
       loginPage:{
-        computed:"showLoginPage(user,showLogin)",
+        computed:"showLoginPage(user,showLogin,deck)",
       },
       user:{
         value: null,
@@ -713,9 +713,13 @@
     login: function() {
       this.showLogin = true
     },
-    showLoginPage: function(user, showLogin) {
+    showLoginPage: function(user, showLogin, deck) {
       if (!user || showLogin) {
-        return true
+        if (deck) {
+          return false
+        } else {
+          return true
+        }
       } else {
         return false
       }
