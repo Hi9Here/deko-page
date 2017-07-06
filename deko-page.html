@@ -159,6 +159,11 @@
       theDeck:{
         value:"",
       },
+      urlProfile:{
+        notify:true,
+        value: "",
+        computed:"getUrlProfile(deck)"
+      },
       urlDeck:{
         notify:true,
         value: ""
@@ -205,6 +210,9 @@
       edit: {
         computed:"isEditable(deck,profile.__key)",
       },
+    },
+    getUrlProfile: function(deck) {
+      return deck.profile
     },
     isEditable: function(deck, myprofile){
       if (myprofile) {
