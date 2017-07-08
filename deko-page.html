@@ -53,22 +53,6 @@
           </template>
           <div style="padding-left:48px; height: 100%">
             <deko-cards by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" on-open-card="openCard" on-open-options="editCard" no-add="[[!edit]]"></deko-cards>
-            <paper-dialog id="optionscard">
-              <h2>Delete Card</h2>
-              <deko-card card="[[card]]"></deko-card>
-              <div class="buttons">
-                <paper-button dialog-dismiss>Cancel</paper-button>
-                <paper-button dialog-confirm autofocus on-tap="deleteCard">Delete</paper-button>
-              </div>
-            </paper-dialog>
-            <paper-dialog id="collectcard">
-              <h2>Collect Card</h2>
-              <deko-card card="[[card]]"></deko-card>
-              <div class="buttons">
-                <paper-button dialog-dismiss>Cancel</paper-button>
-                <paper-button dialog-confirm autofocus on-tap="collectCard">collect</paper-button>
-              </div>
-            </paper-dialog>
           </div>
         </div>
       </paper-drawer-panel>
@@ -100,7 +84,6 @@
     </template>
     <template is="dom-if" if="[[edit]]">
       <deko-deck-editor id="deckEditor" deck="{{editingDeck}}" options-for-pillar="[[editingPillar]]" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
-      <paper-fab style="position: fixed;right: 125px;bottom: 30px" icon="add" on-tap="addCard"></paper-fab>
     </template>   
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
