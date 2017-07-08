@@ -213,6 +213,18 @@
     },
     addCard: function() {
       // go to edit card
+      
+      this.openedCardPage = true
+      this.openedCardDeck = 0
+      this.card = {
+        icon: "chrome-reader-mode",
+        cardType: "content-card",
+      }
+      this.openedCardDeckItems = [
+        {name:"Edit", selected:true, edit:true, color:"#1d1e30"},
+        {view:true, color:"#f2d123", name:"view"},
+      ]
+      
     },
     getUrlProfile: function(deckProfile) {
       if (deckProfile !== this.urlProfile ) {
