@@ -32,7 +32,7 @@
 <dom-module id="deko-page">
   <template>
     <style include="shared-styles"></style>
-    <template is="dom-if" if="[[cardPage]]"> 
+    <template is="dom-if" if="[[cardPage]]">  <!-- cardPage -->
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[deckItems.length]]">
@@ -57,7 +57,7 @@
         </div>
       </paper-drawer-panel>
     </template>
-    <template is="dom-if" if="[[openedCardPage]]"> 
+    <template is="dom-if" if="[[openedCardPage]]"> <!-- openedCardPage -->
       <paper-drawer-panel id="drawerOpenCard" style="min-height:95vh;overflow:scroll;" drawer-width="[[getWidth(openedCardDeckItemsPickable)]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[openedCardDeckItems.length]]">
