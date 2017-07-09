@@ -32,7 +32,7 @@
 <dom-module id="deko-page">
   <template>
     <style include="shared-styles"></style>
-    <template is="dom-if" if="[[cardPage]]">  <!-- cardPage -->
+    <template is="dom-if" if="[[cardPage]]">
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[deckItems.length]]">
@@ -57,7 +57,7 @@
         </div>
       </paper-drawer-panel>
     </template>
-    <template is="dom-if" if="[[openedCardPage]]"> <!-- openedCardPage -->
+    <template is="dom-if" if="[[openedCardPage]]">
       <paper-drawer-panel id="drawerOpenCard" style="min-height:95vh;overflow:scroll;" drawer-width="[[getWidth(openedCardDeckItemsPickable)]]px">
         <div class="horizontal start-justified layout" drawer>
           <template is="dom-if" if="[[openedCardDeckItems.length]]">
@@ -66,13 +66,14 @@
             </template>
           </template>
         </div>
-        <div main>
+        <div main class="openedCardPage">
           <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]"></deko-toolbar>
           <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
             <deko-pillar on-tap="openDrawer" selected style="width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
           </template>
           <div style="padding-left:48px">
             <iron-pages selected="[[openedCardDeck]]">
+              <div class="openedCardDeck"></div>
               <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
                 <deko-opened-card on-deleted="closeCard" profile="[[profile]]" pillar-on="[[openedCardDeck]]" index="[[index]]" card="{{card}}" pillar="[[item]]"></deko-opened-card>
               </template>
