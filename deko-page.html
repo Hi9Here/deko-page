@@ -74,7 +74,7 @@
           <div style="padding-left:48px">
             <iron-pages selected="[[openedCardDeck]]">
               <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
-                <deko-opened-card edit="[[edit]]" on-deleted="closeCard" profile="[[profile]]" pillar-on="[[openedCardDeck]]" index="[[index]]" card="{{card}}" pillar="[[item]]"></deko-opened-card>
+                <deko-opened-card deck="[[deck]]" edit="[[edit]]" on-deleted="closeCard" pillar-on="[[openedCardDeck]]" index="[[index]]" card="{{card}}" pillar="[[item]]"></deko-opened-card>
               </template>
             </iron-pages>
           </div>
