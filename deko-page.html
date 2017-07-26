@@ -408,7 +408,7 @@
           fbdb.on('value', function(deck) {
             var val = deck.val()
             if (val){ 
-              val.__key = deck.getKey()
+              val.__key = deck.key
               if (!that.decks || !Object.keys(that.decks).length) {
                 var decks = {}
                 decks[val.__key] = val
@@ -544,7 +544,7 @@
           firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
             var val = profile.val()
             if (val){ 
-              val.__key = profile.getKey()
+              val.__key = profile.key
               if (!that.profiles) {
                 var profiles = {}
                 profiles[val.__key] = val
