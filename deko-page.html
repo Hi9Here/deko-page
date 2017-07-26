@@ -431,9 +431,9 @@
         // no deck picked
         if (this.decks && Object.keys(this.decks).length) {
           this.urlDeck = Object.keys(this.decks)[0]
-        } else {
+        } else if (this.user) {
           if (!this.profiles) {
-            this.getProfiles(this.user.uid,this.user.displayName)
+            this.getProfiles(this.user.uid, this.user.displayName)
           }
           if (!this.profiles.decks) {
             //makeNewDeck
@@ -441,6 +441,9 @@
               this.$$("#deckEditor").open({})
             }
           }
+        } else {
+          // show river/login
+          this.deckPage = false
         }
       }
       if (!this.perloading) {
