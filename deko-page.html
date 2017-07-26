@@ -731,7 +731,7 @@
       this.showLogin = true
     },
     showLoginPage: function(user, showLogin, urlDeck) {
-      if (!user || showLogin) {
+      if (!user || user.isAnonymous || showLogin) {
         if (urlDeck) {
           return false
         } else {
