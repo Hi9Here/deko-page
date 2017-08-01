@@ -196,7 +196,21 @@
     },
     addCard: function() {
       // go to edit card
-      this.editingCard= {}
+      this.editingCard = {
+        article:"",
+        bigImage:"",
+        cardType:"",
+        desc:"",
+        exif:"",
+        icon:"",
+        image:"",
+        readable:"",
+        title:"",
+        writable:"",
+        key:"",
+        __key:"",
+      }
+      
       this.openedCardPage = true
       this.openedCardDeck = 0
       this.cardPage = false
