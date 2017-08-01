@@ -256,6 +256,10 @@
       // this...
     },
     closeCard: function() {
+      this.openedCardDeckItems = [
+        {view: true, selected: true, color: "#f2d123", name: "view"},
+        {name: "Edit", edit: true, color: "#1d1e30"},
+      ]
       this.openedCardPage = false
     },
     selectedDeck: function(decks,urlDeck,user) {
