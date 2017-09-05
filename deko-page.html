@@ -178,12 +178,6 @@
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email)",
       },
-      _firebaseUpdate:{
-        computed:"firebaseUpdate(update)",
-      },
-      _firebaseUpdate2:{
-        computed:"firebaseUpdate(update2)",
-      },
       added:{
         value: {},
       },
@@ -294,11 +288,6 @@
     toggleDeckPage: function(){
       this.openedCardPage = false
       this.set("deckPage",!this.deckPage)
-    },
-    firebaseUpdate: function(update){
-      if (update && Object.keys(update).length) {
-        firebase.database().ref().update(update)
-      }
     },
     deleteDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
       var key = "" + deck.__key
@@ -573,9 +562,9 @@
         //add unsub
         db.collection("Users").doc(uid).collection('profiles')
           .onSnapshot(function(profiles) {
-          if (profiles.docs()) {
+          if (profiles) {
             var profilesKeys = []
-            profiles.docs().forEach( function (profile) {
+            profiles.docs.forEach(function (profile) {
               profilesKeys.push(profile.id)
             })
             that.set("profilesKeys",profilesKeys)
@@ -610,13 +599,11 @@
       }
       if (!this.added.profile) {
         this.added.profile = true
-        var newPostKey
         db.collection("Profiles").add(profileData).then(function(docRef) {
           console.log("Profiles in !", docRef.id)
           db.collection("Users")
             .doc(uid).collection("profiles")
             .doc(docRef.id).update(profileData)
-          newPostKey = docRef.id
         }).catch(function(error) {
           console.error("Profiles not in", error)
         })
