@@ -603,7 +603,14 @@
           console.log("Profiles in !", docRef.id)
           db.collection("Users")
             .doc(uid).collection("profiles")
-            .doc(docRef.id).update(profileData)
+            .doc(docRef.id)
+            .set(profileData)
+            .then(function() {
+              console.log("user profiles in !")
+            }).catch(function(error) {
+              console.log("user profiles not in !", error)
+            })
+          
         }).catch(function(error) {
           console.error("Profiles not in", error)
         })
