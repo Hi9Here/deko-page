@@ -375,7 +375,7 @@
         //
       }
     },
-    getDeckItems: function(profile,profiles,profilesKeys,pickedProfile,user){
+    getDeckItems: function(profile, profiles, profilesKeys, pickedProfile, user){
       // get decks or make deck
       if (user && !user.isAnonymous) {
         if (!profile.decks && !this.added["decks"]) {
@@ -385,7 +385,7 @@
             name: "Tutorial",
             selected: true,
           }
-          this.newDeckItem(profiles,profilesKeys,pickedProfile,deck)
+          this.newDeckItem(profiles, profilesKeys, pickedProfile, deck)
         } else {
           return this.objectToArray(profile.decks)
         }
@@ -562,7 +562,7 @@
         //add unsub
         db.collection("Users").doc(uid).collection('profiles')
           .onSnapshot(function(profiles) {
-          if (profiles) {
+          if (profiles && profiles.docs.length) {
             var profilesKeys = []
             profiles.docs.forEach(function (profile) {
               profilesKeys.push(profile.id)
