@@ -557,7 +557,7 @@
                 that.render()
               } else if (JSON.stringify(that.profiles[val.__key]) !== JSON.stringify(val)) {
                 that.profiles[val.__key] = val
-                that.set("profiles",JSON.parse(JSON.stringify(that.profiles)))
+                that.set("profiles", JSON.parse(JSON.stringify(that.profiles)))
                 that.render()
               }
             }
@@ -570,9 +570,15 @@
     getProfiles: function(uid,name) {
       var that = this
       if (name) {
-        firebase.database().ref('/Users/' + uid + '/profiles/').on('value' ,function(profiles) {
-          if (profiles.val()) {
-            that.profilesKeys = Object.keys(profiles.val())
+        //add unsub
+        db.collection("Users").doc(uid).collection('profiles')
+          .onSnapshot(function(profiles) {
+          if (profiles.docs()) {
+            var profilesKeys = []
+            profiles.docs().forEach( function (profile) {
+              profilesKeys.push(profile.id)
+            })
+            that.set("profilesKeys",profilesKeys)
             that.render()
           } else {
             that.writeNewProfile(uid, name)
@@ -585,12 +591,6 @@
     },
     writeUserData: function(userId, name, email) {
       if (userId && name && email) {
-        firebase.database().ref('/Users/' + userId + '/details/').set({
-          name: name,
-          email: email,
-          profile_picture: "",
-        })
-        
         db.collection("Users").doc(userId).set({details:{
           name: name,
           email: email,
@@ -620,24 +620,6 @@
         }).catch(function(error) {
           console.error("Profiles not in", error)
         })
-        
-        // Get a key for a new Post.
-        // var newPostKey = firebase.database().ref().child('Profiles').push().key
-
-        // Write the new post's data simultaneously in the posts list and the user's post list.
-        var updates = {}
-        updates['/Profiles/' + newPostKey] = profileData
-        updates['/Users/' + uid + '/profiles/' + newPostKey] = profileData
-        this.update = updates
-        var updates2 = {}
-        updates2['/Profiles/' + newPostKey + '/users/' + uid] = true
-        this.update2 = updates2
-      
-        this.render()
-        
-        var obj = {}
-        obj[newPostKey] = true
-        return obj
       }
     },
     pickable: function(item){
