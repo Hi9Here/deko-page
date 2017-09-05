@@ -595,13 +595,12 @@
           name: name,
           email: email,
           profile_picture: "",
-        }}).then(function() {
-          console.log("User in !");
+        }}).then(function(docRef) {
+          console.log("User in !", docRef.id)
         }).catch(function(error) {
-          console.error("", error);
+          console.error("", error)
         })
       }
-    
     },
     writeNewProfile: function(uid, profile) {
       // A post entry.
@@ -611,8 +610,19 @@
       }
       if (!this.added.profile) {
         this.added.profile = true
+        var newPostKey
+        db.collection("Profiles").add(profileData).then(function(docRef) {
+          console.log("Profiles in !", docRef.id)
+          db.collection("Users")
+            .doc(uid).collection("profiles")
+            .doc(docRef.id).update(profileData)
+          newPostKey = docRef.id
+        }).catch(function(error) {
+          console.error("Profiles not in", error)
+        })
+        
         // Get a key for a new Post.
-        var newPostKey = firebase.database().ref().child('Profiles').push().key
+        // var newPostKey = firebase.database().ref().child('Profiles').push().key
 
         // Write the new post's data simultaneously in the posts list and the user's post list.
         var updates = {}
@@ -624,6 +634,7 @@
         this.update2 = updates2
       
         this.render()
+        
         var obj = {}
         obj[newPostKey] = true
         return obj
@@ -688,25 +699,11 @@
       this.$$("#drawer").closeDrawer()
       this.render()
     },
-    logSelectedDeck: function(key){
-      var userUpdate = {} // TODO move to firebase functions
-      var newPostKey = firebase.database().ref().child('User/'+this.user.uid+'/log/deckSelected').push().key
-      userUpdate['Users/'+this.user.uid+'/log/deckSelected/'+newPostKey] = {
-        key: key,
-        date: firebase.database.ServerValue.TIMESTAMP,
-        as: this.profilesKeys[this.pickedProfile],
-      }
-      this.set("update2",userUpdate)
-    },
     getDecksWidth: function(deckItems){
       return this.getWidth(deckItems.length) 
     },
     getPickableWidth: function(deckItems){
-//      if (deckItems && deckItems.filter(this.pickable).length > 3) {
       return this.getWidth(deckItems.filter(this.pickable).length)
-//      } else {
-//        return 48 * 2
- //     }
     },
     makeTag: function(label) {
       return label.replace(" ","-")
