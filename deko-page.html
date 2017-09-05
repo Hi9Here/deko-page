@@ -584,20 +584,24 @@
       }
     },
     writeUserData: function(userId, name, email) {
-      firebase.database().ref('/Users/' + userId + '/details/').set({
-        name: name,
-        email: email,
-        profile_picture: "",
-      })
-      db.collection("Users").doc(userId).set({details:{
-        name: name,
-        email: email,
-        profile_picture: "",
-      }}).then(function() {
-        console.log("User in !");
-      }).catch(function(error) {
-        console.error("", error);
-      })
+      if (userId && name && email) {
+        firebase.database().ref('/Users/' + userId + '/details/').set({
+          name: name,
+          email: email,
+          profile_picture: "",
+        })
+        
+        db.collection("Users").doc(userId).set({details:{
+          name: name,
+          email: email,
+          profile_picture: "",
+        }}).then(function() {
+          console.log("User in !");
+        }).catch(function(error) {
+          console.error("", error);
+        })
+      }
+    
     },
     writeNewProfile: function(uid, profile) {
       // A post entry.
