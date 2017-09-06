@@ -123,9 +123,13 @@
       }
     },
     writeNewProfile: function(uid, profile) {
+      var users = [uid]
       if (!this.added.profile) {
         this.added.profile = true
-        db.collection("Profiles").add(profileData).then(function(docRef) {
+        db.collection("Profiles").add({
+            displayName: profile,
+            users: users,
+          }).then(function(docRef) {
           db.collection("Users")
             .doc(uid).collection("profiles")
             .doc(docRef.id)
