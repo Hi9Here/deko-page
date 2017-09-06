@@ -236,10 +236,8 @@
             })
             that.set("profilesKeys",profilesKeys)
             that.set("profiles",profiles.docs)
-            that.render()
           } else {
             that.writeNewProfile(uid, name)
-            that.render()
           }
         })
       } else {
@@ -323,7 +321,6 @@
       }, {})
       this.set("update", update)
       this.$$("#drawer").closeDrawer()
-      this.render()
     },
     getDecksWidth: function(deckItems){
       return this.getWidth(deckItems.length) 
