@@ -9,7 +9,6 @@
 <link rel="import" href="../paper-toolbar/paper-toolbar.html">
 <link rel="import" href="../paper-item/paper-icon-item.html">
 <link rel="import" href="../paper-item/paper-item-body.html">
-<link rel="import" href="../deko-toolbar/deko-toolbar.html">
 <link rel="import" href="../inbox-search/inbox-search.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../profile-page/profile-page.html">
@@ -46,7 +45,6 @@
           </template>
         </div>
         <div main>
-          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]"></deko-toolbar>
           <template is="dom-if" if="[[deck.name]]">
             <drag-me on-push-down="editDeck" name="[[deck.name]]" style="float:left">
               <deko-pillar selected index="[[index]]" style="position:fixed;" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
@@ -93,9 +91,6 @@
       profile:{
         computed:"getProfile(profiles,pickedProfile)",
       },
-      _profile:{
-        computed:"subProfile(profilesKeys,pickedProfile)",
-      },
       _profilesKeys: {
         computed:"getProfiles(user.uid, user.displayName)",
       },
@@ -110,16 +105,6 @@
       },
       go:{
         value: false,
-      },
-      pickedDeck:{
-        computed:"selectedDeck(profile.decks,urlDeck,user,go)",
-      },
-      decksWidth: {
-        computed:"getWidth(deckItems.length)",
-      },
-      pickableWidth:{
-        computed:"getPickableWidth(deckItems)",
-        notify:true,
       },
       cardPage:{
         computed:"showCardPage(loginPage,deckPage,openedCardPage,showLogin)",
@@ -148,27 +133,6 @@
     getProfile(data){
       console.log("routeData",data)
     },
-    addCard: function() {
-      // go to edit card
-     
-      this.openedCardPage = true
-      this.openedCardDeck = 0
-      this.cardPage = false
-      this.card = {
-        icon: "chrome-reader-mode",
-        cardType: "content-card",
-        deck: this.deck.__key,
-        bigImage:"",
-        image:"",
-        title:"",
-        desc:"",
-        __key:"",
-      }
-      this.openedCardDeckItems = [
-        {name:"Edit", selected:true, edit:true, color:"#1d1e30"},
-      ]
-      
-    },
     getUrlProfile: function(deckProfile) {
       if (deckProfile !== this.urlProfile ) {
         return deckProfile
@@ -179,7 +143,7 @@
         return deck.profile == myprofile
       } else {
         return false
-      }
+      },
     },
     editCard: function(e,d){
       this.card = d
@@ -193,11 +157,6 @@
     itemsPickable: function(items) {
       if (items && Array.isArray(items)){
         return items.filter(this.pickable).length
-      }
-    },
-    getWidth: function(n) {
-      if (n || n === 0) {
-        return n * 48
       }
     },
     openCard: function(e,d) {
@@ -249,16 +208,19 @@
       this.openedCardPage = false
       this.set("deckPage",!this.deckPage)
     },
-    getProfile: function(profiles, pickedProfile) { 
-      //TODO let users pick profile
-      var keys = Object.keys(profiles)
-      if (!pickedProfile && keys.length) {
-        pickedProfile = keys[0]
-      }
-      if (keys.length && profiles.hasOwnProperty(pickedProfile)) {
-        return profiles[pickedProfile]
-      } else {
-        return {__key:"", decks: {}}
+    getProfile: function(profiles, pickedProfile) {
+      if (profiles && pickedProfile) {
+        //TODO let users pick profile
+        var keys = Object.keys(profiles)
+        if (!pickedProfile && keys.length) {
+          pickedProfile = keys[0]
+        }
+        if (keys.length && profiles.hasOwnProperty(pickedProfile)) {
+          profiles[pickedProfile].__key = pickedProfile
+          return profiles[pickedProfile]
+        } else {
+          return {__key:pickedProfile, decks: {}}
+        }
       }
     },
     getProfiles: function(uid,name) {
@@ -273,6 +235,7 @@
               profilesKeys.push(profile.id)
             })
             that.set("profilesKeys",profilesKeys)
+            that.set("profiles",profiles.docs)
             that.render()
           } else {
             that.writeNewProfile(uid, name)
