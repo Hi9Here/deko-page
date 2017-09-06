@@ -22,7 +22,7 @@
     <style include="shared-styles"></style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[cardPage]]">
-      <deko-cards route="{{tail}}" ref="[[profileRef]]"></deko-cards>
+      <deko-cards route="{{tail}}" ref="[[profile.ref]]"></deko-cards>
     </template>
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
@@ -43,9 +43,6 @@
       },
       user:{
         value: null,
-      },
-      profileRef:{
-        computed:"getProfileRef(profile)"
       },
       profile:{
         computed:"getProfile(profiles,pickedProfile)",
