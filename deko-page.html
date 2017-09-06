@@ -86,7 +86,7 @@
           pickedProfile = profiles[keys[0]].id
           this.routeData.data = pickedProfile
         }
-        if (keys.length && profiles.hasOwnProperty(pickedProfile)) {
+        if (keys.length) {
           for (var profile in profiles) {
             if (profiles[profile].id === pickedProfile) {
               return profiles[profile]
