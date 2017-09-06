@@ -21,6 +21,7 @@
 <link rel="import" href="../deko-cards/deko-cards.html">
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../card-deck/card-deck.html">
+<link rel="import" href="../app-route/app-route.html">
 <link rel="import" href="../drag-me/drag-me.html">
 <link rel="import" href="shared-styles.html">
 
@@ -32,6 +33,7 @@
 <dom-module id="deko-page">
   <template>
     <style include="shared-styles"></style>
+    <app-route route="{{route}}" pattern="/:profile" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[cardPage]]">
       <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
         <div class="horizontal start-justified layout" drawer>
@@ -87,7 +89,7 @@
     </template>   
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
-        <content select="login-page"></content>
+        <content select="login-page"></content> <!-- TODO slot -->
       </div>
     </template>
   </template>
@@ -142,14 +144,8 @@
       theDeck:{
         value:"",
       },
-      urlProfile:{
+      route:{
         notify:true,
-        value: "",
-        computed:"getUrlProfile(deck.profile)"
-      },
-      urlDeck:{
-        notify:true,
-        value: ""
       },
       deckPage:{
         value: false,
@@ -187,6 +183,12 @@
       edit: {
         computed:"isEditable(deck,profile.__key)",
       },
+      routeData: {
+        observe: "_log"
+      },
+    },
+    _log: function(a,b) {
+      console.log(a,b)
     },
     addCard: function() {
       // go to edit card
@@ -256,7 +258,7 @@
       ]
       this.openedCardPage = false
     },
-    selectedDeck: function(decks,urlDeck,user) {
+    selectedDeck: function(decks, urlDeck, user) {
       if (urlDeck) {
         return urlDeck
       }
@@ -282,14 +284,14 @@
         this.$$("#cardAdder").open({deck: pickedDeck})
       }
     },
-    showCardPage: function(loginPage,deckPage,openedCardPage){
+    showCardPage: function(loginPage, deckPage, openedCardPage){
       return !loginPage && !deckPage && !openedCardPage
     },
     toggleDeckPage: function(){
       this.openedCardPage = false
       this.set("deckPage",!this.deckPage)
     },
-    deleteDeckItem:function(profiles,profilesKeys,pickedProfile,deck) {
+    deleteDeckItem:function(profiles, profilesKeys, pickedProfile, deck) {
       var key = "" + deck.__key
       if (key === "undefined" ) {
         throw "undefined key"
@@ -304,7 +306,7 @@
       this.set("update", update)
       this.render()
     },
-    updateDeckItem:function(profiles,profilesKeys,pickedProfile,deck,cards) {
+    updateDeckItem: function(profiles, profilesKeys, pickedProfile, deck, cards) {
       var key = "" + deck.__key
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var pathDeck = 'Decks/' + key + '/'
@@ -312,16 +314,20 @@
       var update2 = {}
       if (deck.url !== key && /^[a-zA-Z]+$/.test(deck.url)) {
         var newKey = deck.url
-        var newDeck = this.updateUrlOfDeck(deck,newKey)
+        var newDeck = this.updateUrlOfDeck(deck, newKey)
+        // TODO db
         update[pathProfile + '/decks/' + newKey] = newDeck
         update['Decks/' + newKey + "/"] = this.addCards(newDeck,cards,newKey)
         update2['Decks/' + newKey + "/" + 'profile'] = profilesKeys[pickedProfile]
         update[pathProfile + '/decks/' + key] = null
       } else {
+        // TODO db
         update[pathProfile + '/decks/' + key] = deck
       }
-      update[pathDeck] = this.addCards(deck,cards,newKey)
+      // TODO db
+      update[pathDeck] = this.addCards(deck, cards, newKey)
       this.set("update", update)
+      // TODO db
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update", update2)
       if (newKey) {
@@ -329,7 +335,7 @@
       }
       this.render()
     },
-    addCards: function(deck,cards,key) {
+    addCards: function(deck, cards, key) {
       var output = deck
       var newCards = {}
       cards.forEach(function(card) {
@@ -339,7 +345,7 @@
       output.cards = newCards
       return output
     },
-    updateUrlOfDeck: function(deck,key) {
+    updateUrlOfDeck: function(deck, key) {
       // Update the key for the deck to the New key
       var newDeck = {}
       var newkey = deck.url
@@ -351,15 +357,18 @@
       
       return newDeck
     },
-    newDeckItem: function(profiles,profilesKeys,pickedProfile,deck) {
+    newDeckItem: function(profiles, profilesKeys, pickedProfile, deck) {
       var pathProfile = 'Profiles/' + profilesKeys[pickedProfile]
       var newPostKey = firebase.database().ref().child('Decks').push().key
       var pathDeck = 'Decks/' + newPostKey + '/'
 
+      // TODO db
       var update = {}
       update[pathProfile + '/decks/' + newPostKey] = deck
       update[pathDeck] = deck
-      this.set("update", update) 
+      this.set("update", update)
+      
+      // TODO db
       var update2 = {}
       update2[pathDeck + 'profile'] = profilesKeys[pickedProfile]
       this.set("update2", update2)
@@ -398,6 +407,7 @@
       var that = this
       if (pickedDeck) {
         if (!this.decks || !this.decks.hasOwnProperty(pickedDeck) ) { //Subscribing to Dex
+          // TODO db
           var fbdb = firebase.database().ref('Decks/' + pickedDeck)
           fbdb.on('value', function(deck) {
             var val = deck.val()
@@ -414,7 +424,7 @@
                 that.render()
               }
             } else {
-              fbdb.off() //Unsubscribing to Dek
+              fbdb.off() // Unsubscribing to Dek
               if (that.decks && pickedDeck && that.decks.hasOwnProperty(pickedDeck)) {
                 delete(that.decks[pickedDeck])
               }
@@ -535,6 +545,7 @@
       }
       if (keys.length) {
         if (!this.profiles || !this.profiles.hasOwnProperty(pickedProfile) ) {
+          // TODO db
           firebase.database().ref('Profiles/' + keys[this.pickedProfile]).on('value', function(profile) {
             var val = profile.val()
             if (val){ 
