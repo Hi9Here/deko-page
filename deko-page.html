@@ -123,7 +123,7 @@
         computed:"subProfile(profilesKeys,pickedProfile)",
       },
       _profilesKeys: {
-        computed:"getProfiles(user.uid,user.displayName)",
+        computed:"getProfiles(user.uid, user.displayName)",
       },
       pickedProfile:{
         value:0,
@@ -183,8 +183,8 @@
       edit: {
         computed:"isEditable(deck,profile.__key)",
       },
-      routeData: {
-        observe: "_log"
+      _routeData: {
+        computed: "_log(route,routeData)"
       },
     },
     _log: function(a,b) {
