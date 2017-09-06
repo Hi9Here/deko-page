@@ -71,9 +71,6 @@
       openedCardDeck: {
         value: 0,
       },
-      _routeData: {
-        computed: "getProfile(routeData.data)"
-      },
     },
     showCardPage: function(loginPage){
       return !loginPage
@@ -149,59 +146,6 @@
           console.error("Profiles not in", error)
         })
       }
-    },
-    pickable: function(item){
-      //TODO filter out not own desks
-      return !item.selected
-    },
-    selected: function(item){
-      return item.selected || false
-    },
-    openDrawer: function(){
-      if (this.$$("#drawerOpenCard")) {
-        this.$$("#drawerOpenCard").openDrawer()
-      }
-      if (this.$$("#drawer")) {
-        this.$$("#drawer").openDrawer()
-      }
-    },
-    select: function(e){
-      document.title = "loading ..."
-      this.deckPage = false
-      var that = this
-      var deckName = e.target.parentNode.parentNode.name || e.target.parentNode.name || e.target.name
-      var pathProfile = 'Profiles/' + this.profilesKeys[this.pickedProfile]
-      var updatedDeck = this.deckItems.map(function(x,i){
-        if (x.name == deckName) {
-          x.selected = true
-          that.async(that.logSelectedDeck(x.__key))
-          that.urlDeck = x.__key
-        } else {
-          x.selected = false
-        }
-        return x
-      })
-      var update = {}
-      update[pathProfile + "/decks/"] = updatedDeck.reduce(function (update, deck , i) {
-        var key = deck.__key
-        update[key] = deck        
-        return update
-      }, {})
-      this.set("update", update)
-      this.$$("#drawer").closeDrawer()
-    },
-    objectToArray: function (data) {
-      var output = []
-      if (data) {
-        var keys = Object.keys(data)
-        for (var i = 0; i < keys.length; i++) {
-          if (typeof data[keys[i]] === 'object') {
-            data[keys[i]].__key = keys[i]
-            output.push(data[keys[i]])
-          }
-        }
-      }
-      return output
     },
     showLoginPage: function(user, showLogin, urlDeck) {
       if (!user || user.isAnonymous || showLogin) {
