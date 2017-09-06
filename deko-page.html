@@ -38,15 +38,6 @@
       showLogin:{
         value: false,
       },
-      newCard: {
-        value: false,
-      },
-      openedCardPage:{
-        value: false,
-      },
-      openedCardDeckItemsPickable:{
-        computed:"itemsPickable(openedCardDeckItems)",
-      },
       loginPage:{
         computed:"showLoginPage(user,showLogin,urlDeck)",
       },
@@ -56,7 +47,7 @@
       profile:{
         computed:"getProfile(profiles,pickedProfile)",
       },
-      _profilesKeys: {
+      _profiles: {
         computed:"getProfiles(user.uid, user.displayName)",
       },
       pickedProfile:{
@@ -65,14 +56,8 @@
       route:{
         notify:true,
       },
-      deckPage:{
-        value: false,
-      },
-      go:{
-        value: false,
-      },
       cardPage:{
-        computed:"showCardPage(loginPage,deckPage,openedCardPage,showLogin)",
+        computed:"showCardPage(loginPage)",
       },
       _cards:{
         type:Array,
@@ -88,103 +73,30 @@
       openedCardDeck: {
         value: 0,
       },
-      edit: {
-        computed:"isEditable(deck,profile.__key)",
-      },
       _routeData: {
         computed: "getProfile(routeData.data)"
       },
     },
-    getProfile(data){
-      console.log("routeData",data)
-    },
-    getUrlProfile: function(deckProfile) {
-      if (deckProfile !== this.urlProfile ) {
-        return deckProfile
-      }
-    },
-    isEditable: function(deck, myprofile){
-      if (myprofile) {
-        return deck.profile == myprofile
-      } else {
-        return false
-      }
-    },
-    editCard: function(e,d){
-      this.card = d
-      this.card.selected = true
-      if (this.card.writable[this.uid]) { 
-        this.$$("#optionscard").open()
-      } else {
-        this.$$("#collectcard").open()
-      }
-    },
-    itemsPickable: function(items) {
-      if (items && Array.isArray(items)){
-        return items.filter(this.pickable).length
-      }
-    },
-    openCard: function(e,d) {
-      this.openedCardPage = true
-      this.openedCardDeck = 0
-      this.cardPage = false
-      this.card = d.e.target.parentNode.parentElement.parentElement.card || d.e.target.parentNode.parentElement.card || d.e.target.parentNode.card || d.e.target.card || d.e.target.parentNode.parentElement.parentElement.parentNode.card 
-      this.card.selected = true
-      this.openedCardDeckItems = d.d.pillars
-      // this...
-    },
-    closeCard: function() {
-      this.openedCardDeckItems = [
-        {view: true, selected: true, color: "#f2d123", name: "view"},
-        {name: "Edit", edit: true, color: "#1d1e30"},
-      ]
-      this.openedCardPage = false
-    },
-    selectedDeck: function(decks, urlDeck, user) {
-      if (urlDeck) {
-        return urlDeck
-      }
-      for (var deck in decks) {
-        if (decks[deck].selected) {
-          return deck
-        }
-      }
-      if (user && !user.isAnonymous) {
-        this.addNewDeck()
-      } else {
-        // show deko dek
-      }
-    },
-    closeEditor: function(e,d){
-      if (this.editingDeck && this.editingDeck.__key && d  === "delete") {
-        this.deleteDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
-      } else if (this.editingDeck && this.editingDeck.__key) {
-        this.updateDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck,this.cards)
-      } else if (this.editingDeck && !this.editingDeck.__key) {
-        var pickedDeck = this.newDeckItem(this.profiles,this.profilesKeys,this.pickedProfile,this.editingDeck)
-        this.$$("#cardAdder").deck = pickedDeck
-        this.$$("#cardAdder").open({deck: pickedDeck})
-      }
-    },
-    showCardPage: function(loginPage, deckPage){
-      return !loginPage && !deckPage
-    },
-    toggleDeckPage: function(){
-      this.openedCardPage = false
-      this.set("deckPage",!this.deckPage)
+    showCardPage: function(loginPage){
+      return !loginPage
     },
     getProfile: function(profiles, pickedProfile) {
-      if (profiles && pickedProfile) {
+      if (profiles) {
         //TODO let users pick profile
         var keys = Object.keys(profiles)
         if (!pickedProfile && keys.length) {
-          pickedProfile = keys[0]
+          pickedProfile = profiles[keys[0]].id
+          this.routeData.data = pickedProfile
         }
         if (keys.length && profiles.hasOwnProperty(pickedProfile)) {
-          profiles[pickedProfile].__key = pickedProfile
-          return profiles[pickedProfile]
+          for (var profile in profiles) {
+            if (profiles[profile].id === pickedProfile) {
+              return profiles[profile]
+            }
+          }
+          return profiles[0]
         } else {
-          return {__key: pickedProfile, decks: {}}
+          return {__key: "", decks: {}} // no profile
         }
       }
     },
@@ -289,12 +201,6 @@
         }
       }
       return output
-    },
-    logout: function() {
-      this.fire("logout")
-    },
-    login: function() {
-      this.showLogin = true
     },
     showLoginPage: function(user, showLogin, urlDeck) {
       if (!user || user.isAnonymous || showLogin) {
