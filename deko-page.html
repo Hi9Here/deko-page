@@ -11,7 +11,6 @@
 <link rel="import" href="../paper-item/paper-item-body.html">
 <link rel="import" href="../inbox-search/inbox-search.html">
 <link rel="import" href="../paper-button/paper-button.html">
-<link rel="import" href="../profile-page/profile-page.html">
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -20,7 +19,6 @@
 <link rel="import" href="../iron-icon/iron-icon.html">
 <link rel="import" href="../card-deck/card-deck.html">
 <link rel="import" href="../app-route/app-route.html">
-<link rel="import" href="../drag-me/drag-me.html">
 <link rel="import" href="shared-styles.html">
 
 <!--
@@ -33,32 +31,8 @@
     <style include="shared-styles"></style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[cardPage]]">
-      <paper-drawer-panel id="drawer" style="min-height:95vh" drawer-width="[[pickableWidth]]px">
-        <div class="horizontal start-justified layout" drawer>
-          <template is="dom-if" if="[[deckItems.length]]">
-            <template is="dom-repeat" items="[[deckItems]]" filter="pickable" strip-whitespace id="list0">
-              <drag-me on-push-down="editPillar" name="[[item.name]]">
-                <deko-pillar on-tap="select" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
-              </drag-me>
-            </template>
-            <div on-tap="addNewDeck" style="font-family:Arial, Helvetica Neue, Helvetica, sans-serif;color:#000;font-size:xx-large;top:5px;left:14px;position:absolute;cursor:pointer">+</div>
-          </template>
-        </div>
-        <div main>
-          <template is="dom-if" if="[[deck.name]]">
-            <drag-me on-push-down="editDeck" name="[[deck.name]]" style="float:left">
-              <deko-pillar selected index="[[index]]" style="position:fixed;" name="[[deck.name]]" color="[[deck.color]]">[[deck.name]]</deko-pillar>
-            </drag-me>
-          </template>
-          <div style="padding-left:48px; height: 100%">
-            <deko-cards route="{{tail}}" by-child="__key" ref="[[deckRef]]"></deko-cards>
-          </div>
-        </div>
-      </paper-drawer-panel>
+      <deko-cards route="{{tail}}" ref="[[profileRef]]"></deko-cards>
     </template>
-    <template is="dom-if" if="[[edit]]">
-      <deko-deck-editor id="deckEditor" deck="{{editingDeck}}" options-for-pillar="[[editingPillar]]" on-close="closeEditor" profile="[[profile]]"></deko-deck-editor>
-    </template>   
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
         <content select="login-page"></content> <!-- TODO slot -->
@@ -219,22 +193,19 @@
           profiles[pickedProfile].__key = pickedProfile
           return profiles[pickedProfile]
         } else {
-          return {__key:pickedProfile, decks: {}}
+          return {__key: pickedProfile, decks: {}}
         }
       }
     },
     getProfiles: function(uid,name) {
-      var that = this
-      if (name) {
-        //add unsub
-        db.collection("Users").doc(uid).collection('profiles')
+      if (uid && name) {
+        var that = this
+        if (this.unsub) {
+          this.unsub()
+        }
+        this.unsub = db.collection("Users").doc(uid).collection('profiles')
           .onSnapshot(function(profiles) {
           if (profiles && profiles.docs.length) {
-            var profilesKeys = []
-            profiles.docs.forEach(function (profile) {
-              profilesKeys.push(profile.id)
-            })
-            that.set("profilesKeys",profilesKeys)
             that.set("profiles",profiles.docs)
           } else {
             that.writeNewProfile(uid, name)
@@ -249,7 +220,6 @@
         db.collection("Users").doc(userId).set({details:{
           name: name,
           email: email,
-          profile_picture: "",
         }}).then(function() {
           console.log("User in !")
         }).catch(function(error) {
@@ -258,25 +228,19 @@
       }
     },
     writeNewProfile: function(uid, profile) {
-      // A post entry.
-      var Users = {}
-      var profileData = {
-        profile: profile,
-      }
       if (!this.added.profile) {
         this.added.profile = true
         db.collection("Profiles").add(profileData).then(function(docRef) {
-          console.log("Profiles in !", docRef.id)
           db.collection("Users")
             .doc(uid).collection("profiles")
             .doc(docRef.id)
-            .set(profileData)
-            .then(function() {
-              console.log("user profiles in !")
+            .set({
+               profile: profile,
+            }).then(function() {
+              // 
             }).catch(function(error) {
               console.log("user profiles not in !", error)
             })
-          
         }).catch(function(error) {
           console.error("Profiles not in", error)
         })
@@ -321,15 +285,6 @@
       }, {})
       this.set("update", update)
       this.$$("#drawer").closeDrawer()
-    },
-    getDecksWidth: function(deckItems){
-      return this.getWidth(deckItems.length) 
-    },
-    getPickableWidth: function(deckItems){
-      return this.getWidth(deckItems.filter(this.pickable).length)
-    },
-    makeTag: function(label) {
-      return label.replace(" ","-")
     },
     objectToArray: function (data) {
       var output = []
