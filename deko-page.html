@@ -62,11 +62,6 @@
       cardPage:{
         computed:"showCardPage(loginPage)",
       },
-      _cards:{
-        type:Array,
-        notify:true,
-        computed:"getCardsItems(deck,deckItems,pickedDeck,user,edit,go)",
-      },
       getWriteUserData: {
         computed:"writeUserData(user.uid,user.displayName,user.email)",
       },
