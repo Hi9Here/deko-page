@@ -13,7 +13,6 @@
 <link rel="import" href="../inbox-search/inbox-search.html">
 <link rel="import" href="../paper-button/paper-button.html">
 <link rel="import" href="../profile-page/profile-page.html">
-<link rel="import" href="../deko-pillar/deko-pillar.html">
 <link rel="import" href="../paper-menu/paper-menu.html">
 <link rel="import" href="../iron-image/iron-image.html">
 <link rel="import" href="../iron-icons/iron-icons.html">
@@ -54,33 +53,8 @@
             </drag-me>
           </template>
           <div style="padding-left:48px; height: 100%">
-            <deko-cards route="{{tail}}" by-child="__key" path="[[path]]" deck="[[pickedDeck]]" deck-color="[[deck.color]]" editing="[[editingCard]]" on-open-card="openCard" on-add-card="addCard" no-add="[[!edit]]"></deko-cards>
+            <deko-cards route="{{tail}}" by-child="__key" ref="[[deckRef]]"></deko-cards>
           </div>
-        </div>
-      </paper-drawer-panel>
-    </template>
-    <template is="dom-if" if="[[openedCardPage]]">
-      <paper-drawer-panel id="drawerOpenCard" style="min-height:95vh;overflow:scroll;" drawer-width="[[getWidth(openedCardDeckItemsPickable)]]px">
-        <div class="horizontal start-justified layout" drawer>
-          <template is="dom-if" if="[[openedCardDeckItems.length]]">
-            <template is="dom-repeat" items="[[openedCardDeckItems]]" filter="pickable" strip-whitespace id="list4">
-              <deko-pillar on-tap="selectOpenedCardDeck" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
-            </template>
-          </template>
-        </div>
-        <div main class="openedCardPage">
-          <deko-toolbar search="{{search}}" on-logout="logout" user="[[user]]" profile="[[profile]]"></deko-toolbar>
-          <template is="dom-repeat" items="{{openedCardDeckItems}}" filter="selected" strip-whitespace id="list1">
-            <deko-pillar on-tap="openDrawer" selected style="position:fixed;width:48px;float:left" link="" name="[[item.name]]" color="[[item.color]]">[[item.name]]</deko-pillar>
-          </template>
-          <div style="padding-left:48px">
-            <iron-pages selected="[[openedCardDeck]]">
-              <template is="dom-repeat" items="{{openedCardDeckItems}}" strip-whitespace id="list1">
-                <deko-opened-card deck="[[deck.__key]]" edit="[[edit]]" on-deleted="closeCard" pillar-on="[[openedCardDeck]]" index="[[index]]" card="{{card}}" pillar="[[item]]" on-close-card="closeCard"></deko-opened-card>
-              </template>
-            </iron-pages>
-          </div>
-          <paper-fab style="position: fixed;right: 25px;bottom: 30px" icon="subdirectory-arrow-left" on-tap="closeCard"></paper-fab>
         </div>
       </paper-drawer-panel>
     </template>
