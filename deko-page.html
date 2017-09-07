@@ -16,7 +16,7 @@
     </template>
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
-        <content select="login-page"></content> <!-- TODO slot -->
+        <slot></slot>
       </div>
     </template>
   </template>
