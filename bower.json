@@ -9,29 +9,7 @@
   ],
   "dependencies": {
     "polymer": "polymer/polymer#^1.8.1",
-    "iron-pages": "PolymerElements/iron-pages",
-    "paper-styles": "PolymerElements/paper-styles#^1.2.0",
-    "iron-flex-layout": "PolymerElements/iron-flex-layout",
-    "paper-toolbar": "PolymerElements/paper-toolbar#~1.1.7",
-    "deko-deck-editor": "Hi9Here/deko-deck-editor",
-    "inbox-search": "marcus7777/inbox-search",
-    "text-avatar": "marcus7777/text-avatar",
-    "deko-toolbar": "Hi9Here/deko-toolbar",
-    "deko-pillar": "Hi9Here/deko-pillar",
-    "card-deck": "marcus7777/card-deck",
-    "deko-cards": "Hi9Here/deko-cards",
-    "drag-me": "marcus7777/drag-me",
-    "paper-drawer-panel": "PolymerElements/paper-drawer-panel#~1.0.11",
-    "paper-scroll-header-panel": "PolymerElements/paper-scroll-header-panel#^1.0.16",
-    "paper-dropdown-menu": "PolymerElements/paper-dropdown-menu#^1.5.0",
-    "paper-header-panel": "PolymerElements/paper-header-panel#^1.1.7",
-    "app-layout": "PolymerElements/app-layout#^0.10.6",
-    "paper-icon-button": "polymerelements/paper-icon-button",
-    "paper-menu-button": "PolymerElements/paper-menu-button#^1.5.2",
-    "paper-menu": "PolymerElements/paper-menu#^1.2.2",
-    "paper-fab": "PolymerElements/paper-fab#^1.2.1",
-    "profile-page": "Hi9Here/profile-page",
-    "deko-opened-card": "Hi9Here/deko-opened-card",
+    "app-route": "PolymerElements/app-route#1.0.1",
     "deko-pages":"Hi9Here/deko-pages"
   },
   "devDependencies": {
@@ -39,16 +17,4 @@
     "web-component-tester": "Polymer/web-component-tester#^5.0.0",
     "test-fixture": "PolymerElements/test-fixture"
   },
-  "resolutions": {
-    "iron-flex-layout": "~1.3.0",
-    "iron-icon": "^1.0.0",
-    "iron-a11y-keys-behavior": "^1.1.5",
-    "paper-input": "^1.0.9",
-    "test-fixture": "^2.0.1",
-    "polymer": "^1.8.1",
-    "inbox-search": "45e40c4300",
-    "paper-icon-button": "1.1.4",
-    "paper-item": "^1.0.0",
-    "paper-styles": "^1.2.0"
-  }
 }
