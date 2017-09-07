@@ -118,7 +118,7 @@
         db.collection("Profiles").add({
             displayName: profile,
           }).then(function(docRef) {
-          docRef.collection("users").doc(uid).set({owner:true)
+          docRef.collection("users").doc(uid).set({owner:true})
           db.collection("Users")
             .doc(uid).collection("profiles")
             .doc(docRef.id)
