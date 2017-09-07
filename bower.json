@@ -31,7 +31,8 @@
     "paper-menu": "PolymerElements/paper-menu#^1.2.2",
     "paper-fab": "PolymerElements/paper-fab#^1.2.1",
     "profile-page": "Hi9Here/profile-page",
-    "deko-opened-card": "Hi9Here/deko-opened-card"
+    "deko-opened-card": "Hi9Here/deko-opened-card",
+    "deko-pages":"Hi9Here/deko-pages"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers",
