@@ -9,8 +9,8 @@
   ],
   "dependencies": {
     "polymer": "polymer/polymer#^1.8.1",
-    "app-route": "PolymerElements/app-route#1.0.1",
-    "deko-pages":"Hi9Here/deko-pages"
+    "app-route": "PolymerElements/app-route#~1.0.1",
+    "deko-pages": "Hi9Here/deko-pages"
   },
   "devDependencies": {
     "iron-test-helpers": "PolymerElements/iron-test-helpers",
