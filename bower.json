@@ -16,5 +16,5 @@
     "iron-test-helpers": "PolymerElements/iron-test-helpers",
     "web-component-tester": "Polymer/web-component-tester#^5.0.0",
     "test-fixture": "PolymerElements/test-fixture"
-  },
+  }
 }
