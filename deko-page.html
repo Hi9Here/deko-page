@@ -28,7 +28,7 @@
         value: false,
       },
       loginPage:{
-        computed:"showLoginPage(user,showLogin,tail)",
+        computed:"showLoginPage(user, showLogin, tail)",
       },
       user:{
         value: null,
@@ -49,7 +49,7 @@
         computed:"showCardPage(loginPage)",
       },
       getWriteUserData: {
-        computed:"writeUserData(user.uid,user.displayName,user.email)",
+        computed:"writeUserData(user.uid, user.displayName, user.email)",
       },
       added:{
         value: {},
@@ -113,13 +113,12 @@
       }
     },
     writeNewProfile: function(uid, profile) {
-      var users = [uid]
       if (!this.added.profile) {
         this.added.profile = true
         db.collection("Profiles").add({
             displayName: profile,
-            users: users,
           }).then(function(docRef) {
+          docRef.collection("users").doc(uid).set({owner:true)
           db.collection("Users")
             .doc(uid).collection("profiles")
             .doc(docRef.id)
