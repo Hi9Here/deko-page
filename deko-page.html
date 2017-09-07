@@ -11,7 +11,7 @@
   <template>
     <style include="shared-styles"></style>
     <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
-    <template is="dom-if" if="[[cardPage]]">
+    <template is="dom-if" if="[[showApp]]">
       <deko-pages route="{{tail}}" ref="[[profile.ref]]"></deko-pages>
     </template>
     <template is="dom-if" if="[[loginPage]]">
@@ -29,7 +29,7 @@
         value: false,
       },
       loginPage:{
-        computed:"showLoginPage(user,showLogin,urlDeck)",
+        computed:"showLoginPage(user,showLogin,tail)",
       },
       user:{
         value: null,
@@ -46,7 +46,7 @@
       route:{
         notify:true,
       },
-      cardPage:{
+      showApp:{
         computed:"showCardPage(loginPage)",
       },
       getWriteUserData: {
