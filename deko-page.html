@@ -112,26 +112,20 @@
         })
       }
     },
-    writeNewProfile: function(uid, profile) {
+    writeNewProfile: function(uid, name) {
+      var profile = {
+        displayName: name,
+        owner:{},
+        user:{},
+      }
+      profile.owner[uid] = true
+      var that = this
       if (!this.added.profile) {
         this.added.profile = true
-        db.collection("Profiles").add({
-            displayName: profile,
-          }).then(function(docRef) {
-          var user = {}
-          user[uid] = true
-          docRef.set(user)
-          db.collection("Users")
-            .doc(uid).collection("profiles")
-            .doc(docRef.id)
-            .set({
-               profile: profile,
-            }).then(function() {
-              // 
-            }).catch(function(error) {
-              console.log("user profiles not in !", error)
-            })
-        }).catch(function(error) {
+        db.collection("Profiles").add(profile).then(
+          function(docRef) {
+            that.set("profileId", docRef)
+          }).catch(function(error) {
           console.error("Profiles not in", error)
         })
       }
