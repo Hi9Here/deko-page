@@ -117,6 +117,7 @@
         displayName: name,
         owner:{},
         user:{},
+        rivir:{},
       }
       profile.owner[uid] = true
       var that = this
@@ -124,7 +125,7 @@
         this.added.profile = true
         db.collection("Profiles").add(profile).then(
           function(docRef) {
-            that.set("profileId", docRef)
+            that.set("pickedProfile", docRef.id)
           }).catch(function(error) {
           console.error("Profiles not in", error)
         })
