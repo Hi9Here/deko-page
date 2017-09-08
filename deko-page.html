@@ -88,7 +88,7 @@
         if (this.unsub) {
           this.unsub()
         }
-        this.unsub = db.collection('Profiles').where(uid, "==", true)
+        this.unsub = db.collection('Profiles').where("owner." + uid, "==", true)
           .onSnapshot(function(profiles) {
           if (profiles && profiles.docs.length) {
             that.set("profiles",profiles.docs)
