@@ -113,15 +113,17 @@
       }
     },
     writeNewProfile: function(uid, name) {
-      var profile = {
-        displayName: name,
-        owner:{},
-        user:{},
-        rivir:{},
-      }
-      profile.owner[uid] = true
-      var that = this
       if (!this.added.profile) {
+        var profile = {
+          displayName: name,
+          owner:{},
+          user:{},
+          river:{},
+        }
+        profile.owner[uid] = true
+        
+        var that = this
+        
         this.added.profile = true
         db.collection("Profiles").add(profile).then(
           function(docRef) {
