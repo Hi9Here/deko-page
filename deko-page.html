@@ -91,7 +91,7 @@
         this.unsub = db.collection('Profiles').where("owner." + uid, "==", true)
           .onSnapshot(function(profiles) {
           if (profiles && profiles.docs.length) {
-            that.set("profiles",profiles.docs)
+            that.set("profiles",profiles.docs[0].data())
           } else {
             that.writeNewProfile(uid, name)
           }
