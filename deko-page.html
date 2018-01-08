@@ -106,7 +106,7 @@
         db.collection("Users").doc(userId).set({details:{
           name: name,
           email: email,
-        }}).then(function() {
+        }},{merge:true}).then(function() {
           console.log("User in !")
         }).catch(function(error) {
           console.error("", error)
