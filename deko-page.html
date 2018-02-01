@@ -80,6 +80,8 @@
         } else {
           return {__key: "", decks: {}} // no profile
         }
+      } else {
+        return pickedProfile
       }
     },
     getProfiles: function(uid,name) {
@@ -136,6 +138,8 @@
     },
     showLoginPage: function(user, showLogin, urlDeck) {
       if (urlDeck && urlDeck.data && urlDeck.data.split("/")[0]) {
+        this.profile = this.profile || ""
+        this.pickedProfile = db.collection("Profiles").doc(urlDeck.data.split("/")[0])
         return false
       }
       if (!user || user.isAnonymous || showLogin) {
