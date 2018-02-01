@@ -135,7 +135,7 @@
       }
     },
     showLoginPage: function(user, showLogin, urlDeck) {
-      if (urlDeck.data.split("/")[0]) {
+      if (urlDeck && urlDeck.data && urlDeck.data.split("/")[0]) {
         return false
       }
       if (!user || user.isAnonymous || showLogin) {
