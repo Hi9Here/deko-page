@@ -135,12 +135,11 @@
       }
     },
     showLoginPage: function(user, showLogin, urlDeck) {
+      if (urlDeck.path) {
+        return false
+      }
       if (!user || user.isAnonymous || showLogin) {
-        if (urlDeck.path) {
-          return false
-        } else {
-          return true
-        }
+        return true
       } else {
         return false
       }
