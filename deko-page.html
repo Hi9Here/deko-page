@@ -139,7 +139,11 @@
         if (!this.profiles) {
           this.profiles = {}
         }
-        this.profiles[urlDeck.data.split("/")[0]] = {ref: db.collection("Profiles").doc(urlDeck.data.split("/")[0])}
+        this.profiles[urlDeck.data.split("/")[0]] = {
+          ref: db.collection("Profiles").doc(urlDeck.data.split("/")[0]),
+          id: urlDeck.data.split("/")[0],
+        }
+        
         this.pickedProfile = urlDeck.data.split("/")[0]
         return false
       }
