@@ -9,9 +9,9 @@
 
 <dom-module id="deko-page">
   <template>
-    <app-route route="{{route}}" pattern="/:data" data="{{routeData}}"></app-route>
+    <app-route route="{{route}}" pattern="/:data" data="{{routeData}}" tail="{{tail}}"></app-route>
     <template is="dom-if" if="[[showApp]]">
-      <deko-pages on-logout="logout" on-login="login" route="{{routeData}}" user="[[user]]" ref="[[profile.ref]]"></deko-pages>
+      <deko-pages on-logout="logout" on-login="login" route="{{routeData}}" tail="[[tail]]" user="[[user]]" ref="[[profile.ref]]"></deko-pages>
     </template>
     <template is="dom-if" if="[[loginPage]]">
       <div style="display:flex;justify-content:center;font-size:40px;font-family:Roboto,Arial,Helvetica,sans-serif">
